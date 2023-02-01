@@ -1,6 +1,7 @@
 // A mock function to mimic making an async request for data
-export function fetchCount(amount = 1) {
-  return new Promise<{ data: number }>((resolve) =>
-    setTimeout(() => resolve({ data: amount }), 500)
-  );
+function fetchCount(amount = 1) {
+  // eslint-disable-next-line max-len, no-promise-executor-return
+  return new Promise<{ data: number }>((resolve) => setTimeout(() => resolve({ data: amount }), 500));
 }
+
+export default fetchCount;
