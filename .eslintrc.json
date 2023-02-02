@@ -16,6 +16,7 @@
       },
       "ecmaVersion": "latest",
       "sourceType": "module",
+      "extraFileExtensions:": [".html"],
       "project": "**/tsconfig.json"
   },
   "plugins": [
@@ -38,5 +39,6 @@
     "no-plusplus": "off",
     "import/no-named-as-default": 0,
     "class-methods-use-this": "off"
-  }
+  },
+  "ignorePatterns": "index.html"
 }
