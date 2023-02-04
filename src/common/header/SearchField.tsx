@@ -43,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchField = () => {
+const SearchField: React.FC = (): JSX.Element => {
   const MediaQuery = {
     'max.768': useMediaQuery('(max-width:768px)'),
   };

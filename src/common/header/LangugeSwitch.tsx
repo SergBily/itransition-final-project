@@ -3,7 +3,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GlobalContext from '../../shared/contexts/GlobalContext';
 
-const LanguageSwitch = () => {
+const LanguageSwitch: React.FC = (): JSX.Element => {
   const { currentLocale, setCurrentLocale } = useContext(GlobalContext);
   const [alignment, setAlignment] = useState(currentLocale);
 

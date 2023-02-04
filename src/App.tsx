@@ -8,9 +8,12 @@ import AppRoutes from './common/routes/AppRoutes';
 import Content from './common/content/Content';
 import Header from './common/header/Header';
 
-const App = (): JSX.Element => {
+const App: React.FC = (): JSX.Element => {
   const [currentLocale, setCurrentLocale] = useState<string>(
     localStorage.getItem(localStorageKeys.LOCALE) ?? LOCALES.ENGLISH,
+  );
+  const [isLogin, setIsLogin] = useState<boolean>(
+    Boolean(localStorage.getItem(localStorageKeys.LOGIN)) ?? false,
   );
 
   const setLocale = (value: string): void => {
@@ -18,10 +21,18 @@ const App = (): JSX.Element => {
     localStorage.setItem(localStorageKeys.LOCALE, value);
   };
 
+  const setLogin = (value: boolean): void => {
+    setIsLogin(value);
+    localStorage.setItem(localStorageKeys.LOGIN, String(value));
+  };
+
   const valueContext = useMemo(() => ({
     currentLocale,
+    isLogin,
+    setIsLogin: setLogin,
     setCurrentLocale: setLocale,
   }), [currentLocale]);
+
   return (
     <GlobalContext.Provider value={valueContext}>
       <I18Provider locale={currentLocale}>

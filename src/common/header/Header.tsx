@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Toolbar, Typography, useMediaQuery, IconButton,
   MenuItem, Menu, Box, AppBar,
@@ -10,11 +10,14 @@ import logo from '../../assets/logo/logo.png';
 import SearchField from './SearchField';
 import LanguageSwitch from './LangugeSwitch';
 import ThemeSwitch from './ThemeSwitch';
+import GlobalContext from '../../shared/contexts/GlobalContext';
+import generateKey from '../../shared/utils/UniqueKey';
+import routes from '../../shared/constants/routes';
 
-const Header = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-
+const Header: React.FC = (): JSX.Element => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
+  const { isLogin } = useContext(GlobalContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -56,8 +59,28 @@ const Header = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {isLogin ? (
+
+        [<MenuItem onClick={handleMenuClose} key={generateKey()}>Profile</MenuItem>,
+          <MenuItem onClick={handleMenuClose} key={generateKey()}>My account</MenuItem>]
+      )
+        : (
+          [<Link
+            to={routes.LOGIN}
+            key={generateKey()}
+            style={{ textDecoration: 'none', color: '#000' }}
+          >
+            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+            { /* eslint-disable-next-line react/jsx-indent */}
+           </Link>,
+            <Link
+              to={routes.SIGNUP}
+              key={generateKey()}
+              style={{ textDecoration: 'none', color: '#000' }}
+            >
+              <MenuItem onClick={handleMenuClose}>Sign up</MenuItem>
+            </Link>]
+        )}
     </Menu>
   );
 
@@ -135,7 +158,7 @@ const Header = () => {
               sx={{ gap: '10px' }}
             >
               <AccountCircle />
-              <Typography variant="body1">Name</Typography>
+              {isLogin && <Typography variant="body1">Name</Typography>}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -4,7 +4,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-const ThemeSwitch = () => {
+const ThemeSwitch: React.FC = (): JSX.Element => {
   const [alignment, setAlignment] = useState('light');
 
   const handleChange = (
