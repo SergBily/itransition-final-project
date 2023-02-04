@@ -1,3 +1,9 @@
 {
-  "app.header.search": "поиск"
+  "app.header.search": "поиск",
+  "app.header.login": "Войти",
+  "app.header.signup": "Зарегистрироваться",
+  "app.login.email": "Электронная почта",
+  "app.login.password": "Пароль",
+  "app.login.text1": "Нет профиля?",
+  "app.login.text2": "Присоединяйтесь к CollectMan"
 }

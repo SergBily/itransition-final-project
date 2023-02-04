@@ -6,6 +6,7 @@ import {
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import logo from '../../assets/logo/logo.png';
 import SearchField from './SearchField';
 import LanguageSwitch from './LangugeSwitch';
@@ -70,7 +71,9 @@ const Header: React.FC = (): JSX.Element => {
             key={generateKey()}
             style={{ textDecoration: 'none', color: '#000' }}
           >
-            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <FormattedMessage id="app.header.login" />
+            </MenuItem>
             { /* eslint-disable-next-line react/jsx-indent */}
            </Link>,
             <Link
@@ -78,7 +81,9 @@ const Header: React.FC = (): JSX.Element => {
               key={generateKey()}
               style={{ textDecoration: 'none', color: '#000' }}
             >
-              <MenuItem onClick={handleMenuClose}>Sign up</MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <FormattedMessage id="app.header.signup" />
+              </MenuItem>
             </Link>]
         )}
     </Menu>

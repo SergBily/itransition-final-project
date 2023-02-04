@@ -1,3 +1,9 @@
 {
-  "app.header.search": "search"
+  "app.header.search": "search",
+  "app.header.login": "Login",
+  "app.header.signup": "Sign up",
+  "app.login.email": "Email",
+  "app.login.password": "Password",
+  "app.login.text1": "Do not have a profile?",
+  "app.login.text2": "Join CollectMan"
 }
