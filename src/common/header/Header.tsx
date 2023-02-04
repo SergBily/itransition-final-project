@@ -1,20 +1,15 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import {
+  Toolbar, Typography, useMediaQuery, IconButton,
+  MenuItem, Menu, Box, AppBar,
+} from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo/logo.png';
 import SearchField from './SearchField';
-import LanguageSwith from './LangugeSwith';
+import LanguageSwitch from './LangugeSwitch';
+import ThemeSwitch from './ThemeSwitch';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -84,24 +79,10 @@ const Header = () => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+        <ThemeSwitch />
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <LanguageSwitch />
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -113,7 +94,7 @@ const Header = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Name</p>
       </MenuItem>
     </Menu>
   );
@@ -140,13 +121,9 @@ const Header = () => {
           </Link>
           <SearchField />
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <LanguageSwith />
+          <Box sx={{ display: { xs: 'none', md: 'flex', gap: '20px' } }}>
+            <ThemeSwitch />
+            <LanguageSwitch />
             <IconButton
               size="large"
               edge="end"
@@ -155,8 +132,10 @@ const Header = () => {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              sx={{ gap: '10px' }}
             >
               <AccountCircle />
+              <Typography variant="body1">Name</Typography>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

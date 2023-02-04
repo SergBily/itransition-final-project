@@ -1,17 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import GlobalContext from '../../shared/contexts/GlobalContext';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-const LanguageSwith = () => {
-  const { currentLocale, setCurrentLocale } = useContext(GlobalContext);
-  const [alignment, setAlignment] = useState(currentLocale);
+const ThemeSwitch = () => {
+  const [alignment, setAlignment] = useState('light');
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string,
   ) => {
-    setCurrentLocale?.(newAlignment);
     setAlignment(newAlignment);
   };
 
@@ -23,10 +22,9 @@ const LanguageSwith = () => {
       onChange={handleChange}
       aria-label="Platform"
     >
-      <ToggleButton value="ru">Ru</ToggleButton>
-      <ToggleButton value="en">En</ToggleButton>
+      <ToggleButton value="light"><LightModeIcon /></ToggleButton>
+      <ToggleButton value="dark"><DarkModeIcon /></ToggleButton>
     </ToggleButtonGroup>
   );
 };
-
-export default LanguageSwith;
+export default ThemeSwitch;

@@ -23,8 +23,8 @@ const LanguageSwitch = () => {
       onChange={handleChange}
       aria-label="Platform"
     >
-      <ToggleButton value="ru">Ru</ToggleButton>
-      <ToggleButton value="en">En</ToggleButton>
+      <ToggleButton value="en" sx={{ width: '48px' }}>En</ToggleButton>
+      <ToggleButton value="ru" sx={{ width: '48px' }}>Ru</ToggleButton>
     </ToggleButtonGroup>
   );
 };
