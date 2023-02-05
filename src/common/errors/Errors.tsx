@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 
 interface ErrorsProps {
   message: string | undefined,
@@ -18,7 +19,7 @@ const Errors = ({ message, position }:ErrorsProps): JSX.Element => (
     height: '38px',
   }}
   >
-    {message}
+    {message && <FormattedMessage id={message} />}
   </Box>
 );
 

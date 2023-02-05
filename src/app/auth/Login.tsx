@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import routes from '../../shared/constants/routes';
-import l from '../../assets/logo/imgs/background.png';
+import backgroundImage from '../../assets/logo/imgs/background.png';
 import AuthForm from '../../shared/models/authForm.model';
 import authValidator from '../../shared/validators/authValidator';
 import passwordValidator from '../../shared/validators/passwordValidaor';
@@ -35,7 +35,7 @@ const Login: React.FC = (): JSX.Element => {
       <Grid
         container
         sx={{
-          background: `no-repeat center url(${l})`,
+          background: `no-repeat center url(${backgroundImage})`,
           p: '10px',
           boxShadow: `0px 2px 4px -1px rgb(0 0 0 / 20%),
                       0px 4px 5px 0px rgb(0 0 0 / 14%),

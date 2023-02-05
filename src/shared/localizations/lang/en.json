@@ -8,5 +8,12 @@
   "app.login.text2": "Join CollectMan",
   "app.signup.name": "Name",
   "app.signup.text1": "Already have a profile?",
-  "app.signup.errors1": "Name is required"
+  "app.signup.errors1": "Name is required",
+  "app.signup.errors2": "Email is required",
+  "app.signup.errors3": "Password is required",
+  "app.signup.errors4": "Max length 250 characters",
+  "app.password.errors1": "Your password isn't strong enough need lowercase letters",
+  "app.password.errors2": "Your password isn't strong enough need uppercase letters",
+  "app.password.errors3": "Your password isn't strong enough need numbers",
+  "app.password.errors4": "Your password isn't strong enough need minimum 8 characters"
 }

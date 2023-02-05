@@ -14,13 +14,13 @@ const patterns: PattersPassword = {
 
 const passwordValidator = {
   hasUpperCase: (v: string) => !!v.match(new RegExp(`[${patterns.latinLower}]`, 'g'))
-  || "Your password isn't strong enough need lowercase letters",
+  || 'app.password.errors1',
   hasLowerCase: (v: string) => !!v.match(new RegExp(`[${patterns.latinUpper}]`, 'g'))
-  || "Your password isn't strong enough need uppercase letters",
+  || 'app.password.errors2',
   hasNumber: (v: string) => !!v.match(new RegExp(`[${patterns.numeric}]`, 'g'))
-  || "Your password isn't strong enough need numbers",
+  || 'app.password.errors3',
   hasSymbol: (v: string) => v.length === patterns.passwordLength
-  || "Your password isn't strong enough need minimum 8 characters",
+  || 'app.password.errors4',
 };
 
 export default passwordValidator;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import {
   Container, Typography, Grid, FormControl, InputLabel,
   OutlinedInput, InputAdornment, IconButton, TextField, Button,
@@ -9,8 +9,6 @@ import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import routes from '../../shared/constants/routes';
 import backgroundImage from '../../assets/logo/imgs/background.png';
-import GlobalContext from '../../shared/contexts/GlobalContext';
-// import passwordValidator from '../../shared/validators/passwordValidaor';
 import authValidator from '../../shared/validators/authValidator';
 import Errors from '../../common/errors/Errors';
 import passwordValidator from '../../shared/validators/passwordValidaor';
@@ -20,7 +18,6 @@ const Signup: React.FC = (): JSX.Element => {
   const {
     register, handleSubmit, formState: { errors },
   } = useForm<AuthForm>();
-  const { currentLocale } = useContext(GlobalContext);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = (): void => setShowPassword((show) => !show);
@@ -28,13 +25,6 @@ const Signup: React.FC = (): JSX.Element => {
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
   };
-
-  // const intl = useIntl();
-  // const translatedMessage = () => intl.formatMessage({ id: 'app.signup.errors1' });
-
-  useEffect(() => {
-    console.log(1);
-  }, [currentLocale]);
 
   const onFormSubmit = (values: any): void => {
     console.log(values);
