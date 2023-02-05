@@ -1,3 +1,19 @@
 {
-  "app.header.search": "поиск"
+  "app.header.search": "поиск",
+  "app.header.login": "Войти",
+  "app.header.signup": "Зарегистрироваться",
+  "app.login.email": "Электронная почта",
+  "app.login.password": "Пароль",
+  "app.login.text1": "Нет профиля?",
+  "app.login.text2": "Присоединяйтесь к CollectMan",
+  "app.signup.name": "Имя",
+  "app.signup.text1": "Уже есть профиль?",
+  "app.signup.errors1": "Укажите имя",
+  "app.signup.errors2": "Укажите электронную почту",
+  "app.signup.errors3": "Укажите пароль",
+  "app.signup.errors4": "Максимальная длина 250 символов",
+  "app.password.errors1": "Ваш пароль недостаточно надежный, добавьте строчные буквы",
+  "app.password.errors2": "Ваш пароль недостаточно надежный, добавьте заглавные буквы",
+  "app.password.errors3": "Ваш пароль недостаточно надежный, добавьте цифры",
+  "app.password.errors4": "Ваш пароль недостаточно надежный, минимальная длина 8 символов"
 }
