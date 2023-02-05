@@ -5,5 +5,8 @@
   "app.login.email": "Электронная почта",
   "app.login.password": "Пароль",
   "app.login.text1": "Нет профиля?",
-  "app.login.text2": "Присоединяйтесь к CollectMan"
+  "app.login.text2": "Присоединяйтесь к CollectMan",
+  "app.signup.name": "Имя",
+  "app.signup.text1": "Уже есть профиль?",
+  "app.signup.errors1": "Укажите имя"
 }

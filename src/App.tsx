@@ -56,6 +56,7 @@ const App: React.FC = (): JSX.Element => {
           <Grid
             item
             xs={12}
+            sx={{ height: '100vh' }}
           >
             <Container maxWidth="xl">
               <Content>

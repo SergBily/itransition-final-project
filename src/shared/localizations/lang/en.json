@@ -1,9 +1,12 @@
 {
   "app.header.search": "search",
-  "app.header.login": "Login",
+  "app.header.login": "Log in",
   "app.header.signup": "Sign up",
   "app.login.email": "Email",
   "app.login.password": "Password",
   "app.login.text1": "Do not have a profile?",
-  "app.login.text2": "Join CollectMan"
+  "app.login.text2": "Join CollectMan",
+  "app.signup.name": "Name",
+  "app.signup.text1": "Already have a profile?",
+  "app.signup.errors1": "Name is required"
 }
