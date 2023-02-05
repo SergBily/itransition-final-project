@@ -14,17 +14,12 @@ import GlobalContext from '../../shared/contexts/GlobalContext';
 import authValidator from '../../shared/validators/authValidator';
 import Errors from '../../common/errors/Errors';
 import passwordValidator from '../../shared/validators/passwordValidaor';
-
-interface FormInputs {
-  name: string,
-  email: string,
-  password: string,
-}
+import AuthForm from '../../shared/models/authForm.model';
 
 const Signup: React.FC = (): JSX.Element => {
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm<FormInputs>();
+  } = useForm<AuthForm>();
   const { currentLocale } = useContext(GlobalContext);
   const [showPassword, setShowPassword] = useState(false);
 
