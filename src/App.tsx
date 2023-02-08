@@ -16,18 +16,29 @@ const App: React.FC = (): JSX.Element => {
   const [isToken, setIsToken] = useState<boolean>(
     !!localStorage.getItem(localStorageKeys.TOKEN),
   );
-  const [userId, setuserId] = useState<string>('');
+  const [userId, setuserId] = useState<string>(
+    localStorage.getItem(localStorageKeys.USERId) ?? '',
+  );
 
   const setLocale = (value: string): void => {
     setCurrentLocale(value);
-    localStorage.setItem(localStorageKeys.TOKEN, value);
+    localStorage.setItem(localStorageKeys.LOCALE, value);
   };
 
   const setUserData = (payload: AuthResponse): void => {
-    setIsToken((pre) => !pre);
+    setIsToken(true);
     setuserId(payload.user.id);
     localStorage.setItem(localStorageKeys.USERId, payload.user.id);
     localStorage.setItem(localStorageKeys.TOKEN, payload.accessToken);
+    localStorage.setItem(localStorageKeys.NAME, payload.user.name);
+  };
+
+  const removeUserData = (): void => {
+    setIsToken(false);
+    setuserId('');
+    localStorage.removeItem(localStorageKeys.USERId);
+    localStorage.removeItem(localStorageKeys.TOKEN);
+    localStorage.removeItem(localStorageKeys.NAME);
   };
 
   const valueContext = useMemo(() => ({
@@ -35,6 +46,7 @@ const App: React.FC = (): JSX.Element => {
     isToken,
     userId,
     setUserData,
+    removeUserData,
     setCurrentLocale: setLocale,
   }), [currentLocale, userId, isToken]);
 

@@ -8,6 +8,7 @@ type GlobalContextType = {
   isToken: boolean,
   userId: string,
   setUserData?: ((v: AuthResponse) => void),
+  removeUserData?: (() => void)
 };
 
 const GlobalContext = createContext<GlobalContextType>({

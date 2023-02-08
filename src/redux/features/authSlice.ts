@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import routes from '../../shared/constants/routes';
 import AuthState from '../../shared/models/authState.model';
-import { registrationApi } from '../../shared/apis/authApi';
+import { registrationApi, logoutApi } from '../../shared/apis/authApi';
 import AuthForm from '../../shared/models/authForm.model';
 import { AuthResponse } from '../../shared/models/authResponse';
 
@@ -28,6 +28,15 @@ export const registration = createAsyncThunk<AuthResponse, AuthForm>(
   },
 );
 
+export const logout = createAsyncThunk<void, void>(
+  routes.LOGOUT,
+  async () => {
+    const response = await logoutApi();
+    const { data } = response;
+    return data;
+  },
+);
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -35,6 +44,11 @@ export const authSlice = createSlice({
     reset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
+    },
+    resetStateUser: (state) => {
+      state.status = 'idle';
+      state.errorMessage = '';
+      state.user = undefined;
     },
   },
   extraReducers: (builder) => {
@@ -49,8 +63,11 @@ export const authSlice = createSlice({
       .addCase(registration.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.errorMessage = payload as string;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.status = 'success';
       });
   },
 });
-export const { reset } = authSlice.actions;
+export const { reset, resetStateUser } = authSlice.actions;
 export default authSlice.reducer;

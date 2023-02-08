@@ -9,6 +9,4 @@ export const registrationApi = ((payload: AuthForm): Promise<AxiosResponse<AuthR
   payload,
 ));
 
-export const login = async () => {
-  console.log(1);
-};
+export const logoutApi = (): Promise<AxiosResponse> => $api.post(urls.LOGOUT);
