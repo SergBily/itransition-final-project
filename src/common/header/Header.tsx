@@ -18,7 +18,7 @@ import routes from '../../shared/constants/routes';
 const Header: React.FC = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-  const { isLogin } = useContext(GlobalContext);
+  const { isToken } = useContext(GlobalContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -60,7 +60,7 @@ const Header: React.FC = (): JSX.Element => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {isLogin ? (
+      {isToken ? (
 
         [<MenuItem onClick={handleMenuClose} key={generateKey()}>Profile</MenuItem>,
           <MenuItem onClick={handleMenuClose} key={generateKey()}>My account</MenuItem>]
@@ -163,7 +163,7 @@ const Header: React.FC = (): JSX.Element => {
               sx={{ gap: '10px' }}
             >
               <AccountCircle />
-              {isLogin && <Typography variant="body1">Name</Typography>}
+              {isToken && <Typography variant="body1">Name</Typography>}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -1,6 +1,7 @@
 const localStorageKeys = {
   LOCALE: 'app.locale',
-  LOGIN: 'app.login',
+  USERId: 'app.userId',
+  TOKEN: 'app.token',
 };
 
 export default localStorageKeys;
