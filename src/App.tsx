@@ -7,31 +7,36 @@ import localStorageKeys from './shared/constants/localStorageKeys';
 import AppRoutes from './common/routes/AppRoutes';
 import Content from './common/content/Content';
 import Header from './common/header/Header';
+import { AuthResponse } from './shared/models/authResponse';
 
 const App: React.FC = (): JSX.Element => {
   const [currentLocale, setCurrentLocale] = useState<string>(
     localStorage.getItem(localStorageKeys.LOCALE) ?? LOCALES.ENGLISH,
   );
-  const [isLogin, setIsLogin] = useState<boolean>(
-    Boolean(localStorage.getItem(localStorageKeys.LOGIN)) ?? false,
+  const [isToken, setIsToken] = useState<boolean>(
+    !!localStorage.getItem(localStorageKeys.TOKEN),
   );
+  const [userId, setuserId] = useState<string>('');
 
   const setLocale = (value: string): void => {
     setCurrentLocale(value);
-    localStorage.setItem(localStorageKeys.LOCALE, value);
+    localStorage.setItem(localStorageKeys.TOKEN, value);
   };
 
-  const setLogin = (value: boolean): void => {
-    setIsLogin(value);
-    localStorage.setItem(localStorageKeys.LOGIN, String(value));
+  const setUserData = (payload: AuthResponse): void => {
+    setIsToken((pre) => !pre);
+    setuserId(payload.user.id);
+    localStorage.setItem(localStorageKeys.USERId, payload.user.id);
+    localStorage.setItem(localStorageKeys.TOKEN, payload.accessToken);
   };
 
   const valueContext = useMemo(() => ({
     currentLocale,
-    isLogin,
-    setIsLogin: setLogin,
+    isToken,
+    userId,
+    setUserData,
     setCurrentLocale: setLocale,
-  }), [currentLocale]);
+  }), [currentLocale, userId, isToken]);
 
   return (
     <GlobalContext.Provider value={valueContext}>
