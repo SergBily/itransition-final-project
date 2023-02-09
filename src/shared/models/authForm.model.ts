@@ -1,7 +1,7 @@
-interface AuthForm {
+export interface AuthForm {
   name: string,
   email: string,
   password: string,
 }
 
-export default AuthForm;
+export type LoginForm = Omit<AuthForm, 'name'>;

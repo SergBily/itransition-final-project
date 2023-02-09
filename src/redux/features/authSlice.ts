@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import routes from '../../shared/constants/routes';
 import AuthState from '../../shared/models/authState.model';
-import { registrationApi, logoutApi } from '../../shared/apis/authApi';
-import AuthForm from '../../shared/models/authForm.model';
+import { registrationApi, logoutApi, loginApi } from '../../shared/apis/authApi';
+import { AuthForm, LoginForm } from '../../shared/models/authForm.model';
 import { AuthResponse } from '../../shared/models/authResponse';
 
 type ErrorResponse = {
@@ -25,8 +25,24 @@ export const registration = createAsyncThunk<AuthResponse, AuthForm>(
       return data;
     } catch (e) {
       const error = e as AxiosError;
-      const message = ((error.response && error.response.data)
-        || error.message || error.toString()) as ErrorResponse;
+      const message = (error.response && error.response.data) as ErrorResponse
+        || error.message || error.toString();
+      return thunkAPI.rejectWithValue((message.message));
+    }
+  },
+);
+
+export const login = createAsyncThunk<AuthResponse, LoginForm>(
+  routes.LOGIN,
+  async (userData, thunkAPI) => {
+    try {
+      const response = await loginApi(userData);
+      const { data } = response;
+      return data;
+    } catch (e) {
+      const error = e as AxiosError;
+      const message = (error.response && error.response.data) as ErrorResponse
+        || error.message || error.toString();
       return thunkAPI.rejectWithValue((message.message));
     }
   },
@@ -70,8 +86,20 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.status = 'success';
+      })
+      .addCase(login.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.status = 'success';
+        state.user = payload;
+      })
+      .addCase(login.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.errorMessage = payload as string;
       });
   },
 });
+
 export const { reset, resetStateUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -13,7 +13,7 @@ import backgroundImage from '../../assets/logo/imgs/background.png';
 import authValidator from '../../shared/validators/authValidator';
 import Errors from '../../common/errors/Errors';
 import passwordValidator from '../../shared/validators/passwordValidaor';
-import AuthForm from '../../shared/models/authForm.model';
+import { AuthForm } from '../../shared/models/authForm.model';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { registration, reset } from '../../redux/features/authSlice';
 import { selectErrorMessage, selectStatus, selectUser } from '../../redux/selectors/authSelectors';
@@ -41,7 +41,10 @@ const Signup: React.FC = (): JSX.Element => {
     }
     if (status === 'success') {
       setUserData?.(user);
-      toast.success(<FormattedMessage id="app.signup.success" />, toastConfig);
+      toast.success(<FormattedMessage
+        id="app.signup.success"
+        values={{ name: user.user.name }}
+      />, toastConfig);
       navigate(routes.HOME);
       dispatch(reset());
     }

@@ -9,7 +9,7 @@ const Spinner = (): JSX.Element => (
       top: 'calc(50% - 60px)',
       left: 'calc(50% - 60px)',
     }}
-    color="#2fd0ff"
+    color="#049dcc"
   />
 );
 
