@@ -81,22 +81,26 @@ const Header: React.FC = (): JSX.Element => {
       onClose={handleMenuClose}
     >
       {isToken ? (
-
-        [<MenuItem onClick={handleMenuClose} key={generateKey()}>Profile</MenuItem>,
-          <MenuItem onClick={handleMenuClose} key={generateKey()}>My account</MenuItem>,
-          <MenuItem onClick={handleLogout} key={generateKey()}>Log Out</MenuItem>]
+        [
+          <MenuItem onClick={handleMenuClose} key={generateKey()}>
+            <FormattedMessage id="app.header.collect" />
+          </MenuItem>,
+          <MenuItem onClick={handleLogout} key={generateKey()}>
+            <FormattedMessage id="app.header.logout" />
+          </MenuItem>,
+        ]
       )
         : (
-          [<Link
-            to={routes.LOGIN}
-            key={generateKey()}
-            style={{ textDecoration: 'none', color: '#000' }}
-          >
-            <MenuItem onClick={handleMenuClose}>
-              <FormattedMessage id="app.header.login" />
-            </MenuItem>
-            { /* eslint-disable-next-line react/jsx-indent */}
-           </Link>,
+          [
+            <Link
+              to={routes.LOGIN}
+              key={generateKey()}
+              style={{ textDecoration: 'none', color: '#000' }}
+            >
+              <MenuItem onClick={handleMenuClose}>
+                <FormattedMessage id="app.header.login" />
+              </MenuItem>
+            </Link>,
             <Link
               to={routes.SIGNUP}
               key={generateKey()}
@@ -105,7 +109,8 @@ const Header: React.FC = (): JSX.Element => {
               <MenuItem onClick={handleMenuClose}>
                 <FormattedMessage id="app.header.signup" />
               </MenuItem>
-            </Link>]
+            </Link>,
+          ]
         )}
     </Menu>
   );

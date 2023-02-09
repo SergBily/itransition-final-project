@@ -2,6 +2,8 @@
   "app.header.search": "search",
   "app.header.login": "Log in",
   "app.header.signup": "Sign up",
+  "app.header.logout": "Log out",
+  "app.header.collect": "My collections",
   "app.login.email": "Email",
   "app.login.password": "Password",
   "app.login.text1": "Do not have a profile?",
