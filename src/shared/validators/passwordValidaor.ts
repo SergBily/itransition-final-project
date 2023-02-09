@@ -19,7 +19,7 @@ const passwordValidator = {
   || 'app.password.errors2',
   hasNumber: (v: string) => !!v.match(new RegExp(`[${patterns.numeric}]`, 'g'))
   || 'app.password.errors3',
-  hasSymbol: (v: string) => v.length === patterns.passwordLength
+  hasSymbol: (v: string) => v.length >= patterns.passwordLength
   || 'app.password.errors4',
 };
 
