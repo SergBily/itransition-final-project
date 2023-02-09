@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Container, Typography, Grid, FormControl, InputLabel,
   OutlinedInput, InputAdornment, IconButton, TextField, Button,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import routes from '../../shared/constants/routes';
 import backgroundImage from '../../assets/logo/imgs/background.png';
-import AuthForm from '../../shared/models/authForm.model';
+import { LoginForm } from '../../shared/models/authForm.model';
 import authValidator from '../../shared/validators/authValidator';
 import passwordValidator from '../../shared/validators/passwordValidaor';
 import Errors from '../../common/errors/Errors';
+import { login, reset } from '../../redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
+import { selectStatus, selectUser } from '../../redux/selectors/authSelectors';
+import { AuthResponse } from '../../shared/models/authResponse';
+import GlobalContext from '../../shared/contexts/GlobalContext';
+import toastConfig from '../../shared/toast/toastConfig';
+import Spinner from '../../common/spinner/Spinner';
 
 const Login: React.FC = (): JSX.Element => {
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm <Omit<AuthForm, 'name'>>();
+  } = useForm <LoginForm>();
   const [showPassword, setShowPassword] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(selectStatus);
+  const navigate = useNavigate();
+  const user = useAppSelector(selectUser) as AuthResponse;
+  const { setUserData } = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (status === 'failed') {
+      toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
+      dispatch(reset());
+    }
+    if (status === 'success') {
+      setUserData?.(user);
+      toast.success(<FormattedMessage
+        id="app.login.success"
+        values={{ name: user.user.name }}
+      />, toastConfig);
+      navigate(routes.HOME);
+      dispatch(reset());
+    }
+  }, [status, user]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -26,8 +55,8 @@ const Login: React.FC = (): JSX.Element => {
     event.preventDefault();
   };
 
-  const onFormSubmit = (values: any): void => {
-    console.log(values);
+  const onFormSubmit = (data: LoginForm): void => {
+    dispatch(login(data));
   };
 
   return (
@@ -116,6 +145,7 @@ const Login: React.FC = (): JSX.Element => {
           </Link>
         </Grid>
       </Grid>
+      {status === 'loading' && <Spinner />}
     </Container>
   );
 };

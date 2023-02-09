@@ -1,16 +1,20 @@
 import { createContext } from 'react';
 import { LOCALES } from '../localizations';
+import { AuthResponse } from '../models/authResponse';
 
 type GlobalContextType = {
   currentLocale: string,
   setCurrentLocale?: ((v: string) => void),
-  isLogin: boolean,
-  setIsLogin?: ((v: boolean) => void),
+  isToken: boolean,
+  userId: string,
+  setUserData?: ((v: AuthResponse) => void),
+  removeUserData?: (() => void)
 };
 
 const GlobalContext = createContext<GlobalContextType>({
   currentLocale: LOCALES.ENGLISH,
-  isLogin: false,
+  isToken: false,
+  userId: '',
 });
 
 export default GlobalContext;

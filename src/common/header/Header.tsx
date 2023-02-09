@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Toolbar, Typography, useMediaQuery, IconButton,
   MenuItem, Menu, Box, AppBar,
 } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import logo from '../../assets/logo/logo.png';
 import SearchField from './SearchField';
@@ -14,13 +14,28 @@ import ThemeSwitch from './ThemeSwitch';
 import GlobalContext from '../../shared/contexts/GlobalContext';
 import generateKey from '../../shared/utils/UniqueKey';
 import routes from '../../shared/constants/routes';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
+import { logout, resetStateUser } from '../../redux/features/authSlice';
+import { selectStatus } from '../../redux/selectors/authSelectors';
+import localStorageKeys from '../../shared/constants/localStorageKeys';
 
 const Header: React.FC = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-  const { isLogin } = useContext(GlobalContext);
+  const { isToken, removeUserData } = useContext(GlobalContext);
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(selectStatus);
+  const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+    if (status === 'success') {
+      removeUserData?.();
+      dispatch(resetStateUser());
+      navigate(routes.HOME);
+    }
+  }, [status]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -37,6 +52,11 @@ const Header: React.FC = (): JSX.Element => {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    handleMenuClose();
+    dispatch(logout());
   };
 
   const MediaQuery = {
@@ -60,22 +80,27 @@ const Header: React.FC = (): JSX.Element => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {isLogin ? (
-
-        [<MenuItem onClick={handleMenuClose} key={generateKey()}>Profile</MenuItem>,
-          <MenuItem onClick={handleMenuClose} key={generateKey()}>My account</MenuItem>]
+      {isToken ? (
+        [
+          <MenuItem onClick={handleMenuClose} key={generateKey()}>
+            <FormattedMessage id="app.header.collect" />
+          </MenuItem>,
+          <MenuItem onClick={handleLogout} key={generateKey()}>
+            <FormattedMessage id="app.header.logout" />
+          </MenuItem>,
+        ]
       )
         : (
-          [<Link
-            to={routes.LOGIN}
-            key={generateKey()}
-            style={{ textDecoration: 'none', color: '#000' }}
-          >
-            <MenuItem onClick={handleMenuClose}>
-              <FormattedMessage id="app.header.login" />
-            </MenuItem>
-            { /* eslint-disable-next-line react/jsx-indent */}
-           </Link>,
+          [
+            <Link
+              to={routes.LOGIN}
+              key={generateKey()}
+              style={{ textDecoration: 'none', color: '#000' }}
+            >
+              <MenuItem onClick={handleMenuClose}>
+                <FormattedMessage id="app.header.login" />
+              </MenuItem>
+            </Link>,
             <Link
               to={routes.SIGNUP}
               key={generateKey()}
@@ -84,7 +109,8 @@ const Header: React.FC = (): JSX.Element => {
               <MenuItem onClick={handleMenuClose}>
                 <FormattedMessage id="app.header.signup" />
               </MenuItem>
-            </Link>]
+            </Link>,
+          ]
         )}
     </Menu>
   );
@@ -122,7 +148,11 @@ const Header: React.FC = (): JSX.Element => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Name</p>
+        {isToken && (
+        <Typography variant="body1">
+          {localStorage.getItem(localStorageKeys.NAME)}
+        </Typography>
+        )}
       </MenuItem>
     </Menu>
   );
@@ -163,7 +193,11 @@ const Header: React.FC = (): JSX.Element => {
               sx={{ gap: '10px' }}
             >
               <AccountCircle />
-              {isLogin && <Typography variant="body1">Name</Typography>}
+              {isToken && (
+              <Typography variant="body1">
+                {localStorage.getItem(localStorageKeys.NAME)}
+              </Typography>
+              )}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
