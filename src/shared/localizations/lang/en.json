@@ -12,6 +12,8 @@
   "app.signup.errors2": "Email is required",
   "app.signup.errors3": "Password is required",
   "app.signup.errors4": "Max length 250 characters",
+  "app.signup.errors5": "You entered an incorrect email or password",
+  "app.signup.success": "You've registered on CollectMan",
   "app.password.errors1": "Your password isn't strong enough need lowercase letters",
   "app.password.errors2": "Your password isn't strong enough need uppercase letters",
   "app.password.errors3": "Your password isn't strong enough need numbers",

@@ -6,6 +6,11 @@ import { registrationApi, logoutApi } from '../../shared/apis/authApi';
 import AuthForm from '../../shared/models/authForm.model';
 import { AuthResponse } from '../../shared/models/authResponse';
 
+type ErrorResponse = {
+  errors: string[],
+  message: string
+};
+
 const initialState: AuthState = {
   status: 'idle',
   errorMessage: '',
@@ -15,15 +20,14 @@ export const registration = createAsyncThunk<AuthResponse, AuthForm>(
   routes.SIGNUP,
   async (userData, thunkAPI) => {
     try {
-      console.log(userData, 'in');
       const response = await registrationApi(userData);
       const { data } = response;
-      console.log(data);
       return data;
     } catch (e) {
       const error = e as AxiosError;
-      console.log(error.message);
-      return thunkAPI.rejectWithValue((error.message));
+      const message = ((error.response && error.response.data)
+        || error.message || error.toString()) as ErrorResponse;
+      return thunkAPI.rejectWithValue((message.message));
     }
   },
 );

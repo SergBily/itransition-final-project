@@ -17,9 +17,10 @@ import AuthForm from '../../shared/models/authForm.model';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { registration, reset } from '../../redux/features/authSlice';
 import { selectErrorMessage, selectStatus, selectUser } from '../../redux/selectors/authSelectors';
-import Spinner from '../../common/spinner/Spiner';
 import GlobalContext from '../../shared/contexts/GlobalContext';
 import { AuthResponse } from '../../shared/models/authResponse';
+import toastConfig from '../../shared/toast/toastConfig';
+import Spinner from '../../common/spinner/Spinner';
 
 const Signup: React.FC = (): JSX.Element => {
   const {
@@ -35,13 +36,15 @@ const Signup: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (status === 'failed') {
-      toast(errorMessage);
+      toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
+      dispatch(reset());
     }
     if (status === 'success') {
       setUserData?.(user);
+      toast.success(<FormattedMessage id="app.signup.success" />, toastConfig);
       navigate(routes.HOME);
+      dispatch(reset());
     }
-    dispatch(reset());
   }, [errorMessage, status, user]);
 
   const handleClickShowPassword = (): void => setShowPassword((show) => !show);
@@ -53,10 +56,6 @@ const Signup: React.FC = (): JSX.Element => {
   const onFormSubmit = (data: AuthForm): void => {
     dispatch(registration(data));
   };
-
-  if (status === 'loading') {
-    return (<Spinner />);
-  }
 
   return (
     <Container
@@ -142,6 +141,7 @@ const Signup: React.FC = (): JSX.Element => {
             </Button>
           </Grid>
         </form>
+
         <Grid item xs={12}>
           <Typography variant="body1">
             <FormattedMessage id="app.signup.text1" />
@@ -159,6 +159,7 @@ const Signup: React.FC = (): JSX.Element => {
           </Link>
         </Grid>
       </Grid>
+      {status === 'loading' && <Spinner />}
     </Container>
   );
 };

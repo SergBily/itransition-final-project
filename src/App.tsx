@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { Container, Grid } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
 import { I18Provider, LOCALES } from './shared/localizations';
 import GlobalContext from './shared/contexts/GlobalContext';
 import localStorageKeys from './shared/constants/localStorageKeys';
@@ -8,6 +9,7 @@ import AppRoutes from './common/routes/AppRoutes';
 import Content from './common/content/Content';
 import Header from './common/header/Header';
 import { AuthResponse } from './shared/models/authResponse';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = (): JSX.Element => {
   const [currentLocale, setCurrentLocale] = useState<string>(
@@ -82,6 +84,7 @@ const App: React.FC = (): JSX.Element => {
             </Container>
           </Grid>
         </Grid>
+        <ToastContainer />
       </I18Provider>
     </GlobalContext.Provider>
   );
