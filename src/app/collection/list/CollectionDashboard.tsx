@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import gsap from 'gsap';
+import { FormattedMessage } from 'react-intl';
 
 interface CollectionDashboardProps {
   onItem: boolean
@@ -44,12 +45,12 @@ const CollectionDashboard = ({ onItem }: CollectionDashboardProps) => {
         justifyContent: 'space-between',
       }}
       >
-        <Tooltip title="Delete">
+        <Tooltip title={<FormattedMessage id="app.collection.dashboard" />}>
           <IconButton color="error">
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Edit">
+        <Tooltip title={<FormattedMessage id="app.collection.dashboard2" />}>
           <IconButton color="warning">
             <EditIcon />
           </IconButton>

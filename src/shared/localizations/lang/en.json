@@ -20,5 +20,9 @@
   "app.password.errors1": "Your password isn't strong enough need lowercase letters",
   "app.password.errors2": "Your password isn't strong enough need uppercase letters",
   "app.password.errors3": "Your password isn't strong enough need numbers",
-  "app.password.errors4": "Your password isn't strong enough need minimum 8 characters"
+  "app.password.errors4": "Your password isn't strong enough need minimum 8 characters",
+  "app.collection.create": "Create your own unique collection and share it with the whole world!",
+  "app.collection.create2": "Create collection",
+  "app.collection.dashboard": "Delete",
+  "app.collection.dashboard2": "Edit"
 }
