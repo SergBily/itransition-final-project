@@ -54,6 +54,11 @@ const Header: React.FC = (): JSX.Element => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleCollection = () => {
+    handleMenuClose();
+    navigate(routes.COLLECTIONS);
+  };
+
   const handleLogout = () => {
     handleMenuClose();
     dispatch(logout());
@@ -82,7 +87,7 @@ const Header: React.FC = (): JSX.Element => {
     >
       {isToken ? (
         [
-          <MenuItem onClick={handleMenuClose} key={generateKey()}>
+          <MenuItem onClick={handleCollection} key={generateKey()}>
             <FormattedMessage id="app.header.collect" />
           </MenuItem>,
           <MenuItem onClick={handleLogout} key={generateKey()}>
