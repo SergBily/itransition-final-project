@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import routes from '../../shared/constants/routes';
-import backgroundImage from '../../assets/logo/imgs/background.png';
+import backgroundImage from '../../assets/images/background.png';
 import authValidator from '../../shared/validators/authValidator';
 import Errors from '../../common/errors/Errors';
 import passwordValidator from '../../shared/validators/passwordValidaor';
