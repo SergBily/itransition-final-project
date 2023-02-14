@@ -15,12 +15,17 @@ const Signup = loadable(() => import('../../app/auth/Signup'), {
   resolveComponent: (components) => components.default,
 });
 
+const CollectionCreate = loadable(() => import('../../app/collection/creation/NewCollection'), {
+  resolveComponent: (components) => components.default,
+});
+
 const AppRoutes = () => (
   <Routes>
     <Route path={routes.HOME} element={<Home />} />
     <Route path={routes.LOGIN} element={<Login />} />
     <Route path={routes.SIGNUP} element={<Signup />} />
     <Route path={routes.COLLECTIONS} element={<Collections />} />
+    <Route path={routes.COLLECTIONCREATE} element={<CollectionCreate />} />
   </Routes>
 );
 
