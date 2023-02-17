@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import localStorageKeys from '../constants/localStorageKeys';
 import { BASE_URL, urls } from '../constants/urls';
-import { AuthResponse } from '../models/authResponse';
+import { AuthResponse } from '../models/authResponse.model';
 import toastConfig from '../toast/toastConfig';
 
 const $api: AxiosInstance = axios.create({

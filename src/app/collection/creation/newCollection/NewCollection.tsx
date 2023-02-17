@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import CollectionFormField from '../collectionFormField/CollectionFormField ';
-import MarkdownForm from '../../../../common/markdown/MarkdownForm';
+import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import Dropzone from '../../../../common/dropzone/Dropzone';
 import DropImage from '../../../../shared/models/imageFile.model';
 import { uploadImage } from '../../../../shared/apis/firebaseApi';

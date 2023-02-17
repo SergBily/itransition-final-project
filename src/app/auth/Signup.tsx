@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { registration, reset } from '../../redux/features/authSlice';
 import { selectErrorMessage, selectStatus, selectUser } from '../../redux/selectors/authSelectors';
 import GlobalContext from '../../shared/contexts/GlobalContext';
-import { AuthResponse } from '../../shared/models/authResponse';
+import { AuthResponse } from '../../shared/models/authResponse.model';
 import toastConfig from '../../shared/toast/toastConfig';
 import Spinner from '../../common/spinner/Spinner';
 

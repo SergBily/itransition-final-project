@@ -12,7 +12,7 @@ import { v4 as uuid4 } from 'uuid';
 import { FormattedMessage } from 'react-intl';
 import CustomFields from '../../shared/models/customFields.model';
 import styles from './styles.module.scss';
-import screenSize from '../../shared/constants/viewMobile';
+import screenSize from '../../shared/constants/screenSize';
 
 type Fields = 'number' | 'string' | 'textarea' | 'data' | 'checkbox';
 

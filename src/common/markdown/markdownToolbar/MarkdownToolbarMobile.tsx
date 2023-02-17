@@ -62,6 +62,7 @@ const MarkdownToolbarMobile = ({ icons, onInsetSymbol }: MarkdownToolbarMobilePr
             >
               <Box
                 component="button"
+                type="button"
                 className={styles.button}
                 data-type={i.type}
                 onClick={onInsetSymbol}

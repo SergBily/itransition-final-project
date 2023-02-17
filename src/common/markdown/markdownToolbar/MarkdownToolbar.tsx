@@ -14,7 +14,7 @@ import { FieldValues, UseFormSetValue } from 'react-hook-form';
 import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
 import MarkdownToolbarMobile from './MarkdownToolbarMobile';
-import screenSize from '../../../shared/constants/viewMobile';
+import screenSize from '../../../shared/constants/screenSize';
 
 const icons = [
   { name: <Typography variant="h6" className={styles.icon}>H</Typography>, type: 'heading' },
@@ -67,6 +67,7 @@ const MarkdownToolbar = ({ setValueTextArea, setChoosedList }: MarkdownToolbarPr
               >
                 <Box
                   component="button"
+                  type="button"
                   className={styles.button}
                   data-type={i.type}
                   onClick={onInsetSymbol}

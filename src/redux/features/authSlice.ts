@@ -4,7 +4,7 @@ import routes from '../../shared/constants/routes';
 import AuthState from '../../shared/models/authState.model';
 import { registrationApi, logoutApi, loginApi } from '../../shared/apis/authApi';
 import { AuthForm, LoginForm } from '../../shared/models/authForm.model';
-import { AuthResponse } from '../../shared/models/authResponse';
+import { AuthResponse } from '../../shared/models/authResponse.model';
 
 type ErrorResponse = {
   errors: string[],

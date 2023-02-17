@@ -17,7 +17,7 @@ import Errors from '../../common/errors/Errors';
 import { login, reset } from '../../redux/features/authSlice';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { selectStatus, selectUser } from '../../redux/selectors/authSelectors';
-import { AuthResponse } from '../../shared/models/authResponse';
+import { AuthResponse } from '../../shared/models/authResponse.model';
 import GlobalContext from '../../shared/contexts/GlobalContext';
 import toastConfig from '../../shared/toast/toastConfig';
 import Spinner from '../../common/spinner/Spinner';

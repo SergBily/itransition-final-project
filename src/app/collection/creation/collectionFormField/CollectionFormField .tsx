@@ -43,7 +43,7 @@ const CollectionFormField = ({ label, Icon, children }: CollectionFormFieldProps
       <Grid
         item
         sm={label === 'description' ? 9 : 4}
-        xs={11}
+        xs={12}
       >
         {children}
       </Grid>

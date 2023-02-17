@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { LOCALES } from '../localizations';
-import { AuthResponse } from '../models/authResponse';
+import { AuthResponse } from '../models/authResponse.model';
 
 type GlobalContextType = {
   currentLocale: string,

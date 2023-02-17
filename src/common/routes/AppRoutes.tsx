@@ -15,7 +15,7 @@ const Signup = loadable(() => import('../../app/auth/Signup'), {
   resolveComponent: (components) => components.default,
 });
 
-const CollectionCreate = loadable(() => import('../../app/collection/creation/NewCollection'), {
+const CollectionCreate = loadable(() => import('../../app/collection/creation/newCollection/NewCollection'), {
   resolveComponent: (components) => components.default,
 });
 
