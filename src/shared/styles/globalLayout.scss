@@ -1,0 +1,9 @@
+@mixin flex ($display: flex, $align-items: center) {
+  display: $display;
+  align-items: $align-items;
+}
+
+@mixin wh ($width: auto, $height: auto) {
+  width: $width;
+  height: $height;
+}
