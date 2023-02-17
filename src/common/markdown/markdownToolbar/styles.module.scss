@@ -1,0 +1,29 @@
+@import '../../../shared/styles/globalLayout.scss';
+
+.wrapper {
+  @include flex();
+  margin-left: auto;
+  gap: 1rem;
+}
+
+.root{
+  @include flex();
+  gap: 0.5rem;
+}
+
+.button {
+  @include flex();
+  @include wh(28px, 31px);
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+}
+
+.icon {
+  cursor: pointer;
+  background-color: transparent;
+
+    &:hover {
+      color: #0000ff;
+    }
+}
