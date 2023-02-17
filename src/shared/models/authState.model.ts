@@ -1,15 +1,9 @@
-import { AuthResponse } from './authResponse';
+import { AuthResponse } from './authResponse.model';
 
 interface AuthState {
   status: 'idle' | 'loading' | 'failed' | 'success';
   errorMessage: string;
   user?: AuthResponse
 }
-
-// enum AuthStatus {
-//   idle = 'idle',
-//   loading = 'loading',
-//   failed = 'failed',
-// }
 
 export default AuthState;
