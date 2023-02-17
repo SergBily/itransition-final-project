@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import DropImage from '../../shared/models/imageFile.model';
+import styles from './styles.module.scss';
 
 interface RootProps {
   isDragAccept: boolean,
@@ -64,8 +65,8 @@ const Dropzone = ({ setSelectedImage, selectedImage }: DropzoneProps) => {
   } = useDropzone({ onDrop });
 
   return (
-    <Box sx={{ position: 'relative', width: 272, height: 242 }}>
-      <Box component="div" sx={{ position: 'relative', width: 272, height: 82 }}>
+    <Box component="div" className={styles.root}>
+      <Box component="div" className={styles.dragContainer}>
         <Container
           {...getRootProps({ isFocused, isDragAccept, isDragReject })}
         >
@@ -73,12 +74,12 @@ const Dropzone = ({ setSelectedImage, selectedImage }: DropzoneProps) => {
           {isDragActive
             ? <p><FormattedMessage id="app.collection.collection.image" /></p>
             : (
-              <Typography variant="body1" color="initial">
+              <Typography variant="body1">
                 <FormattedMessage id="app.collection.collection.image2" />
                 <Box component="span">
                   <br />
                   <FormattedMessage id="app.collection.collection.image3" />
-                  <Box component="span" sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                  <Box component="span" className={styles.textLink}>
                     <FormattedMessage id="app.collection.collection.image4" />
                   </Box>
                 </Box>
@@ -86,9 +87,16 @@ const Dropzone = ({ setSelectedImage, selectedImage }: DropzoneProps) => {
             )}
         </Container>
       </Box>
-      {selectedImage && <Box component="img" src={selectedImage?.preview} width={272} height={160} />}
+      {selectedImage
+        && (
+        <Box
+          component="img"
+          src={selectedImage?.preview}
+          width={262}
+          height={160}
+        />
+        )}
     </Box>
-
   );
 };
 
