@@ -1,0 +1,83 @@
+@import '../../shared/styles/globalVariables.scss';
+@import '../../shared/styles/globalLayout.scss';
+
+.speedDial {
+  width: 800px;
+}
+
+.speedDialAction {
+  width: 95px;
+  // font-weight: 500;
+  background-color: $fieldColor;
+}
+
+.textField {
+  width: 250px;
+  margin: 0.5rem;
+  background-color: $fieldColor;
+}
+
+.openBox {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  flex-grow: 1;
+}
+
+.stack {
+  width: inherit;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.boxInput {
+  @include flex();
+  gap: 1rem;
+}
+
+.button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.icon {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.4);
+      -webkit-transform: scale(1.4);
+      -moz-transform: scale(1.4);
+      -ms-transform: scale(1.4);
+      -o-transform: scale(1.4);
+      transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+    }
+}
+
+@media(max-width: 900px) {
+  .speedDialAction {
+    width: 82px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .speedDial {
+    width: auto;
+  }
+
+  .stack {
+    flex-wrap: wrap;
+  }
+}
