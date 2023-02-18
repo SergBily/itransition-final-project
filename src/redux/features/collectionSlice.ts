@@ -10,6 +10,7 @@ import NewCollection from '../../shared/models/state/newCollection.model';
 const initialState: NewCollection = {
   status: 'idle',
   errorMessage: '',
+  errors: [],
 };
 
 export const createCollection = createAsyncThunk<CollectionResponse, CollectionRequest>(
@@ -23,7 +24,7 @@ export const createCollection = createAsyncThunk<CollectionResponse, CollectionR
       const error = e as AxiosError;
       const message = (error.response && error.response.data) as ErrorResponse
         || error.message || error.toString();
-      return thunkAPI.rejectWithValue((message.message));
+      return thunkAPI.rejectWithValue((message as ErrorResponse));
     }
   },
 );
@@ -35,6 +36,7 @@ export const newCollectionSlice = createSlice({
     reset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
+      state.errors = [];
     },
   },
   extraReducers: (builder) => {
@@ -48,7 +50,8 @@ export const newCollectionSlice = createSlice({
       })
       .addCase(createCollection.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.errorMessage = payload as string;
+        state.errorMessage = (payload as ErrorResponse).message;
+        state.errors = (payload as ErrorResponse).errors;
       });
   },
 });

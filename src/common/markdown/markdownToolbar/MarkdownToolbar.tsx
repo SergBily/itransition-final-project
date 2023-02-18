@@ -10,11 +10,12 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { FormattedMessage } from 'react-intl';
-import { FieldValues, UseFormSetValue } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
 import MarkdownToolbarMobile from './MarkdownToolbarMobile';
 import screenSize from '../../../shared/constants/screenSize';
+import CollectionStructure from '../../../shared/models/newCollection/collectionStructure.model';
 
 const icons = [
   { name: <Typography variant="h6" className={styles.icon}>H</Typography>, type: 'heading' },
@@ -28,7 +29,7 @@ const icons = [
 ];
 
 interface MarkdownToolbarProps {
-  setValueTextArea: UseFormSetValue<FieldValues>,
+  setValueTextArea: UseFormSetValue<CollectionStructure>,
   setChoosedList: (a: string) => void
 }
 

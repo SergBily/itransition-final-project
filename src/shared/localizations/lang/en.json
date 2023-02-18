@@ -59,6 +59,8 @@
   "app.collection.button.create": "Create collection",
   "app.collection.button.cancel": "Cancel",
   "app.collection.title": "New collection",
-  "app.collection.response.error": "You already have a collection",
+  "app.collection.response.error.title": "You already have a collection",
+  "app.collection.response.error.title2": "Title is required",
+  "app.collection.response.error.topic": "Topic is required",
   "app.collection.response.success": "The collection {title} has created"
 }

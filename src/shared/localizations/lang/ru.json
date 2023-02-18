@@ -59,5 +59,7 @@
   "app.collection.button.create": "Создать коллекцию",
   "app.collection.button.cancel": "Отмена",
   "app.collection.title": "Новая коллекция",
-  "app.collection.response.error": "У вас уже есть коллекция"
+  "app.collection.response.error.title": "У вас уже есть коллекция",
+  "app.collection.response.error.topic": "Выберите тему",
+  "app.collection.response.error.title2": "Введите заголовок"
 }

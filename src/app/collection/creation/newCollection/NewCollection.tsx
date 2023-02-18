@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Box,
-  Button,
-  Grid, Paper, TextField, Typography,
+  Box, Button, Grid, Paper, TextField, Typography,
 } from '@mui/material';
 import Filter1Icon from '@mui/icons-material/Filter1';
 import Filter2Icon from '@mui/icons-material/Filter2';
@@ -13,6 +11,9 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import {
+  selectCollection, selectErrorMessage, selectErrors, selectStatus,
+} from '../../../../redux/selectors/collectionSelectors';
 import CollectionFormField from '../collectionFormField/CollectionFormField ';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import Dropzone from '../../../../common/dropzone/Dropzone';
@@ -26,12 +27,10 @@ import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest';
 import { createCollection, reset } from '../../../../redux/features/collectionSlice';
 import localStorageKeys from '../../../../shared/constants/localStorageKeys';
-import {
-  selectCollection,
-  selectErrorMessage, selectStatus,
-} from '../../../../redux/selectors/collectionSelectors';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';
+import CollectionStructure from '../../../../shared/models/newCollection/collectionStructure.model';
+import requiredValidator from '../../../../shared/validators/requiredValidator';
 
 const fields: CustomFields = {
   number: [],
@@ -43,21 +42,18 @@ const fields: CustomFields = {
 
 const NewCollection = () => {
   const {
-    register, handleSubmit, watch, setValue,
-  } = useForm();
+    register, handleSubmit, watch, setValue, formState: { errors },
+  } = useForm<CollectionStructure>();
   const [selectedImage, setSelectedImage] = useState<DropImage>();
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
   const dispatch = useAppDispatch();
   const status = useAppSelector(selectStatus);
   const errorMessage = useAppSelector(selectErrorMessage);
   const collection = useAppSelector(selectCollection);
+  const error = useAppSelector(selectErrors);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (status === 'failed') {
-      toast.warn(<FormattedMessage id={errorMessage} />, toastConfig);
-      dispatch(reset());
-    }
     if (status === 'success') {
       toast.success(<FormattedMessage
         id="app.collection.response.success"
@@ -95,17 +91,31 @@ const NewCollection = () => {
           className={styles.form}
         >
           <CollectionFormField label="topic" Icon={Filter1Icon}>
-            <TopicField register={register} />
+            <TopicField register={register} errors={errors} />
           </CollectionFormField>
           <CollectionFormField label="title" Icon={Filter2Icon}>
             <TextField
               className={styles.textField}
+              error={error[0] === 'title' || !!errors.title?.message}
               fullWidth
               id="title"
               type="text"
               size="small"
-              {...register('title')}
+              {...register(
+                'title',
+                requiredValidator('app.collection.response.error.title2'),
+              )}
             />
+            <Box component="p" className={styles.error}>
+              {!!errors.title?.message
+                && (
+                  <FormattedMessage id={errors.title?.message} />
+                )}
+              { error[0] === 'title'
+                && (
+                <FormattedMessage id={errorMessage} />
+                )}
+            </Box>
           </CollectionFormField>
           <CollectionFormField label="description" Icon={Filter3Icon}>
             <MarkdownForm

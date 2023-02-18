@@ -6,7 +6,7 @@ import {
   Paper, TextareaAutosize, Tooltip,
 } from '@mui/material';
 import {
-  FieldValues, UseFormRegister, UseFormSetValue, UseFormWatch,
+  UseFormRegister, UseFormSetValue, UseFormWatch,
 } from 'react-hook-form';
 import ReactMarkdown from 'react-markdown';
 import { FormattedMessage } from 'react-intl';
@@ -18,6 +18,7 @@ import links from '../../../shared/constants/links';
 import markdown from '../../../assets/images/markdown.svg';
 import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
+import CollectionStructure from '../../../shared/models/newCollection/collectionStructure.model';
 
 function a11yProps(index: number) {
   return {
@@ -28,9 +29,9 @@ function a11yProps(index: number) {
 
 interface MarkdownFormProps {
   label: string,
-  register: UseFormRegister<FieldValues>,
-  watch: UseFormWatch<FieldValues>,
-  setValueTextArea: UseFormSetValue<FieldValues>
+  register: UseFormRegister<CollectionStructure>,
+  watch: UseFormWatch<CollectionStructure>,
+  setValueTextArea: UseFormSetValue<CollectionStructure>
 }
 
 const MarkdownForm = ({
@@ -77,7 +78,7 @@ const MarkdownForm = ({
           aria-label="maximum height"
           placeholder="Maximum 4 rows"
           onKeyDown={handlerKeyDown}
-          {...register(`${label}`)}
+          {...register(`${label}` as keyof CollectionStructure)}
         />
         <Tooltip title={<FormattedMessage id="app.collection.markdown.support" />}>
           <Box
