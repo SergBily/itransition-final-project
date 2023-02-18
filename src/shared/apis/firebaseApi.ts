@@ -4,7 +4,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import storageImages from '../../firebase';
 import localStorageKeys from '../constants/localStorageKeys';
-import DropImage from '../models/imageFile.model';
+import DropImage from '../models/newCollection/imageFile.model';
 
 const userId = localStorage.getItem(localStorageKeys.USERId);
 

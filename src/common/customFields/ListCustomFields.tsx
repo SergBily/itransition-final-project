@@ -10,17 +10,17 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { v4 as uuid4 } from 'uuid';
 import { FormattedMessage } from 'react-intl';
-import CustomFields from '../../shared/models/customFields.model';
+import CustomFields from '../../shared/models/newCollection/customFields.model';
 import styles from './styles.module.scss';
 import screenSize from '../../shared/constants/screenSize';
 
-type Fields = 'number' | 'string' | 'textarea' | 'data' | 'checkbox';
+type Fields = 'number' | 'string' | 'textarea' | 'date' | 'checkbox';
 
 const typesField = [
   { type: 'number', name: 'number field' },
   { type: 'string', name: 'string field' },
   { type: 'textarea', name: 'textarea field' },
-  { type: 'data', name: 'data field' },
+  { type: 'date', name: 'data field' },
   { type: 'checkbox', name: 'checkbox field' },
 ];
 

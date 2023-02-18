@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Card, CardActionArea, CardMedia, CardContent, Typography,
 } from '@mui/material';
-import CollectionStructure from '../../../shared/models/collectionStructure.model';
+import CollectionStructure from '../../../shared/models/newCollection/collectionStructure.model';
 import CollectionDashboard from './CollectionDashboard';
 
 interface CollectionProps {
@@ -11,7 +11,7 @@ interface CollectionProps {
 
 const Collection = ({ payload }: CollectionProps) => {
   const {
-    img, topic, title, description,
+    image, topic, title, description,
   } = payload;
   const [isHovering, setIsHovering] = useState(false);
 
@@ -38,7 +38,7 @@ const Collection = ({ payload }: CollectionProps) => {
         <CardMedia
           component="img"
           height="160"
-          image={img}
+          image={image}
           alt={title}
         />
         <CardContent>

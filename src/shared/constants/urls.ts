@@ -9,4 +9,5 @@ export const urls = {
   LOGOUT: `${BASE_URL}/logout`,
   LOGIN: `${BASE_URL}/login`,
   REFRESH: `${BASE_URL}/refresh`,
+  NEWCOLLECTION: `${BASE_URL}/collection/create`,
 };

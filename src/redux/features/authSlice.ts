@@ -5,11 +5,7 @@ import AuthState from '../../shared/models/authState.model';
 import { registrationApi, logoutApi, loginApi } from '../../shared/apis/authApi';
 import { AuthForm, LoginForm } from '../../shared/models/authForm.model';
 import { AuthResponse } from '../../shared/models/authResponse.model';
-
-type ErrorResponse = {
-  errors: string[],
-  message: string
-};
+import ErrorResponse from '../../shared/models/ErrorResponse.model';
 
 const initialState: AuthState = {
   status: 'idle',

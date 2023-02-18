@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -11,23 +11,33 @@ import Filter4Icon from '@mui/icons-material/Filter4';
 import Filter5Icon from '@mui/icons-material/Filter5';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CollectionFormField from '../collectionFormField/CollectionFormField ';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import Dropzone from '../../../../common/dropzone/Dropzone';
-import DropImage from '../../../../shared/models/imageFile.model';
-import { uploadImage } from '../../../../shared/apis/firebaseApi';
+import DropImage from '../../../../shared/models/newCollection/imageFile.model';
 import ListCustomFields from '../../../../common/customFields/ListCustomFields';
-import CustomFields from '../../../../shared/models/customFields.model';
+import CustomFields from '../../../../shared/models/newCollection/customFields.model';
 import TopicField from '../topicField/TopicField';
 import styles from './styles.module.scss';
 import routes from '../../../../shared/constants/routes';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest';
+import { createCollection, reset } from '../../../../redux/features/collectionSlice';
+import localStorageKeys from '../../../../shared/constants/localStorageKeys';
+import {
+  selectCollection,
+  selectErrorMessage, selectStatus,
+} from '../../../../redux/selectors/collectionSelectors';
+import Spinner from '../../../../common/spinner/Spinner';
+import toastConfig from '../../../../shared/toast/toastConfig';
 
 const fields: CustomFields = {
   number: [],
   string: [],
   textarea: [],
-  data: [],
+  date: [],
   checkbox: [],
 };
 
@@ -37,12 +47,35 @@ const NewCollection = () => {
   } = useForm();
   const [selectedImage, setSelectedImage] = useState<DropImage>();
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(selectStatus);
+  const errorMessage = useAppSelector(selectErrorMessage);
+  const collection = useAppSelector(selectCollection);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === 'failed') {
+      toast.warn(<FormattedMessage id={errorMessage} />, toastConfig);
+      dispatch(reset());
+    }
+    if (status === 'success') {
+      toast.success(<FormattedMessage
+        id="app.collection.response.success"
+        values={{ title: collection?.title }}
+      />, toastConfig);
+      navigate(routes.COLLECTIONS);
+      dispatch(reset());
+    }
+  }, [status, errorMessage]);
 
   const onFormSubmit = async (data: any): Promise<void> => {
-    const imageUrl = await uploadImage(selectedImage as DropImage);
-    console.log(data);
-    const dataOfCollection = { ...data, imageUrl, itemFields: customItemFields };
-    console.log(dataOfCollection);
+    const collectionData: CollectionRequest = {
+      ...data,
+      image: selectedImage,
+      customFields: customItemFields,
+      userId: localStorage.getItem(localStorageKeys.USERId),
+    };
+    dispatch(createCollection(collectionData));
   };
 
   return (
@@ -118,6 +151,7 @@ const NewCollection = () => {
           </Box>
         </form>
       </Grid>
+      {status === 'loading' && <Spinner />}
     </Paper>
   );
 };

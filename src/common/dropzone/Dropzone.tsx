@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import DropImage from '../../shared/models/imageFile.model';
+import DropImage from '../../shared/models/newCollection/imageFile.model';
 import styles from './styles.module.scss';
 
 interface RootProps {

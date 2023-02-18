@@ -1,8 +1,7 @@
 import { AuthResponse } from './authResponse.model';
+import InitialState from './state/initialState';
 
-interface AuthState {
-  status: 'idle' | 'loading' | 'failed' | 'success';
-  errorMessage: string;
+interface AuthState extends InitialState {
   user?: AuthResponse
 }
 

@@ -2,19 +2,19 @@ import Grid from '@mui/material/Grid';
 import React from 'react';
 import generateKey from '../../../shared/utils/UniqueKey';
 import Collection from './Collection';
-import img from '../../../assets/images/test.png';
+import image from '../../../assets/images/test.png';
 import CollectionCreator from './CollectionCreator';
 
 const testCollection = [
   {
-    img,
+    image,
     topic: 'Books',
     title: 'Lizard',
     description: `Mongoose also supports setting timestamps on subdocuments. 
     Keep in mind that createdAt and updatedAt for subdocuments represent`,
   },
   {
-    img,
+    image,
     topic: 'Alcohole',
     title: 'Wiski',
     description: `Mongoose also supports setting timestamps on subdocuments. 
@@ -23,7 +23,7 @@ const testCollection = [
     Keep in mind that createdAt and updatedAt for subdocuments represent`,
   },
   {
-    img,
+    image,
     topic: 'Mark',
     title: 'PIlimmkk dkkdiifll',
     description: `Mongoose also supports setting timestamps on subdocuments. 
@@ -34,7 +34,7 @@ const testCollection = [
     Keep in mind that createdAt and updatedAt for subdocuments represent`,
   },
   {
-    img,
+    image,
     topic: 'Boots',
     title: 'Lizard quntty',
     description: `Mongoose also supports setting timestamps on subdocuments. 

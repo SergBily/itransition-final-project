@@ -54,9 +54,11 @@
   "app.collection.custom.fields.number": "Number",
   "app.collection.custom.fields.string": "String",
   "app.collection.custom.fields.textarea": "Textarea",
-  "app.collection.custom.fields.data": "Data",
+  "app.collection.custom.fields.date": "Date",
   "app.collection.custom.fields.checkbox": "Checkbox",
   "app.collection.button.create": "Create collection",
   "app.collection.button.cancel": "Cancel",
-  "app.collection.title": "New collection"
+  "app.collection.title": "New collection",
+  "app.collection.response.error": "You already have a collection",
+  "app.collection.response.success": "The collection {title} has created"
 }

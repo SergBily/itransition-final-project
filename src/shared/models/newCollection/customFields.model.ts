@@ -2,7 +2,7 @@ interface CustomFields {
   number: string[],
   string: string[],
   textarea: string[],
-  data: string[],
+  date: string[],
   checkbox: string[]
 }
 

@@ -1,5 +1,5 @@
 interface CollectionStructure {
-  img: string,
+  image: string,
   topic: string,
   title: string,
   description: string
