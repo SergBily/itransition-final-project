@@ -9,21 +9,20 @@ import classNames from 'classnames';
 import styles from './sytles.module.scss';
 
 interface CollectionDashboardProps {
-  onItem: boolean
+  onItem: boolean,
+  id: string
 }
 
-const CollectionDashboard = ({ onItem }: CollectionDashboardProps) => {
+const CollectionDashboard = ({ onItem, id }: CollectionDashboardProps) => {
   useEffect(() => {
     if (onItem) {
-      gsap.fromTo(
-        '.dashboard',
-        { left: -105, duration: 0.5, ease: 'power1.inOut' },
-        { left: 15, duration: 0.5, ease: 'power1.inOut' },
+      gsap.to(
+        `#id${id}`,
+        { left: 5, duration: 0.5, ease: 'power1.inOut' },
       );
     } else {
-      gsap.fromTo(
-        '.dashboard',
-        { left: 15, duration: 0.5, ease: 'power1.inOut' },
+      gsap.to(
+        `#id${id}`,
         { left: -105, duration: 0.5, ease: 'power1.inOut' },
       );
     }
@@ -31,6 +30,7 @@ const CollectionDashboard = ({ onItem }: CollectionDashboardProps) => {
 
   return (
     <Paper
+      id={`id${id}`}
       className={classNames(styles.root, 'dashboard')}
       elevation={5}
     >

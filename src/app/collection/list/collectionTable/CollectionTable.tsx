@@ -1,5 +1,7 @@
 import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from 'react';
+import gsap from 'gsap';
+import classNames from 'classnames';
 import Collection from '../collection/Collection';
 import CollectionCreator from '../collectionCreator/CollectionCreator';
 import styles from './styles.module.scss';
@@ -17,6 +19,10 @@ const CollectionTable = () => {
   useEffect(() => {
     dispatch(getAllCollection(localStorage.getItem(localStorageKeys.USERId) as string));
     dispatch(reset());
+    gsap.to(
+      '.animationCollections',
+      { transform: 'translate(0,0)', duration: 0.3, ease: 'power1.inOut' },
+    );
   }, []);
 
   useEffect(() => {
@@ -24,7 +30,7 @@ const CollectionTable = () => {
   }, [allCollections]);
 
   return (
-    <Grid container className={styles.root}>
+    <Grid container className={classNames(styles.root, 'animationCollections')}>
       <Grid item>
         <CollectionCreator />
       </Grid>

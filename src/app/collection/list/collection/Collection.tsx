@@ -67,7 +67,7 @@ const Collection = ({ payload }: CollectionProps) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CollectionDashboard onItem={isHovering} />
+      <CollectionDashboard onItem={isHovering} id={id} />
     </Card>
   );
 };
