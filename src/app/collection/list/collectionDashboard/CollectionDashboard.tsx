@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tooltip, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
@@ -7,13 +7,16 @@ import gsap from 'gsap';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import styles from './sytles.module.scss';
+import DeleteDialog from '../../../../common/dialog/deleteDialog';
 
 interface CollectionDashboardProps {
   onItem: boolean,
-  id: string
+  id: string,
+  title: string
 }
 
-const CollectionDashboard = ({ onItem, id }: CollectionDashboardProps) => {
+const CollectionDashboard = ({ onItem, id, title }: CollectionDashboardProps) => {
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     if (onItem) {
       gsap.to(
@@ -28,6 +31,10 @@ const CollectionDashboard = ({ onItem, id }: CollectionDashboardProps) => {
     }
   }, [onItem]);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <Paper
       id={`id${id}`}
@@ -39,7 +46,7 @@ const CollectionDashboard = ({ onItem, id }: CollectionDashboardProps) => {
         className={styles.container}
       >
         <Tooltip title={<FormattedMessage id="app.collection.dashboard" />}>
-          <IconButton color="error">
+          <IconButton onClick={handleClickOpen} color="error">
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -49,6 +56,7 @@ const CollectionDashboard = ({ onItem, id }: CollectionDashboardProps) => {
           </IconButton>
         </Tooltip>
       </Box>
+      <DeleteDialog type="collection" name={title} open={open} setOpen={setOpen} />
     </Paper>
   );
 };

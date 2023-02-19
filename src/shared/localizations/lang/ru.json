@@ -61,5 +61,8 @@
   "app.collection.title": "Новая коллекция",
   "app.collection.response.error.title": "У вас уже есть коллекция",
   "app.collection.response.error.topic": "Выберите тему",
-  "app.collection.response.error.title2": "Введите заголовок"
+  "app.collection.response.error.title2": "Введите заголовок",
+  "app.collection.dialog": "Ты уверен что хочешь удалить {type} {name}?",
+  "app.collection.dialog.button1": "Отмена",
+  "app.collection.dialog.button2": "Удалить"
 }
