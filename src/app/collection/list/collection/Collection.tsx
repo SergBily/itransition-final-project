@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import {
   Card, CardActionArea, CardMedia, CardContent, Typography,
 } from '@mui/material';
-import CollectionStructure from '../../../../shared/models/newCollection/collectionStructure.model';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import CollectionDashboard from '../collectionDashboard/CollectionDashboard';
 import styles from './styles.module.scss';
+import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
 
 interface CollectionProps {
-  payload: CollectionStructure,
+  payload: AllCollectionsResponse,
 }
 
 const Collection = ({ payload }: CollectionProps) => {
   const {
-    image, topic, title, description,
+    imageUrl, topic, title, description, id,
   } = payload;
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseEnter = () => {
@@ -24,6 +26,7 @@ const Collection = ({ payload }: CollectionProps) => {
 
   return (
     <Card
+      id={id}
       className={styles.root}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -32,22 +35,35 @@ const Collection = ({ payload }: CollectionProps) => {
         <CardMedia
           component="img"
           height="160"
-          image={image}
+          image={imageUrl}
           alt={title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {topic}
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="p"
+            className={styles.topic}
+          >
+            {topic.toUpperCase()}
           </Typography>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="p"
+            className={styles.title}
+          >
             {title}
           </Typography>
           <Typography
             className={styles.description}
+            component="div"
             variant="body2"
             color="text.secondary"
           >
-            {description}
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {description}
+            </ReactMarkdown>
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -1,66 +1,36 @@
 import Grid from '@mui/material/Grid';
-import React from 'react';
-import generateKey from '../../../../shared/utils/UniqueKey';
+import React, { useEffect, useState } from 'react';
 import Collection from '../collection/Collection';
-import image from '../../../../assets/images/test.png';
 import CollectionCreator from '../collectionCreator/CollectionCreator';
 import styles from './styles.module.scss';
-
-const testCollection = [
-  {
-    image,
-    topic: 'Books',
-    title: 'Lizard',
-    description: `Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent`,
-  },
-  {
-    image,
-    topic: 'Alcohole',
-    title: 'Wiski',
-    description: `Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent`,
-  },
-  {
-    image,
-    topic: 'Mark',
-    title: 'PIlimmkk dkkdiifll',
-    description: `Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent`,
-  },
-  {
-    image,
-    topic: 'Boots',
-    title: 'Lizard quntty',
-    description: `Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    Mongoose also supports setting timestamps on subdocuments. 
-    Keep in mind that createdAt and updatedAt for subdocuments represent
-    `,
-  },
-];
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { reset } from '../../../../redux/features/newCollectionSlice';
+import localStorageKeys from '../../../../shared/constants/localStorageKeys';
+import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
+import { getAllCollection } from '../../../../redux/features/allCollectionSlice';
+import { selectAllCollections } from '../../../../redux/selectors/allCollectionSelectors';
 
 const CollectionTable = () => {
-  console.log(1);
+  const [collections, setCollections] = useState<AllCollectionsResponse[]>();
+  const allCollections = useAppSelector(selectAllCollections);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllCollection(localStorage.getItem(localStorageKeys.USERId) as string));
+    dispatch(reset());
+  }, []);
+
+  useEffect(() => {
+    setCollections(allCollections);
+  }, [allCollections]);
 
   return (
     <Grid container className={styles.root}>
       <Grid item>
         <CollectionCreator />
       </Grid>
-      {testCollection.map((colection) => (
-        <Grid item key={generateKey()}>
-          <Collection payload={colection} />
+      {collections && collections.map((collection) => (
+        <Grid item key={collection.id}>
+          <Collection payload={collection} />
         </Grid>
       ))}
     </Grid>

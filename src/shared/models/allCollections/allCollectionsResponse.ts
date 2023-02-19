@@ -1,11 +1,12 @@
 import CustomFields from '../newCollection/customFields.model';
 
 interface AllCollectionsResponse {
-  image: string,
+  imageUrl: string,
   customFields: CustomFields,
   topic: string,
   title: string,
-  description: string
+  description: string,
+  id: string
 }
 
 export default AllCollectionsResponse;

@@ -1,24 +1,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import createNewCollection from '../../shared/apis/newCollection';
+import { getCollections } from '../../shared/apis/collectionApi';
 import routes from '../../shared/constants/routes';
+import AllCollectionsResponse from '../../shared/models/allCollections/allCollectionsResponse';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
-import CollectionRequest from '../../shared/models/newCollection/collectionRequest';
-import CollectionResponse from '../../shared/models/newCollection/collectionResponse';
-import NewCollection from '../../shared/models/state/newCollection.model';
+import AllCollection from '../../shared/models/state/allCollection.module';
 
-const initialState: NewCollection = {
+const initialState: AllCollection = {
   status: 'idle',
   errorMessage: '',
   errors: [],
 };
 
-export const createCollection = createAsyncThunk<CollectionResponse, CollectionRequest>(
-  routes.COLLECTIONCREATE,
-  async (collectionData, thunkAPI) => {
+export const getAllCollection = createAsyncThunk<AllCollectionsResponse[], string>(
+  routes.COLLECTIONS,
+  async (userId, thunkAPI) => {
     try {
-      const response = await createNewCollection(collectionData);
+      const response = await getCollections(userId);
       const { data } = response;
+      console.log(data);
       return data;
     } catch (e) {
       const error = e as AxiosError;
@@ -29,8 +29,8 @@ export const createCollection = createAsyncThunk<CollectionResponse, CollectionR
   },
 );
 
-export const newCollectionSlice = createSlice({
-  name: 'newCollection',
+export const allCollectionsSlice = createSlice({
+  name: 'collection',
   initialState,
   reducers: {
     reset: (state) => {
@@ -41,14 +41,14 @@ export const newCollectionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createCollection.pending, (state) => {
+      .addCase(getAllCollection.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(createCollection.fulfilled, (state, { payload }) => {
+      .addCase(getAllCollection.fulfilled, (state, { payload }) => {
         state.status = 'success';
-        state.collection = payload;
+        state.allCollection = payload;
       })
-      .addCase(createCollection.rejected, (state, { payload }) => {
+      .addCase(getAllCollection.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.errorMessage = (payload as ErrorResponse).message;
         state.errors = (payload as ErrorResponse).errors;
@@ -56,5 +56,5 @@ export const newCollectionSlice = createSlice({
   },
 });
 
-export const { reset } = newCollectionSlice.actions;
-export default newCollectionSlice.reducer;
+export const { reset } = allCollectionsSlice.actions;
+export default allCollectionsSlice.reducer;

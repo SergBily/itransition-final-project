@@ -3,7 +3,7 @@ const routes = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   LOGOUT: '/logout',
-  COLLECTIONS: '/collections',
+  COLLECTIONS: '/collection/all',
   COLLECTIONCREATE: '/collection/create',
 };
 

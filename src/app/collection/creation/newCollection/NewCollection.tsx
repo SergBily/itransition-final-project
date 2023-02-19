@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
   selectCollection, selectErrorMessage, selectErrors, selectStatus,
-} from '../../../../redux/selectors/collectionSelectors';
+} from '../../../../redux/selectors/newCollectionSelectors';
 import CollectionFormField from '../collectionFormField/CollectionFormField ';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import Dropzone from '../../../../common/dropzone/Dropzone';
@@ -25,7 +25,7 @@ import styles from './styles.module.scss';
 import routes from '../../../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest';
-import { createCollection, reset } from '../../../../redux/features/collectionSlice';
+import { createCollection, reset } from '../../../../redux/features/newCollectionSlice';
 import localStorageKeys from '../../../../shared/constants/localStorageKeys';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';
@@ -96,7 +96,7 @@ const NewCollection = () => {
           <CollectionFormField label="title" Icon={Filter2Icon}>
             <TextField
               className={styles.textField}
-              error={error[0] === 'title' || !!errors.title?.message}
+              error={(error && error[0] === 'title') || !!errors.title?.message}
               fullWidth
               id="title"
               type="text"
