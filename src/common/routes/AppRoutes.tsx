@@ -7,7 +7,7 @@ import Home from '../../app/home/Home';
 const Login = loadable(() => import('../../app/auth/Login'), {
   resolveComponent: (components) => components.default,
 });
-const Collections = loadable(() => import('../../app/collection/list/CollectionTable'), {
+const Collections = loadable(() => import('../../app/collection/list/collectionTable/CollectionTable'), {
   resolveComponent: (components) => components.default,
 });
 

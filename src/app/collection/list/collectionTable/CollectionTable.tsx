@@ -1,9 +1,10 @@
 import Grid from '@mui/material/Grid';
 import React from 'react';
-import generateKey from '../../../shared/utils/UniqueKey';
-import Collection from './Collection';
-import image from '../../../assets/images/test.png';
-import CollectionCreator from './collectionCreator/CollectionCreator';
+import generateKey from '../../../../shared/utils/UniqueKey';
+import Collection from '../collection/Collection';
+import image from '../../../../assets/images/test.png';
+import CollectionCreator from '../collectionCreator/CollectionCreator';
+import styles from './styles.module.scss';
 
 const testCollection = [
   {
@@ -53,7 +54,7 @@ const CollectionTable = () => {
   console.log(1);
 
   return (
-    <Grid container sx={{ gap: 2, justifyContent: 'center', mt: 4 }}>
+    <Grid container className={styles.root}>
       <Grid item>
         <CollectionCreator />
       </Grid>

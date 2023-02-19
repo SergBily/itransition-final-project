@@ -5,6 +5,8 @@ import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import gsap from 'gsap';
 import { FormattedMessage } from 'react-intl';
+import classNames from 'classnames';
+import styles from './sytles.module.scss';
 
 interface CollectionDashboardProps {
   onItem: boolean
@@ -29,21 +31,12 @@ const CollectionDashboard = ({ onItem }: CollectionDashboardProps) => {
 
   return (
     <Paper
-      className="dashboard"
+      className={classNames(styles.root, 'dashboard')}
       elevation={5}
-      sx={{
-        position: 'absolute',
-        top: 140,
-        left: -45,
-        backgroundColor: '#3ad2ff8d',
-
-      }}
     >
-      <Box sx={{
-        width: 100,
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
+      <Box
+        component="div"
+        className={styles.container}
       >
         <Tooltip title={<FormattedMessage id="app.collection.dashboard" />}>
           <IconButton color="error">

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import {
   Card, CardActionArea, CardMedia, CardContent, Typography,
 } from '@mui/material';
-import CollectionStructure from '../../../shared/models/newCollection/collectionStructure.model';
-import CollectionDashboard from './CollectionDashboard';
+import CollectionStructure from '../../../../shared/models/newCollection/collectionStructure.model';
+import CollectionDashboard from '../collectionDashboard/CollectionDashboard';
+import styles from './styles.module.scss';
 
 interface CollectionProps {
   payload: CollectionStructure,
@@ -14,23 +15,16 @@ const Collection = ({ payload }: CollectionProps) => {
     image, topic, title, description,
   } = payload;
   const [isHovering, setIsHovering] = useState(false);
-
   const handleMouseEnter = () => {
     setIsHovering(true);
   };
-
   const handleMouseLeave = () => {
     setIsHovering(false);
   };
 
   return (
     <Card
-      sx={{
-        maxWidth: 272,
-        minHeight: 400,
-        maxHeight: 400,
-        position: 'relative',
-      }}
+      className={styles.root}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -49,9 +43,9 @@ const Collection = ({ payload }: CollectionProps) => {
             {title}
           </Typography>
           <Typography
+            className={styles.description}
             variant="body2"
             color="text.secondary"
-            sx={{ minHeight: 125, maxHeight: 125, overflow: 'scroll' }}
           >
             {description}
           </Typography>
