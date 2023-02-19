@@ -3,7 +3,7 @@ import React from 'react';
 import generateKey from '../../../shared/utils/UniqueKey';
 import Collection from './Collection';
 import image from '../../../assets/images/test.png';
-import CollectionCreator from './CollectionCreator';
+import CollectionCreator from './collectionCreator/CollectionCreator';
 
 const testCollection = [
   {
