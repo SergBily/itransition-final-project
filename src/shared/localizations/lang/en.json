@@ -63,7 +63,8 @@
   "app.collection.response.error.title2": "Title is required",
   "app.collection.response.error.topic": "Topic is required",
   "app.collection.response.success": "The collection {title} has created",
-  "app.collection.dialog": "Are you sure you want to delete the {type} {name}?",
+  "app.collection.dialog": "Are you sure you want to delete the {type} {title}?",
   "app.collection.dialog.button1": "Cancel",
-  "app.collection.dialog.button2": "Delite"
+  "app.collection.dialog.button2": "Delite",
+  "app.collection.delete": "Error has occurred. Please try again later."
 }

@@ -17,11 +17,8 @@ const CollectionTable = () => {
   const allCollections = useAppSelector(selectAllCollections);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (!allCollections) {
-      dispatch(getAllCollection(localStorage.getItem(localStorageKeys.USERId) as string));
-      dispatch(reset());
-    }
-    setCollections(allCollections);
+    dispatch(getAllCollection(localStorage.getItem(localStorageKeys.USERId) as string));
+    dispatch(reset());
     gsap.to(
       '.animationCollections',
       { transform: 'translate(0,0)', duration: 0.3, ease: 'power1.inOut' },

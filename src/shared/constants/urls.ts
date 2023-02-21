@@ -10,5 +10,6 @@ export const urls = {
   LOGIN: `${BASE_URL}/login`,
   REFRESH: `${BASE_URL}/refresh`,
   COLLECTIONS: `${BASE_URL}/collection/all`,
-  NEWCOLLECTION: `${BASE_URL}/collection/create`,
+  NEW_COLLECTION: `${BASE_URL}/collection/create`,
+  DELETE_COLLECTION: `${BASE_URL}/collection/delete`,
 };

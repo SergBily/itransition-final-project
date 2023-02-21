@@ -4,7 +4,8 @@ const routes = {
   SIGNUP: '/signup',
   LOGOUT: '/logout',
   COLLECTIONS: '/collection/all',
-  COLLECTIONCREATE: '/collection/create',
+  COLLECTION_CREATE: '/collection/create',
+  COLLECTION_DELETE: '/collection/delete',
 };
 
 export default routes;

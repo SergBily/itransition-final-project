@@ -18,7 +18,6 @@ export const getAllCollection = createAsyncThunk<AllCollectionsResponse[], strin
     try {
       const response = await getCollections(userId);
       const { data } = response;
-      console.log(data);
       return data;
     } catch (e) {
       const error = e as AxiosError;

@@ -8,9 +8,12 @@ import { uploadImage } from './firebaseApi';
 
 export const createNewCollection = async (payload: CollectionRequest):
 Promise<AxiosResponse<CollectionResponse>> => {
-  const imageUrl: string = await uploadImage(payload.image);
-  return $api.post(urls.NEWCOLLECTION, { ...payload, image: imageUrl });
+  const imageUrl: string = payload.image ? await uploadImage(payload.image) : '';
+  return $api.post(urls.NEW_COLLECTION, { ...payload, image: imageUrl });
 };
 
-export const getCollections = async (userId: string):
+export const getCollections = (userId: string):
 Promise<AxiosResponse<AllCollectionsResponse[]>> => $api.get(`${urls.COLLECTIONS}/${userId}`);
+
+export const deleteCollectionApi = async (id: string):
+Promise<AxiosResponse> => $api.delete(`${urls.DELETE_COLLECTION}/${id}`);

@@ -14,23 +14,29 @@ const Transition = React.forwardRef((
   ref: React.Ref<unknown>,
 ) => <Slide direction="up" ref={ref} {...props} />);
 
-interface DeleteDialogProps {
+type PayloadDialog = {
   type: string,
-  name: string,
+  title: string,
   open: boolean,
-  setOpen: (e: boolean) => void
+  setOpen: (e: boolean) => void,
+  deleteCollection: () => void
+};
+
+interface DeleteDialogProps {
+  payload: PayloadDialog
 }
 
-const DeleteDialog = ({
-  type, name, open, setOpen,
-}: DeleteDialogProps) => {
+const DeleteDialog = ({ payload }: DeleteDialogProps) => {
+  const {
+    type, title, open, setOpen, deleteCollection,
+  } = payload;
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleDelete = () => {
     setOpen(false);
-    console.log('delete');
+    deleteCollection();
   };
 
   return (
@@ -44,7 +50,7 @@ const DeleteDialog = ({
       <DialogTitle>
         <FormattedMessage
           id="app.collection.dialog"
-          values={{ type, name }}
+          values={{ type, title }}
         />
       </DialogTitle>
       <DialogActions>

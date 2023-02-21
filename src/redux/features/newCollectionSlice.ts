@@ -14,7 +14,7 @@ const initialState: NewCollection = {
 };
 
 export const createCollection = createAsyncThunk<CollectionResponse, CollectionRequest>(
-  routes.COLLECTIONCREATE,
+  routes.COLLECTION_CREATE,
   async (collectionData, thunkAPI) => {
     try {
       const response = await createNewCollection(collectionData);

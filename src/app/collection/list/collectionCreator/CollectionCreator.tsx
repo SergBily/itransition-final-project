@@ -11,7 +11,7 @@ import styles from './styles.module.scss';
 const CollectionCreator = () => (
   <Card className={styles.root}>
     <Link
-      to={routes.COLLECTIONCREATE}
+      to={routes.COLLECTION_CREATE}
       className={styles.link}
     >
       <CardActionArea className={styles.card}>

@@ -25,7 +25,7 @@ const AppRoutes = () => (
     <Route path={routes.LOGIN} element={<Login />} />
     <Route path={routes.SIGNUP} element={<Signup />} />
     <Route path={routes.COLLECTIONS} element={<Collections />} />
-    <Route path={routes.COLLECTIONCREATE} element={<CollectionCreate />} />
+    <Route path={routes.COLLECTION_CREATE} element={<CollectionCreate />} />
   </Routes>
 );
 

@@ -44,7 +44,7 @@ const NewCollection = () => {
   const {
     register, handleSubmit, watch, setValue, formState: { errors },
   } = useForm<CollectionStructure>();
-  const [selectedImage, setSelectedImage] = useState<DropImage>();
+  const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
   const dispatch = useAppDispatch();
   const status = useAppSelector(selectStatus);
@@ -65,6 +65,8 @@ const NewCollection = () => {
   }, [status, errorMessage]);
 
   const onFormSubmit = async (data: any): Promise<void> => {
+    console.log(selectedImage, 555);
+
     const collectionData: CollectionRequest = {
       ...data,
       image: selectedImage,
@@ -72,6 +74,7 @@ const NewCollection = () => {
       userId: localStorage.getItem(localStorageKeys.USERId),
     };
     dispatch(createCollection(collectionData));
+    setSelectedImage(null);
   };
 
   return (

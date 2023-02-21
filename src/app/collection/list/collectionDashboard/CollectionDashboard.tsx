@@ -9,16 +9,24 @@ import classNames from 'classnames';
 import styles from './sytles.module.scss';
 import DeleteDialog from '../../../../common/dialog/deleteDialog';
 
-interface CollectionDashboardProps {
-  onItem: boolean,
+type PayloadDashboard = {
+  isHovering: boolean,
   id: string,
-  title: string
+  title: string,
+  deleteCollection: () => void
+};
+
+interface CollectionDashboardProps {
+  payload: PayloadDashboard
 }
 
-const CollectionDashboard = ({ onItem, id, title }: CollectionDashboardProps) => {
+const CollectionDashboard = ({ payload }: CollectionDashboardProps) => {
+  const {
+    isHovering, id, title, deleteCollection,
+  } = payload;
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    if (onItem) {
+    if (isHovering) {
       gsap.to(
         `#id${id}`,
         { left: 5, duration: 0.5, ease: 'power1.inOut' },
@@ -29,7 +37,7 @@ const CollectionDashboard = ({ onItem, id, title }: CollectionDashboardProps) =>
         { left: -105, duration: 0.5, ease: 'power1.inOut' },
       );
     }
-  }, [onItem]);
+  }, [isHovering]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,7 +64,11 @@ const CollectionDashboard = ({ onItem, id, title }: CollectionDashboardProps) =>
           </IconButton>
         </Tooltip>
       </Box>
-      <DeleteDialog type="collection" name={title} open={open} setOpen={setOpen} />
+      <DeleteDialog
+        payload={{
+          type: 'collection', title, open, setOpen, deleteCollection,
+        }}
+      />
     </Paper>
   );
 };
