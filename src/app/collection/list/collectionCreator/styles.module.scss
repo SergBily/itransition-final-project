@@ -1,0 +1,25 @@
+@import '../../../../shared/styles/globalLayout.scss';
+
+.root {
+  position: relative;
+  width: 272px;
+  min-height: 400;
+  max-height: 400;
+}
+
+.link {
+  text-decoration: none;
+
+    &:active {
+      color: #8181f7;
+    }
+}
+
+.card {
+  @include flex();
+  min-height: 400px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+}

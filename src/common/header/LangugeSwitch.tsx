@@ -11,8 +11,10 @@ const LanguageSwitch: React.FC = (): JSX.Element => {
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string,
   ) => {
-    setCurrentLocale?.(newAlignment);
-    setAlignment(newAlignment);
+    if (newAlignment) {
+      setCurrentLocale?.(newAlignment);
+      setAlignment(newAlignment);
+    }
   };
 
   return (

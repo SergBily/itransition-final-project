@@ -1,0 +1,14 @@
+@import '../../../../shared/styles/globalLayout.scss';
+
+.root {
+  position: absolute;
+  top: 140px;
+  left: -105px;
+  background-color: #3ad2ff8d;
+}
+
+.container {
+  @include flex();
+  width: 100px;
+  justify-content: space-between;
+}

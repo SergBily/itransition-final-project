@@ -1,15 +1,10 @@
-import { AuthResponse } from './authResponse';
+// import { AuthResponse } from './authResponse.model';
+import InitialState from './state/initialState';
 
-interface AuthState {
-  status: 'idle' | 'loading' | 'failed' | 'success';
-  errorMessage: string;
-  user?: AuthResponse
+interface AuthState extends InitialState {
+  userId: string,
+  token: string,
+  name: string,
 }
-
-// enum AuthStatus {
-//   idle = 'idle',
-//   loading = 'loading',
-//   failed = 'failed',
-// }
 
 export default AuthState;

@@ -1,0 +1,26 @@
+@import '../../../shared/styles/globalVariables.scss';
+
+.wrapper {
+  background-color: $markdownField;
+  margin: 0 1rem 0 0;
+}
+
+.boxTabs {
+  border-bottom: 1rem;
+  border-color: #00000044;
+}
+
+.tabs {
+  background-color: $colorMarkdownTab;
+}
+
+.textareaAutosize {
+  width: 100%;
+  background-color: $fieldColor;
+}
+
+.link {
+  &:hover {
+    fill: #0000ff;
+  }
+}
