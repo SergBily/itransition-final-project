@@ -26,11 +26,11 @@ import routes from '../../../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest';
 import { createCollection, reset } from '../../../../redux/features/newCollectionSlice';
-import localStorageKeys from '../../../../shared/constants/localStorageKeys';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import CollectionStructure from '../../../../shared/models/newCollection/collectionStructure.model';
 import requiredValidator from '../../../../shared/validators/requiredValidator';
+import { selectUser } from '../../../../redux/selectors/authSelectors';
 
 const fields: CustomFields = {
   number: [],
@@ -51,6 +51,7 @@ const NewCollection = () => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const collection = useAppSelector(selectCollection);
   const error = useAppSelector(selectErrors);
+  const { userId } = useAppSelector(selectUser);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,13 +66,11 @@ const NewCollection = () => {
   }, [status, errorMessage]);
 
   const onFormSubmit = async (data: any): Promise<void> => {
-    console.log(selectedImage, 555);
-
     const collectionData: CollectionRequest = {
       ...data,
       image: selectedImage,
       customFields: customItemFields,
-      userId: localStorage.getItem(localStorageKeys.USERId),
+      userId,
     };
     dispatch(createCollection(collectionData));
     setSelectedImage(null);

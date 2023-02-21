@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Container, Typography, Grid, FormControl, InputLabel,
   OutlinedInput, InputAdornment, IconButton, TextField, Button,
@@ -17,10 +17,9 @@ import Errors from '../../common/errors/Errors';
 import { login, reset } from '../../redux/features/authSlice';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { selectStatus, selectUser } from '../../redux/selectors/authSelectors';
-import { AuthResponse } from '../../shared/models/authResponse.model';
-import GlobalContext from '../../shared/contexts/GlobalContext';
 import toastConfig from '../../shared/toast/toastConfig';
 import Spinner from '../../common/spinner/Spinner';
+import setUserData from '../../shared/utils/setUserData';
 
 const Login: React.FC = (): JSX.Element => {
   const {
@@ -30,8 +29,7 @@ const Login: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(selectStatus);
   const navigate = useNavigate();
-  const user = useAppSelector(selectUser) as AuthResponse;
-  const { setUserData } = useContext(GlobalContext);
+  const { name, token, userId } = useAppSelector(selectUser);
 
   useEffect(() => {
     if (status === 'failed') {
@@ -39,15 +37,15 @@ const Login: React.FC = (): JSX.Element => {
       dispatch(reset());
     }
     if (status === 'success') {
-      setUserData?.(user);
+      setUserData({ name, token, userId });
       toast.success(<FormattedMessage
         id="app.login.success"
-        values={{ name: user.user.name }}
+        values={{ name }}
       />, toastConfig);
       navigate(routes.HOME);
       dispatch(reset());
     }
-  }, [status, user]);
+  }, [status]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 

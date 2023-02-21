@@ -11,11 +11,11 @@ import styles from './styles.module.scss';
 import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
 import { deleteCollectionApi } from '../../../../shared/apis/collectionApi';
 import getNameImage from '../../../../shared/utils/getNameImage';
-import { useAppDispatch } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import { getAllCollection, reset } from '../../../../redux/features/allCollectionSlice';
-import localStorageKeys from '../../../../shared/constants/localStorageKeys';
 import { deleteImage } from '../../../../shared/apis/firebaseApi';
 import toastConfig from '../../../../shared/toast/toastConfig';
+import { selectUser } from '../../../../redux/selectors/authSelectors';
 
 interface CollectionProps {
   payload: AllCollectionsResponse,
@@ -27,6 +27,7 @@ const Collection = ({ payload }: CollectionProps) => {
   } = payload;
   const [isHovering, setIsHovering] = useState(false);
   const dispatch = useAppDispatch();
+  const { userId } = useAppSelector(selectUser);
   const handleMouseEnter = () => {
     setIsHovering(true);
   };
@@ -39,13 +40,13 @@ const Collection = ({ payload }: CollectionProps) => {
       if (imageUrl) {
         const imageName = getNameImage(imageUrl);
         await Promise.all([
-          deleteImage(imageName),
+          deleteImage(imageName, userId),
           deleteCollectionApi(id),
         ]);
       } else {
         await deleteCollectionApi(id);
       }
-      dispatch(getAllCollection(localStorage.getItem(localStorageKeys.USERId) as string));
+      dispatch(getAllCollection(userId));
       dispatch(reset());
     } catch (e) {
       toast.error(<FormattedMessage id="app.collection.delete" />, toastConfig);

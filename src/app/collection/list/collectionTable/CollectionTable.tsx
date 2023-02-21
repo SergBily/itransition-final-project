@@ -7,17 +7,18 @@ import CollectionCreator from '../collectionCreator/CollectionCreator';
 import styles from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import { reset } from '../../../../redux/features/newCollectionSlice';
-import localStorageKeys from '../../../../shared/constants/localStorageKeys';
 import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
 import { getAllCollection } from '../../../../redux/features/allCollectionSlice';
 import { selectAllCollections } from '../../../../redux/selectors/allCollectionSelectors';
+import { selectUser } from '../../../../redux/selectors/authSelectors';
 
 const CollectionTable = () => {
   const [collections, setCollections] = useState<AllCollectionsResponse[]>();
   const allCollections = useAppSelector(selectAllCollections);
   const dispatch = useAppDispatch();
+  const { userId } = useAppSelector(selectUser);
   useEffect(() => {
-    dispatch(getAllCollection(localStorage.getItem(localStorageKeys.USERId) as string));
+    dispatch(getAllCollection(userId));
     dispatch(reset());
     gsap.to(
       '.animationCollections',

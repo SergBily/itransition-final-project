@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container, Typography, Grid, FormControl, InputLabel,
   OutlinedInput, InputAdornment, IconButton, TextField, Button,
@@ -17,10 +17,9 @@ import { AuthForm } from '../../shared/models/authForm.model';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { registration, reset } from '../../redux/features/authSlice';
 import { selectErrorMessage, selectStatus, selectUser } from '../../redux/selectors/authSelectors';
-import GlobalContext from '../../shared/contexts/GlobalContext';
-import { AuthResponse } from '../../shared/models/authResponse.model';
 import toastConfig from '../../shared/toast/toastConfig';
 import Spinner from '../../common/spinner/Spinner';
+import setUserData from '../../shared/utils/setUserData';
 
 const Signup: React.FC = (): JSX.Element => {
   const {
@@ -31,8 +30,7 @@ const Signup: React.FC = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const status = useAppSelector(selectStatus);
   const navigate = useNavigate();
-  const user = useAppSelector(selectUser) as AuthResponse;
-  const { setUserData } = useContext(GlobalContext);
+  const { name, token, userId } = useAppSelector(selectUser);
 
   useEffect(() => {
     if (status === 'failed') {
@@ -40,15 +38,15 @@ const Signup: React.FC = (): JSX.Element => {
       dispatch(reset());
     }
     if (status === 'success') {
-      setUserData?.(user);
+      setUserData({ name, token, userId });
       toast.success(<FormattedMessage
         id="app.signup.success"
-        values={{ name: user.user.name }}
+        values={{ name }}
       />, toastConfig);
       navigate(routes.HOME);
       dispatch(reset());
     }
-  }, [errorMessage, status, user]);
+  }, [errorMessage, status]);
 
   const handleClickShowPassword = (): void => setShowPassword((show) => !show);
 

@@ -1,8 +1,10 @@
-import { AuthResponse } from './authResponse.model';
+// import { AuthResponse } from './authResponse.model';
 import InitialState from './state/initialState';
 
 interface AuthState extends InitialState {
-  user?: AuthResponse
+  userId: string,
+  token: string,
+  name: string,
 }
 
 export default AuthState;

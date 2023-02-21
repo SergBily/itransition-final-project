@@ -8,7 +8,8 @@ import { uploadImage } from './firebaseApi';
 
 export const createNewCollection = async (payload: CollectionRequest):
 Promise<AxiosResponse<CollectionResponse>> => {
-  const imageUrl: string = payload.image ? await uploadImage(payload.image) : '';
+  const imageUrl: string = payload.image
+    ? await uploadImage(payload.image, payload.userId) : '';
   return $api.post(urls.NEW_COLLECTION, { ...payload, image: imageUrl });
 };
 

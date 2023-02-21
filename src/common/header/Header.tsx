@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Toolbar, Typography, useMediaQuery, IconButton,
   MenuItem, Menu, Box, AppBar,
@@ -11,31 +11,21 @@ import logo from '../../assets/logo/logo.png';
 import SearchField from './SearchField';
 import LanguageSwitch from './LangugeSwitch';
 import ThemeSwitch from './ThemeSwitch';
-import GlobalContext from '../../shared/contexts/GlobalContext';
 import generateKey from '../../shared/utils/UniqueKey';
 import routes from '../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { logout, resetStateUser } from '../../redux/features/authSlice';
-import { selectStatus } from '../../redux/selectors/authSelectors';
-import localStorageKeys from '../../shared/constants/localStorageKeys';
+import { selectUser } from '../../redux/selectors/authSelectors';
+import removeUserData from '../../shared/utils/removeUserData';
 
 const Header: React.FC = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-  const { isToken, removeUserData } = useContext(GlobalContext);
+  const { token, name } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const status = useAppSelector(selectStatus);
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  useEffect(() => {
-    if (status === 'success') {
-      removeUserData?.();
-      dispatch(resetStateUser());
-      navigate(routes.HOME);
-    }
-  }, [status]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -62,6 +52,9 @@ const Header: React.FC = (): JSX.Element => {
   const handleLogout = () => {
     handleMenuClose();
     dispatch(logout());
+    removeUserData();
+    dispatch(resetStateUser());
+    navigate(routes.HOME);
   };
 
   const MediaQuery = {
@@ -85,7 +78,7 @@ const Header: React.FC = (): JSX.Element => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {isToken ? (
+      {token ? (
         [
           <MenuItem onClick={handleCollection} key={generateKey()}>
             <FormattedMessage id="app.header.collect" />
@@ -153,9 +146,9 @@ const Header: React.FC = (): JSX.Element => {
         >
           <AccountCircle />
         </IconButton>
-        {isToken && (
+        {!!token && (
         <Typography variant="body1">
-          {localStorage.getItem(localStorageKeys.NAME)}
+          {name}
         </Typography>
         )}
       </MenuItem>
@@ -198,9 +191,9 @@ const Header: React.FC = (): JSX.Element => {
               sx={{ gap: '10px' }}
             >
               <AccountCircle />
-              {isToken && (
+              {!!token && (
               <Typography variant="body1">
-                {localStorage.getItem(localStorageKeys.NAME)}
+                {name}
               </Typography>
               )}
             </IconButton>

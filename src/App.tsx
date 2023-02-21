@@ -7,50 +7,32 @@ import localStorageKeys from './shared/constants/localStorageKeys';
 import AppRoutes from './common/routes/AppRoutes';
 import Content from './common/content/Content';
 import Header from './common/header/Header';
-import { AuthResponse } from './shared/models/authResponse.model';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './App.module.scss';
+import { useAppDispatch } from './shared/hooks/hooks';
+import { initUserState } from './redux/features/authSlice';
 
 const App: React.FC = (): JSX.Element => {
   const [currentLocale, setCurrentLocale] = useState<string>(
     localStorage.getItem(localStorageKeys.LOCALE) ?? LOCALES.ENGLISH,
   );
-  const [isToken, setIsToken] = useState<boolean>(
-    !!localStorage.getItem(localStorageKeys.TOKEN),
-  );
-  const [userId, setuserId] = useState<string>(
-    localStorage.getItem(localStorageKeys.USERId) ?? '',
-  );
+  const initUser = {
+    userId: localStorage.getItem(localStorageKeys.USERId) ?? '',
+    token: localStorage.getItem(localStorageKeys.TOKEN) ?? '',
+    name: localStorage.getItem(localStorageKeys.NAME) ?? '',
+  };
+  const dispatch = useAppDispatch();
+  dispatch(initUserState(initUser));
 
   const setLocale = (value: string): void => {
     setCurrentLocale(value);
     localStorage.setItem(localStorageKeys.LOCALE, value);
   };
 
-  const setUserData = (payload: AuthResponse): void => {
-    setIsToken(true);
-    setuserId(payload.user.id);
-    localStorage.setItem(localStorageKeys.USERId, payload.user.id);
-    localStorage.setItem(localStorageKeys.TOKEN, payload.accessToken);
-    localStorage.setItem(localStorageKeys.NAME, payload.user.name);
-  };
-
-  const removeUserData = (): void => {
-    setIsToken(false);
-    setuserId('');
-    localStorage.removeItem(localStorageKeys.USERId);
-    localStorage.removeItem(localStorageKeys.TOKEN);
-    localStorage.removeItem(localStorageKeys.NAME);
-  };
-
   const valueContext = useMemo(() => ({
     currentLocale,
-    isToken,
-    userId,
-    setUserData,
-    removeUserData,
     setCurrentLocale: setLocale,
-  }), [currentLocale, userId, isToken]);
+  }), [currentLocale]);
 
   return (
     <GlobalContext.Provider value={valueContext}>
