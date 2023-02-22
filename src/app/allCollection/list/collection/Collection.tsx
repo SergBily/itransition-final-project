@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import CollectionDashboard from '../collectionDashboard/CollectionDashboard';
 import styles from './styles.module.scss';
 import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
@@ -16,6 +17,7 @@ import { getAllCollection, reset } from '../../../../redux/features/allCollectio
 import { deleteImage } from '../../../../shared/apis/firebaseApi';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
+import routes from '../../../../shared/constants/routes';
 
 interface CollectionProps {
   payload: AllCollectionsResponse,
@@ -54,53 +56,58 @@ const Collection = ({ payload }: CollectionProps) => {
   };
 
   return (
-    <Card
-      id={id}
-      className={styles.root}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    <Link
+      className={styles.link}
+      to={`${routes.COLLECTION}${id}`}
     >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="160"
-          image={imageUrl}
-          alt={title}
+      <Card
+        id={id}
+        className={styles.root}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="160"
+            image={imageUrl}
+            alt={title}
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="p"
+              className={styles.topic}
+            >
+              {topic.toUpperCase()}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="p"
+              className={styles.title}
+            >
+              {title}
+            </Typography>
+            <Typography
+              className={styles.description}
+              component="div"
+              variant="body2"
+              color="text.secondary"
+            >
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {description}
+              </ReactMarkdown>
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CollectionDashboard payload={{
+          isHovering, id, title, deleteCollection,
+        }}
         />
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="p"
-            className={styles.topic}
-          >
-            {topic.toUpperCase()}
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="h6"
-            component="p"
-            className={styles.title}
-          >
-            {title}
-          </Typography>
-          <Typography
-            className={styles.description}
-            component="div"
-            variant="body2"
-            color="text.secondary"
-          >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {description}
-            </ReactMarkdown>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CollectionDashboard payload={{
-        isHovering, id, title, deleteCollection,
-      }}
-      />
-    </Card>
+      </Card>
+    </Link>
   );
 };
 

@@ -7,15 +7,25 @@ import Home from '../../app/home/Home';
 const Login = loadable(() => import('../../app/auth/Login'), {
   resolveComponent: (components) => components.default,
 });
-const Collections = loadable(() => import('../../app/collection/list/collectionTable/CollectionTable'), {
-  resolveComponent: (components) => components.default,
-});
+const CollectionTable = loadable(
+  () => import('../../app/allCollection/list/collectionTable/CollectionTable'),
+  {
+    resolveComponent: (components) => components.default,
+  },
+);
 
 const Signup = loadable(() => import('../../app/auth/Signup'), {
   resolveComponent: (components) => components.default,
 });
 
-const CollectionCreate = loadable(() => import('../../app/collection/creation/newCollection/NewCollection'), {
+const CollectionCreate = loadable(
+  () => import('../../app/allCollection/creation/newCollection/NewCollection'),
+  {
+    resolveComponent: (components) => components.default,
+  },
+);
+
+const Collection = loadable(() => import('../../app/collection/collectionPage/ItemsTable'), {
   resolveComponent: (components) => components.default,
 });
 
@@ -24,8 +34,9 @@ const AppRoutes = () => (
     <Route path={routes.HOME} element={<Home />} />
     <Route path={routes.LOGIN} element={<Login />} />
     <Route path={routes.SIGNUP} element={<Signup />} />
-    <Route path={routes.COLLECTIONS} element={<Collections />} />
+    <Route path={routes.COLLECTIONS} element={<CollectionTable />} />
     <Route path={routes.COLLECTION_CREATE} element={<CollectionCreate />} />
+    <Route path={routes.COLLECTION_ID} element={<Collection />} />
   </Routes>
 );
 

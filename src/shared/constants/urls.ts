@@ -12,4 +12,5 @@ export const urls = {
   COLLECTIONS: `${BASE_URL}/collection/all`,
   NEW_COLLECTION: `${BASE_URL}/collection/create`,
   DELETE_COLLECTION: `${BASE_URL}/collection/delete`,
+  COLLECTION: `${BASE_URL}/collection`,
 };
