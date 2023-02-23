@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Box, Button, Grid, Paper, TextField, Typography,
+  Box, Grid, Paper, Typography,
 } from '@mui/material';
 import Filter1Icon from '@mui/icons-material/Filter1';
 import Filter2Icon from '@mui/icons-material/Filter2';
@@ -9,7 +9,7 @@ import Filter4Icon from '@mui/icons-material/Filter4';
 import Filter5Icon from '@mui/icons-material/Filter5';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
   selectCollection, selectErrorMessage, selectErrors, selectStatus,
@@ -28,9 +28,9 @@ import CollectionRequest from '../../../../shared/models/newCollection/collectio
 import { createCollection, reset } from '../../../../redux/features/newCollectionSlice';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';
-import CollectionStructure from '../../../../shared/models/newCollection/collectionStructure.model';
-import requiredValidator from '../../../../shared/validators/requiredValidator';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
+import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
+import TitleField from '../../../collection/creation/titleField/TitleField';
 
 const fields: CustomFields = {
   number: [],
@@ -43,7 +43,7 @@ const fields: CustomFields = {
 const NewCollection = () => {
   const {
     register, handleSubmit, watch, setValue, formState: { errors },
-  } = useForm<CollectionStructure>();
+  } = useForm<Record<string, string>>();
   const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
   const dispatch = useAppDispatch();
@@ -63,7 +63,7 @@ const NewCollection = () => {
       navigate(routes.COLLECTIONS);
       dispatch(reset());
     }
-  }, [status, errorMessage]);
+  }, [status]);
 
   const onFormSubmit = async (data: any): Promise<void> => {
     const collectionData: CollectionRequest = {
@@ -96,35 +96,16 @@ const NewCollection = () => {
             <TopicField register={register} errors={errors} />
           </CollectionFormField>
           <CollectionFormField label="title" Icon={Filter2Icon}>
-            <TextField
-              className={styles.textField}
-              error={(error && error[0] === 'title') || !!errors.title?.message}
-              fullWidth
-              id="title"
-              type="text"
-              size="small"
-              {...register(
-                'title',
-                requiredValidator('app.collection.response.error.title2'),
-              )}
+            <TitleField payload={{
+              value: '', errors, error, errorMessage, register,
+            }}
             />
-            <Box component="p" className={styles.error}>
-              {!!errors.title?.message
-                && (
-                  <FormattedMessage id={errors.title?.message} />
-                )}
-              { error[0] === 'title'
-                && (
-                <FormattedMessage id={errorMessage} />
-                )}
-            </Box>
           </CollectionFormField>
           <CollectionFormField label="description" Icon={Filter3Icon}>
             <MarkdownForm
-              label="description"
-              register={register}
-              watch={watch}
-              setValueTextArea={setValue}
+              payload={{
+                label: 'description', value: '', register, watch, setValue,
+              }}
             />
           </CollectionFormField>
           <CollectionFormField label="image" Icon={Filter4Icon}>
@@ -140,26 +121,7 @@ const NewCollection = () => {
             component="div"
             className={styles.buttonsBlock}
           >
-            <Grid item xs={8} sm={2}>
-              <Button
-                fullWidth
-                color="info"
-                type="submit"
-                variant="contained"
-              >
-                <FormattedMessage id="app.collection.button.create" />
-              </Button>
-            </Grid>
-            <Grid item xs={1}>
-              <Link
-                to={routes.COLLECTIONS}
-                className={styles.link}
-              >
-                <Typography variant="button">
-                  <FormattedMessage id="app.collection.button.cancel" />
-                </Typography>
-              </Link>
-            </Grid>
+            <FormButtonGroup type="collection" />
           </Box>
         </form>
       </Grid>

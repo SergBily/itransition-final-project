@@ -13,7 +13,7 @@ import requiredValidator from '../../../../shared/validators/requiredValidator';
 const topics = ['books', 'cars', 'wine', 'stamps', 'paintings'];
 
 interface TopicFieldProps {
-  register: UseFormRegister<CollectionStructure>,
+  register: UseFormRegister<Record<string, string>>,
   errors: FieldErrors<CollectionStructure>
 }
 
