@@ -56,15 +56,16 @@ const Collection = ({ payload }: CollectionProps) => {
   };
 
   return (
-    <Link
-      className={styles.link}
-      to={`${routes.COLLECTION}${id}`}
+
+    <Card
+      id={id}
+      className={styles.root}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <Card
-        id={id}
-        className={styles.root}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+      <Link
+        className={styles.link}
+        to={`${routes.COLLECTION}${id}`}
       >
         <CardActionArea>
           <CardMedia
@@ -102,12 +103,13 @@ const Collection = ({ payload }: CollectionProps) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CollectionDashboard payload={{
-          isHovering, id, title, deleteCollection,
-        }}
-        />
-      </Card>
-    </Link>
+      </Link>
+      <CollectionDashboard payload={{
+        isHovering, id, title, deleteCollection,
+      }}
+      />
+    </Card>
+
   );
 };
 
