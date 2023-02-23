@@ -4,7 +4,7 @@ import DropImage from './imageFile.model';
 interface CollectionRequest {
   userId: string,
   customFields: CustomFields,
-  image: DropImage,
+  image: DropImage | null,
   topic: string,
   title: string,
   description: string

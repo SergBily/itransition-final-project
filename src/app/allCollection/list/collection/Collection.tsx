@@ -18,6 +18,7 @@ import { deleteImage } from '../../../../shared/apis/firebaseApi';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import routes from '../../../../shared/constants/routes';
+import { defaultImagesName } from '../../../../shared/constants/collectionDefaultImage';
 
 interface CollectionProps {
   payload: AllCollectionsResponse,
@@ -39,8 +40,8 @@ const Collection = ({ payload }: CollectionProps) => {
 
   const deleteCollection = async () => {
     try {
-      if (imageUrl) {
-        const imageName = getNameImage(imageUrl);
+      const imageName = getNameImage(imageUrl);
+      if (!defaultImagesName.includes(imageName)) {
         await Promise.all([
           deleteImage(imageName, userId),
           deleteCollectionApi(id),

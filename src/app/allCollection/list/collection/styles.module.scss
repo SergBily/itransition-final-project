@@ -1,3 +1,5 @@
+@import '../../../../shared//styles//globalVariables.scss';
+
 .root {
   position: relative;
   width: 272px;
@@ -13,6 +15,7 @@
 
 .topic {
   text-align: center;
+  color: $colorTitleCollection;
 }
 
 .title {
@@ -22,4 +25,5 @@
 
 .link {
   text-decoration: none;
+  color: black;
 }

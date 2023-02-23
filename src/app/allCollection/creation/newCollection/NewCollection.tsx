@@ -32,6 +32,12 @@ import { selectUser } from '../../../../redux/selectors/authSelectors';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
 import TitleField from '../../../collection/creation/titleField/TitleField';
 
+type DataForm = {
+  topic: string,
+  title: string,
+  description: string
+};
+
 const fields: CustomFields = {
   number: [],
   string: [],
@@ -65,9 +71,9 @@ const NewCollection = () => {
     }
   }, [status]);
 
-  const onFormSubmit = async (data: any): Promise<void> => {
+  const onFormSubmit = (data: Record<string, string>): void => {
     const collectionData: CollectionRequest = {
-      ...data,
+      ...data as DataForm,
       image: selectedImage,
       customFields: customItemFields,
       userId,

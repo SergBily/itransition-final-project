@@ -5,12 +5,14 @@ import AllCollectionsResponse from '../models/allCollections/allCollectionsRespo
 import ItemsCollectionResponse from '../models/items/itemssCollectionResponse';
 import CollectionRequest from '../models/newCollection/collectionRequest';
 import CollectionResponse from '../models/newCollection/collectionResponse';
+import getDefaultImagesUrls from '../utils/getDefaultImagesUrls';
 import { uploadImage } from './firebaseApi';
 
 export const createNewCollection = async (payload: CollectionRequest):
 Promise<AxiosResponse<CollectionResponse>> => {
   const imageUrl: string = payload.image
-    ? await uploadImage(payload.image, payload.userId) : '';
+    ? await uploadImage(payload.image, payload.userId)
+    : getDefaultImagesUrls(payload.topic);
   return $api.post(urls.NEW_COLLECTION, { ...payload, image: imageUrl });
 };
 
