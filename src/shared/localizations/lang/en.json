@@ -66,5 +66,14 @@
   "app.collection.dialog": "Are you sure you want to delete the {type} {title}?",
   "app.collection.dialog.button1": "Cancel",
   "app.collection.dialog.button2": "Delite",
-  "app.collection.delete": "Error has occurred. Please try again later."
+  "app.collection.delete": "Error has occurred. Please try again later.",
+  "app.item.creator.header": "New Item",
+  "app.item.creator.title": "Title",
+  "app.item.creator.tags": "Tags",
+  "app.item.creator.description": "description",
+  "app.item.response.error.title": "You already have a item",
+  "app.item.response.success": "The item {title} has created",
+  "app.item.button.create": "Create item",
+  "app.item.new.field.title": "Title",
+  "app.item.new.field.tags": "Tags"
 }
