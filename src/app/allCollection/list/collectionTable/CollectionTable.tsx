@@ -9,14 +9,16 @@ import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import { reset } from '../../../../redux/features/newCollectionSlice';
 import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
 import { getAllCollection } from '../../../../redux/features/allCollectionSlice';
-import { selectAllCollections } from '../../../../redux/selectors/allCollectionSelectors';
+import { selectAllCollections, selectStatus } from '../../../../redux/selectors/allCollectionSelectors';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
+import Spinner from '../../../../common/spinner/Spinner';
 
 const CollectionTable = () => {
   const [collections, setCollections] = useState<AllCollectionsResponse[]>();
   const allCollections = useAppSelector(selectAllCollections);
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectUser);
+  const status = useAppSelector(selectStatus);
   useEffect(() => {
     dispatch(getAllCollection(userId));
     dispatch(reset());
@@ -31,16 +33,19 @@ const CollectionTable = () => {
   }, [allCollections]);
 
   return (
-    <Grid container className={classNames(styles.root, 'animationCollections')}>
-      <Grid item>
-        <CollectionCreator />
-      </Grid>
-      {collections && collections.map((collection) => (
-        <Grid item key={collection.id}>
-          <Collection payload={collection} />
+    <>
+      <Grid container className={classNames(styles.root, 'animationCollections')}>
+        <Grid item>
+          <CollectionCreator />
         </Grid>
-      ))}
-    </Grid>
+        {collections && collections.map((collection) => (
+          <Grid item key={collection.id}>
+            <Collection payload={collection} />
+          </Grid>
+        ))}
+      </Grid>
+      {status === 'loading' && <Spinner />}
+    </>
   );
 };
 

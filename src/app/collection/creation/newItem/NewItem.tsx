@@ -28,8 +28,9 @@ import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup'
 
 const test = {
   string: [{ COULEUR: 'Blanccc' }],
-  number: [{ DEGRÉ: 12 }],
-  textarea: [{ CULTURE: '_HVE_ (Haute Valeur Environnementale)' }],
+  number: [{ DEGRÉ: 12 }, { Work: 15 }],
+  textarea: [{ CULTURE: '_HVE_ (Haute Valeur Environnementale)' },
+    { this: 'tutu' }],
   date: [{ MILLÉSIME: '2020-11-12' }],
   checkbox: [{ checkbox: true }],
 };
@@ -66,6 +67,8 @@ const NewItem = () => {
       userId,
       collectionId: '63f4f7e3645a7fe1a427fe89',
     };
+    console.log(itemData);
+
     dispatch(createItem(itemData));
   };
 

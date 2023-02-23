@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import AuthReducer from './features/authSlice';
-import collectionReducer from './features/allCollectionSlice';
+import collectionsReducer from './features/allCollectionSlice';
 import newCollectionReducer from './features/newCollectionSlice';
 import itemsReducer from './features/ItemsCollectionSlice';
 import newItemReducer from './features/itemSlice';
@@ -8,7 +8,7 @@ import newItemReducer from './features/itemSlice';
 export const store = configureStore({
   reducer: {
     auth: AuthReducer,
-    collection: collectionReducer,
+    collections: collectionsReducer,
     newCollection: newCollectionReducer,
     itemsCollection: itemsReducer,
     newItem: newItemReducer,
