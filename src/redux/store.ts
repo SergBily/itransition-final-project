@@ -3,6 +3,7 @@ import AuthReducer from './features/authSlice';
 import collectionReducer from './features/allCollectionSlice';
 import newCollectionReducer from './features/newCollectionSlice';
 import itemsReducer from './features/ItemsCollectionSlice';
+import newItemReducer from './features/itemSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     collection: collectionReducer,
     newCollection: newCollectionReducer,
     itemsCollection: itemsReducer,
+    newItem: newItemReducer,
   },
 });
 

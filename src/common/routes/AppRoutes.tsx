@@ -25,7 +25,7 @@ const CollectionCreate = loadable(
   },
 );
 
-const Collection = loadable(() => import('../../app/collection/collectionPage/ItemsTable'), {
+const Collection = loadable(() => import('../../app/collection/creation/newItem/NewItem'), {
   resolveComponent: (components) => components.default,
 });
 
