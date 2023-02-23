@@ -15,7 +15,6 @@ import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
 import MarkdownToolbarMobile from './MarkdownToolbarMobile';
 import screenSize from '../../../shared/constants/screenSize';
-import CollectionStructure from '../../../shared/models/newCollection/collectionStructure.model';
 
 const icons = [
   { name: <Typography variant="h6" className={styles.icon}>H</Typography>, type: 'heading' },
@@ -29,16 +28,18 @@ const icons = [
 ];
 
 interface MarkdownToolbarProps {
-  setValueTextArea: UseFormSetValue<CollectionStructure>,
-  setChoosedList: (a: string) => void
+  setValueTextArea: UseFormSetValue<Record<string, string>>,
+  setChoosedList: (a: string) => void,
+  label: string
 }
 
-const MarkdownToolbar = ({ setValueTextArea, setChoosedList }: MarkdownToolbarProps) => {
+const MarkdownToolbar = ({ setValueTextArea, setChoosedList, label }: MarkdownToolbarProps) => {
   const [widthSize, setWidthSize] = useState<number>(screenSize.INITIAL);
   const onInsetSymbol = (e: React.MouseEvent) => {
     const action = (e.currentTarget as HTMLButtonElement).dataset.type as string;
     setChoosedList(action);
-    setValueTextArea('description', insertMarkup('description__textarea', action));
+    setValueTextArea(label === 'description'
+      ? label : `customFields.textarea.0.${label}`, insertMarkup(label, action));
   };
   const reportWindowSize = () => {
     setWidthSize(window.innerWidth);
