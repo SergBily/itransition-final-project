@@ -14,13 +14,9 @@ enum Symbols {
 }
 
 function addWordSymbol(p: Payload): string {
-  // const s = window.getSelection() as Selection;
-  // s.modify('move', 'forward', 'word');
   const start: number = p.textArea.selectionStart;
   const end: number = p.textArea.selectionEnd;
   const r = p.textArea.value.slice(start, end);
-  // console.log(p.textArea.value.replace(r, `${p.symbol}${r}${p.symbol}`));
-
   return p.textArea.value.replace(r, `${p.symbol}${r}${p.symbol}`);
 }
 
@@ -28,14 +24,7 @@ function addLineSymbol(p: Payload): string {
   const start: number = p.textArea.selectionStart;
   const end: number = p.textArea.selectionEnd;
   const r = p.textArea.value.slice(start, end);
-  console.log(start, 55);
-  console.log('hrhrhrh');
-
   return p.textArea.value.replace(r, p.symbol);
-
-  // return p.textArea.value.substring(0, start)
-  // + p.symbol;
-  // + p.textArea.value.substring(start);
 }
 
 function addUrlSymbol(e: HTMLTextAreaElement): string {
@@ -54,8 +43,9 @@ const moveToLineStart = () => {
 };
 
 function insertMarkup(element: string, action: string): string {
-  const textArea = document.querySelector(`.${element}`) as HTMLTextAreaElement;
+  const textArea = document.querySelector(`.label${element}`) as HTMLTextAreaElement;
   let finText: string = '';
+
   switch (action) {
     case 'heading':
       moveToLineStart();
@@ -86,7 +76,7 @@ function insertMarkup(element: string, action: string): string {
       finText = addLineSymbol({ textArea, symbol: Symbols.taskSymbol });
       break;
   }
-  // textArea.focus();
+  textArea.focus();
   // textArea.setSelectionRange(start, end);
   // textArea.value = finText;
   return finText;

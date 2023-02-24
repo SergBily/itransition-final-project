@@ -6,7 +6,8 @@ import {
   Paper, TextareaAutosize, Tooltip,
 } from '@mui/material';
 import {
-  UseFormRegister, UseFormSetValue, UseFormWatch,
+  UseFormGetValues,
+  UseFormRegister, UseFormSetValue,
 } from 'react-hook-form';
 import ReactMarkdown from 'react-markdown';
 import { FormattedMessage } from 'react-intl';
@@ -18,6 +19,7 @@ import links from '../../../shared/constants/links';
 import markdown from '../../../assets/images/markdown.svg';
 import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
+import checkTitleIsNan from '../../../shared/utils/checkTitleIsNan';
 
 function a11yProps(index: number) {
   return {
@@ -27,10 +29,10 @@ function a11yProps(index: number) {
 }
 
 type MarkdownFormPayload = {
-  value: string,
+  value?: string,
   label: string,
   register: UseFormRegister<Record<string, string>>,
-  watch: UseFormWatch<Record<string, string>>,
+  getValues: UseFormGetValues<Record<string, string>>,
   setValue: UseFormSetValue<Record<string, string>>
 };
 
@@ -40,7 +42,7 @@ interface MarkdownFormProps {
 
 const MarkdownForm = ({ payload }: MarkdownFormProps) => {
   const {
-    value, label, register, watch, setValue,
+    value = '', label, register, setValue, getValues,
   } = payload;
   const [valueTabs, setValueTabs] = useState<number>(0);
   const [choosedList, setChoosedList] = useState<string>('');
@@ -78,15 +80,16 @@ const MarkdownForm = ({ payload }: MarkdownFormProps) => {
       </Box>
       <TabPanel value={valueTabs} index={0}>
         <TextareaAutosize
-          className={classNames(styles.textareaAutosize, `${label}`)}
+          className={classNames(styles.textareaAutosize, `label${label}`)}
           maxRows={4}
           minRows={4}
+          autoFocus={valueTabs === 0}
           aria-label="maximum height"
           placeholder="Maximum 4 rows"
           defaultValue={value}
           onKeyDown={handlerKeyDown}
           {...register(label === 'description'
-            ? label : `customFields.textarea.${label}`)}
+            ? label : `customFields.textarea.${checkTitleIsNan(label)}`)}
         />
         <Tooltip title={<FormattedMessage id="app.collection.markdown.support" />}>
           <Box
@@ -108,8 +111,8 @@ const MarkdownForm = ({ payload }: MarkdownFormProps) => {
       </TabPanel>
       <TabPanel value={valueTabs} index={1}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {watch(label === 'description'
-            ? label : `customFields.textarea.${label}`)}
+          {getValues(label === 'description'
+            ? label : `customFields.textarea.${checkTitleIsNan(label)}`)}
         </ReactMarkdown>
       </TabPanel>
     </Paper>

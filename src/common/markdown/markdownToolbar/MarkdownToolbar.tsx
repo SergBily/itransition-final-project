@@ -15,6 +15,7 @@ import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
 import MarkdownToolbarMobile from './MarkdownToolbarMobile';
 import screenSize from '../../../shared/constants/screenSize';
+import checkTitleIsNan from '../../../shared/utils/checkTitleIsNan';
 
 const icons = [
   { name: <Typography variant="h6" className={styles.icon}>H</Typography>, type: 'heading' },
@@ -39,13 +40,15 @@ const MarkdownToolbar = ({ setValueTextArea, setChoosedList, label }: MarkdownTo
     const action = (e.currentTarget as HTMLButtonElement).dataset.type as string;
     setChoosedList(action);
     setValueTextArea(label === 'description'
-      ? label : `customFields.textarea.${label}`, insertMarkup(label, action));
+      ? label : `customFields.textarea.${checkTitleIsNan(label)}`, insertMarkup(label, action));
   };
   const reportWindowSize = () => {
     setWidthSize(window.innerWidth);
   };
   useEffect(() => {
     window.addEventListener('resize', reportWindowSize);
+    console.log('00');
+
     return () => window.removeEventListener('resize', reportWindowSize);
   }, []);
 
