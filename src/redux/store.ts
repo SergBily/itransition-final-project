@@ -3,14 +3,14 @@ import AuthReducer from './features/authSlice';
 import collectionsReducer from './features/allCollectionSlice';
 import newCollectionReducer from './features/newCollectionSlice';
 import itemsReducer from './features/ItemsCollectionSlice';
-import newItemReducer from './features/itemSlice';
+import newItemReducer from './features/newItemSlice';
 
 export const store = configureStore({
   reducer: {
     auth: AuthReducer,
     collections: collectionsReducer,
     newCollection: newCollectionReducer,
-    itemsCollection: itemsReducer,
+    items: itemsReducer,
     newItem: newItemReducer,
   },
 });

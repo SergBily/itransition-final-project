@@ -33,7 +33,7 @@ export const newCollectionSlice = createSlice({
   name: 'newCollection',
   initialState,
   reducers: {
-    reset: (state) => {
+    newCollectionReset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
       state.errors = [];
@@ -56,5 +56,5 @@ export const newCollectionSlice = createSlice({
   },
 });
 
-export const { reset } = newCollectionSlice.actions;
+export const { newCollectionReset } = newCollectionSlice.actions;
 export default newCollectionSlice.reducer;

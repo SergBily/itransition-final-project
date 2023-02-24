@@ -13,7 +13,7 @@ import AllCollectionsResponse from '../../../../shared/models/allCollections/all
 import { deleteCollectionApi } from '../../../../shared/apis/collectionApi';
 import getNameImage from '../../../../shared/utils/getNameImage';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
-import { getAllCollection, reset } from '../../../../redux/features/allCollectionSlice';
+import { getAllCollection, allCollectionReset } from '../../../../redux/features/allCollectionSlice';
 import { deleteImage } from '../../../../shared/apis/firebaseApi';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
@@ -50,7 +50,7 @@ const Collection = ({ payload }: CollectionProps) => {
         await deleteCollectionApi(id);
       }
       dispatch(getAllCollection(userId));
-      dispatch(reset());
+      dispatch(allCollectionReset());
     } catch (e) {
       toast.error(<FormattedMessage id="app.collection.delete" />, toastConfig);
     }

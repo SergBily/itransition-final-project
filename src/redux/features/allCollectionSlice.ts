@@ -29,10 +29,10 @@ export const getAllCollection = createAsyncThunk<AllCollectionsResponse[], strin
 );
 
 export const allCollectionsSlice = createSlice({
-  name: 'collection',
+  name: 'collections',
   initialState,
   reducers: {
-    reset: (state) => {
+    allCollectionReset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
       state.errors = [];
@@ -45,7 +45,7 @@ export const allCollectionsSlice = createSlice({
       })
       .addCase(getAllCollection.fulfilled, (state, { payload }) => {
         state.status = 'success';
-        state.allCollection = payload;
+        state.allCollections = payload;
       })
       .addCase(getAllCollection.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -55,5 +55,5 @@ export const allCollectionsSlice = createSlice({
   },
 });
 
-export const { reset } = allCollectionsSlice.actions;
+export const { allCollectionReset } = allCollectionsSlice.actions;
 export default allCollectionsSlice.reducer;

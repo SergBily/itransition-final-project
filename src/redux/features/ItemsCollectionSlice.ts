@@ -15,7 +15,7 @@ const initialState: ItemsCollection = {
 };
 
 export const getItemsCollection = createAsyncThunk<ItemsCollectionResponse, string>(
-  routes.COLLECTIONS,
+  routes.COLLECTION_ID,
   async (id, thunkAPI) => {
     try {
       const response = await getItemsCollectionApi(id);
@@ -34,7 +34,7 @@ export const itemsCollectionSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-    reset: (state) => {
+    itemsCollectionReset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
       state.errors = [];
@@ -48,6 +48,7 @@ export const itemsCollectionSlice = createSlice({
       .addCase(getItemsCollection.fulfilled, (state, { payload }) => {
         state.status = 'success';
         state.items = payload.items;
+        state.collection = payload.collection;
       })
       .addCase(getItemsCollection.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -57,5 +58,5 @@ export const itemsCollectionSlice = createSlice({
   },
 });
 
-export const { reset } = itemsCollectionSlice.actions;
+export const { itemsCollectionReset } = itemsCollectionSlice.actions;
 export default itemsCollectionSlice.reducer;

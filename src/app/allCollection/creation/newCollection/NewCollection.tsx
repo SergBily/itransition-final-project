@@ -11,9 +11,6 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import {
-  selectCollection, selectErrorMessage, selectErrors, selectStatus,
-} from '../../../../redux/selectors/newCollectionSelectors';
 import CollectionFormField from '../collectionFormField/CollectionFormField ';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import Dropzone from '../../../../common/dropzone/Dropzone';
@@ -25,7 +22,7 @@ import styles from './styles.module.scss';
 import routes from '../../../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest';
-import { createCollection, reset } from '../../../../redux/features/newCollectionSlice';
+import { createCollection, newCollectionReset } from '../../../../redux/features/newCollectionSlice';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
@@ -52,22 +49,21 @@ const NewCollection = () => {
   } = useForm<Record<string, string>>();
   const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
-  const dispatch = useAppDispatch();
-  const status = useAppSelector(selectStatus);
-  const errorMessage = useAppSelector(selectErrorMessage);
-  const collection = useAppSelector(selectCollection);
-  const error = useAppSelector(selectErrors);
-  const { userId } = useAppSelector(selectUser);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const {
+    errors: error, collection, errorMessage, status,
+  } = useAppSelector((store) => store.newCollection);
+  const { userId } = useAppSelector(selectUser);
 
   useEffect(() => {
-    if (status === 'success') {
+    if (status === 'success' || status === 'failed') {
       toast.success(<FormattedMessage
         id="app.collection.response.success"
         values={{ title: collection?.title }}
       />, toastConfig);
       navigate(routes.COLLECTIONS);
-      dispatch(reset());
+      dispatch(newCollectionReset());
     }
   }, [status]);
 
