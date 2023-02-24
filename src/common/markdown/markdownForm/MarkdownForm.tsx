@@ -86,7 +86,7 @@ const MarkdownForm = ({ payload }: MarkdownFormProps) => {
           defaultValue={value}
           onKeyDown={handlerKeyDown}
           {...register(label === 'description'
-            ? label : `customFields.textarea.0.${label}`)}
+            ? label : `customFields.textarea.${label}`)}
         />
         <Tooltip title={<FormattedMessage id="app.collection.markdown.support" />}>
           <Box
@@ -109,7 +109,7 @@ const MarkdownForm = ({ payload }: MarkdownFormProps) => {
       <TabPanel value={valueTabs} index={1}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {watch(label === 'description'
-            ? label : `customFields.textarea.0.${label}`)}
+            ? label : `customFields.textarea.${label}`)}
         </ReactMarkdown>
       </TabPanel>
     </Paper>

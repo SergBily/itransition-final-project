@@ -17,7 +17,7 @@ const StringField = ({ payload }: StringFieldProps) => {
       defaultValue={value}
       fullWidth
       size="small"
-      {...register(`customFields.string.0.${key}`)}
+      {...register(`customFields.string.${key}`)}
     />
   );
 };

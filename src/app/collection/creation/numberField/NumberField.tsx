@@ -21,7 +21,7 @@ const NumberField = ({ payload }: NumberFieldProps) => {
       InputLabelProps={{
         shrink: true,
       }}
-      {...register(`customFields.number.0.${key}`)}
+      {...register(`customFields.number.${key}`)}
     />
   );
 };

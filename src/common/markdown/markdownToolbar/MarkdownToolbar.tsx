@@ -39,7 +39,7 @@ const MarkdownToolbar = ({ setValueTextArea, setChoosedList, label }: MarkdownTo
     const action = (e.currentTarget as HTMLButtonElement).dataset.type as string;
     setChoosedList(action);
     setValueTextArea(label === 'description'
-      ? label : `customFields.textarea.0.${label}`, insertMarkup(label, action));
+      ? label : `customFields.textarea.${label}`, insertMarkup(label, action));
   };
   const reportWindowSize = () => {
     setWidthSize(window.innerWidth);

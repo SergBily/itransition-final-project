@@ -17,7 +17,7 @@ const DateField = ({ payload }: DateFieldProps) => {
       defaultValue={value}
       fullWidth
       size="small"
-      {...register(`customFields.date.0.${key}`)}
+      {...register(`customFields.date.${key}`)}
     />
   );
 };
