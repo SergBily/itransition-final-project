@@ -6,17 +6,6 @@
   background-color: $backgroundNew;
 }
 
-.form {
-  min-width: 100%;
-}
-
-.buttonsBlock {
-  @include flex();
-  justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
 .title {
   border-bottom: 1px solid black;
   color: $colorTitleCreate;
@@ -24,11 +13,6 @@
 }
 
 @media (max-width: 600px) {
-  .buttonsBlock {
-    flex-direction: column;
-    text-align: center;
-  }
-
   .title {
     font-size: 2rem;
     text-align: center;

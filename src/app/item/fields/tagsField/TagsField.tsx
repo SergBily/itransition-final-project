@@ -3,8 +3,9 @@ import {
   Box, TextField, Stack, Chip, InputAdornment,
 } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-import { v4 as uuid4 } from 'uuid';
+import { FormattedMessage } from 'react-intl';
 import styles from './styles.module.scss';
+import generateKey from '../../../../shared/utils/UniqueKey';
 
 interface TagsFieldProps {
   setTags: React.Dispatch<React.SetStateAction<string[]>>,
@@ -42,7 +43,7 @@ const TagsField = ({ setTags, tags }: TagsFieldProps) => {
       >
         {tags.map((s) => (
           <Chip
-            key={uuid4()}
+            key={generateKey()}
             data-name={s}
             label={s}
             variant="outlined"
@@ -56,6 +57,7 @@ const TagsField = ({ setTags, tags }: TagsFieldProps) => {
           className={styles.textField}
           id="title-field"
           value={nameTag}
+          label={<FormattedMessage id="app.item.new.field.tags.placeholder" />}
           onChange={(e) => setNameTag(e.target.value)}
           size="small"
           InputProps={{

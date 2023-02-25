@@ -4,6 +4,9 @@
   "app.header.signup": "Зарегистрироваться",
   "app.header.logout": "Выйти",
   "app.header.collect": "Мои коллекции",
+  "app.dialog": "Are you sure you want to delete the {type} {convertedTitles}?",
+  "app.dialog.button1": "Cancel",
+  "app.dialog.button2": "Delite",
   "app.login.email": "Электронная почта",
   "app.login.password": "Пароль",
   "app.login.text1": "Нет профиля?",
@@ -63,9 +66,6 @@
   "app.collection.response.error.title2": "Введите заголовок",
   "app.collection.response.error.topic": "Выберите тему",
   "app.collection.response.success": "Коллекция {title} успешно создана",
-  "app.collection.dialog": "Ты уверен что хочешь удалить {type} {title}?",
-  "app.collection.dialog.button1": "Отмена",
-  "app.collection.dialog.button2": "Удалить",
   "app.collection.delete": "Произошла ошибка. Пожалуйста, повторите попытку позже.",
   "app.item.creator.header": "Новый айтем",
   "app.item.creator.title": "Заголовок",
@@ -75,5 +75,8 @@
   "app.item.response.success": "Айтем {title} успешно создан",
   "app.item.button.create": "Создать айтем",
   "app.item.new.field.title": "Заголовок",
-  "app.item.new.field.tags": "Теги"
+  "app.item.new.field.tags": "Теги",
+  "app.item.new.field.tags.placeholder": "Пожалуйста добавьте тег и нажмите сохранить",
+  "app.item.new.create": "Добавить айтем",
+  "app.item.notFound": "Предмет был удален, так как он не соответствует политике сайта."
 }

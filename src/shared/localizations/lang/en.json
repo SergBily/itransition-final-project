@@ -4,6 +4,9 @@
   "app.header.signup": "Sign up",
   "app.header.logout": "Log out",
   "app.header.collect": "My collections",
+  "app.dialog": "Are you sure you want to delete the {type} {convertedTitles}?",
+  "app.dialog.button1": "Cancel",
+  "app.dialog.button2": "Delite",
   "app.login.email": "Email",
   "app.login.password": "Password",
   "app.login.text1": "Do not have a profile?",
@@ -63,9 +66,6 @@
   "app.collection.response.error.title2": "Title is required",
   "app.collection.response.error.topic": "Topic is required",
   "app.collection.response.success": "The collection {title} has created",
-  "app.collection.dialog": "Are you sure you want to delete the {type} {title}?",
-  "app.collection.dialog.button1": "Cancel",
-  "app.collection.dialog.button2": "Delite",
   "app.collection.delete": "Error has occurred. Please try again later.",
   "app.item.creator.header": "New Item",
   "app.item.creator.title": "Title",
@@ -75,5 +75,8 @@
   "app.item.response.success": "The item {title} has created",
   "app.item.button.create": "Create item",
   "app.item.new.field.title": "Title",
-  "app.item.new.field.tags": "Tags"
+  "app.item.new.field.tags": "Tags",
+  "app.item.new.field.tags.placeholder": "Please add tag and click save",
+  "app.item.new.create": "Add item",
+  "app.item.notFound": "The item has been removed because it does not comply with the site's policy"
 }

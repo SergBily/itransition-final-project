@@ -5,7 +5,8 @@ import ItemStructure from './itemStructure';
 interface ItemsCollection extends InitialState {
   items: ItemStructure[],
   errors: string[],
-  collection: Collection | null
+  collection: Collection | null,
+  delStatus: 'idle' | 'loading' | 'failed' | 'success'
 }
 
 export type Collection = Omit<CollectionResponse, 'imageUrl' | 'description'>;

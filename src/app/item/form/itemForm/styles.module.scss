@@ -1,0 +1,19 @@
+@import '../../../../shared/styles/globalLayout.scss';
+
+.form {
+  min-width: 100%;
+}
+
+.buttonsBlock {
+  @include flex();
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+@media (max-width: 600px) {
+  .buttonsBlock {
+    flex-direction: column;
+    text-align: center;
+  }
+}

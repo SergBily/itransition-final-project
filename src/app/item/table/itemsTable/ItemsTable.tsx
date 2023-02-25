@@ -23,7 +23,7 @@ import EnhancedTableHead from '../enhancedTableHead/EnhancedTableHead';
 import generateKey from '../../../../shared/utils/UniqueKey';
 import styles from './styles.module.scss';
 import convertItemsForTable from '../../../../shared/utils/convertItemsForTable';
-import Order from '../../../../shared/models/items/oreder.type';
+import Order from '../../../../shared/models/items/order.type';
 import { getComparator, stableSort } from '../../../../shared/sort/sortTable';
 
 const ItemsTable = () => {

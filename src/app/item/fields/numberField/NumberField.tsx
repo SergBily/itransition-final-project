@@ -2,13 +2,14 @@ import React from 'react';
 import { TextField } from '@mui/material';
 import PayloadField from '../../../../shared/models/items/payloadField';
 import styles from './styles.module.scss';
+import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
 
 interface NumberFieldProps {
   payload: PayloadField
 }
 
 const NumberField = ({ payload }: NumberFieldProps) => {
-  const { key, value, register } = payload;
+  const { key, value = '', register } = payload;
 
   return (
     <TextField
@@ -21,7 +22,7 @@ const NumberField = ({ payload }: NumberFieldProps) => {
       InputLabelProps={{
         shrink: true,
       }}
-      {...register(`customFields.number.${key}`)}
+      {...register(`customFields.number.${checkTitleIsNan(key)}`)}
     />
   );
 };

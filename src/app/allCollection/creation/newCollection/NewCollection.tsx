@@ -27,7 +27,7 @@ import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
-import TitleField from '../../../collection/creation/titleField/TitleField';
+import TitleField from '../../../item/fields/titleField/TitleField';
 
 type DataForm = {
   topic: string,
@@ -45,7 +45,7 @@ const fields: CustomFields = {
 
 const NewCollection = () => {
   const {
-    register, handleSubmit, watch, setValue, formState: { errors },
+    register, handleSubmit, getValues, setValue, formState: { errors },
   } = useForm<Record<string, string>>();
   const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
@@ -106,7 +106,7 @@ const NewCollection = () => {
           <CollectionFormField label="description" Icon={Filter3Icon}>
             <MarkdownForm
               payload={{
-                label: 'description', value: '', register, watch, setValue,
+                label: 'description', value: '', register, getValues, setValue,
               }}
             />
           </CollectionFormField>
@@ -123,7 +123,7 @@ const NewCollection = () => {
             component="div"
             className={styles.buttonsBlock}
           >
-            <FormButtonGroup type="collection" />
+            <FormButtonGroup type="collection" id="" />
           </Box>
         </form>
       </Grid>

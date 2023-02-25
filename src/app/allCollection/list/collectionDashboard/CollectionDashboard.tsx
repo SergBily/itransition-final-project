@@ -66,7 +66,7 @@ const CollectionDashboard = ({ payload }: CollectionDashboardProps) => {
       </Box>
       <DeleteDialog
         payload={{
-          type: 'collection', title, open, setOpen, deleteCollection,
+          type: 'collection', title: [title], open, setOpen, handelDelete: deleteCollection,
         }}
       />
     </Paper>

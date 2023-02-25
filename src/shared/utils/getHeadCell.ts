@@ -1,20 +1,30 @@
 import HeadCell from '../models/itemsTable/headCell';
 import CustomFields from '../models/newCollection/customFields.model';
+import generateKey from './UniqueKey';
 
 const getHeadCell = (p: CustomFields): HeadCell[] => {
-  const title: HeadCell[] = [];
-  for (const [key, value] of Object.entries(p)) {
-    value.forEach((e: string) => {
-      title.push({
-        id: e,
-        type: key,
+  const b: HeadCell[] = [{
+    id: 'title',
+    type: 'string',
+    disablePadding: false,
+    label: 'title',
+    align: false,
+  }];
+  Object.entries(p).forEach((v) => {
+    v[1].forEach((title: string) => {
+      // if (v[1].length !== 0) {
+      b.push({
+        id: generateKey(),
+        type: v[0],
         disablePadding: false,
-        label: e,
+        label: title,
         align: true,
       });
+      // }
     });
-  }
-  return title;
+  });
+
+  return b;
 };
 
 export default getHeadCell;

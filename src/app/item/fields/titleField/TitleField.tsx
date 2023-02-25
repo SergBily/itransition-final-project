@@ -31,6 +31,7 @@ const TitleField = ({ payload }: TitleFieldProps) => {
         id="title"
         type="text"
         size="small"
+        autoFocus
         defaultValue={value}
         {...register(
           'title',
