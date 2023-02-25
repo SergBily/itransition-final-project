@@ -170,8 +170,8 @@ const Header: React.FC = (): JSX.Element => {
           <Link to="/">
             <img
               src={logo}
-              width={MediaQuery['max.768'] ? '90' : '130'}
-              height={MediaQuery['max.768'] ? '90' : '130'}
+              width={MediaQuery['max.768'] ? '90' : '110'}
+              height={MediaQuery['max.768'] ? '90' : '110'}
               alt="Logotype"
             />
           </Link>

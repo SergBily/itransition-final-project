@@ -8,10 +8,11 @@ import routes from '../../shared/constants/routes';
 import styles from './styles.module.scss';
 
 interface FormButtonGroupProps {
-  type: string
+  type: string,
+  id: string
 }
 
-const FormButtonGroup = ({ type }: FormButtonGroupProps) => (
+const FormButtonGroup = ({ type, id }: FormButtonGroupProps) => (
   <>
     <Grid item xs={8} sm={2}>
       <Button
@@ -25,7 +26,7 @@ const FormButtonGroup = ({ type }: FormButtonGroupProps) => (
     </Grid>
     <Grid item xs={1}>
       <Link
-        to={routes.COLLECTIONS}
+        to={type === 'item' ? `${routes.COLLECTION}${id}` : routes.COLLECTIONS}
         className={styles.link}
       >
         <Typography variant="button">

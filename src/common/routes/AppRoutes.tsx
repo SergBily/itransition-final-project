@@ -25,7 +25,11 @@ const CollectionCreate = loadable(
   },
 );
 
-const Collection = loadable(() => import('../../app/collection/creation/newItem/NewItem'), {
+const Collection = loadable(() => import('../../app/item/table/itemsTable/ItemsTable'), {
+  resolveComponent: (components) => components.default,
+});
+
+const ItemCreate = loadable(() => import('../../app/item/creation/newItem/NewItem'), {
   resolveComponent: (components) => components.default,
 });
 
@@ -37,6 +41,7 @@ const AppRoutes = () => (
     <Route path={routes.COLLECTIONS} element={<CollectionTable />} />
     <Route path={routes.COLLECTION_CREATE} element={<CollectionCreate />} />
     <Route path={routes.COLLECTION_ID} element={<Collection />} />
+    <Route path={routes.ITEM_CREATE} element={<ItemCreate />} />
   </Routes>
 );
 
