@@ -1,65 +1,113 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   IconButton, Toolbar, Tooltip, Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { alpha } from '@mui/material/styles';
-import { useAppSelector } from '../../../../shared/hooks/hooks';
-import { selectCollection } from '../../../../redux/selectors/itemsSelector';
-// import { Collection } from '../../../../shared/models/items/itemsCollection';
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import routes from '../../../../shared/constants/routes';
+import styles from './styles.module.scss';
+import getSelectedTitles from '../../../../shared/utils/getSelectedTitles';
+import { deleteItems } from '../../../../redux/features/ItemsCollectionSlice';
+import DeleteDialog from '../../../../common/dialog/deleteDialog';
 
 interface EnhancedTableToolbarProps {
-  numSelected: number;
+  selected: string[];
+  id: string,
+  setSelected: (a: string[]) => void
 }
 
-const ItemsTableToolbar = ({ numSelected }: EnhancedTableToolbarProps) => {
-  const currentCollection = useAppSelector(selectCollection);
+const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarProps) => {
+  const [open, setOpen] = useState(false);
+  const { collection } = useAppSelector((state) => state.items);
+  const items = useAppSelector((state) => state.items.items);
+  const dispatch = useAppDispatch();
+
+  const handelDelete = () => {
+    dispatch(deleteItems(selected));
+    setSelected([]);
+  };
 
   return (
     <Toolbar
+      className={styles.root}
       sx={{
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        ...(selected.length > 0 && {
+          bgcolor: (theme) => alpha(
+            theme.palette.primary.main,
+            theme.palette.action.activatedOpacity,
+          ),
         }),
       }}
     >
-      {numSelected > 0 ? (
+      {selected.length > 0 ? (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          className={styles.typography}
           color="inherit"
           variant="subtitle1"
           component="div"
         >
-          {numSelected}
+          {selected.length}
           {' '}
           selected
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          className={styles.typography}
           variant="h6"
           id="tableTitle"
           component="div"
         >
-          {currentCollection?.title}
+          {collection && collection.title.toUpperCase()}
         </Typography>
       )}
-      {numSelected > 0 ? (
+      {selected.length > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={() => setOpen(true)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+          <Tooltip title="Filter list">
+            <IconButton>
+              <FilterListIcon fontSize="large" />
+            </IconButton>
+          </Tooltip>
+          <Link
+            to={`${routes.COLLECTION}${id}/item/create`}
+            className={styles.link}
+          >
+            <Tooltip title="Add item" className={styles.tooltip}>
+              <IconButton>
+                <AddIcon fontSize="large" />
+                <Typography
+                  variant="body2"
+                  color="initial"
+                  className={styles.addButton}
+                >
+                  <FormattedMessage id="app.item.new.create" />
+                </Typography>
+              </IconButton>
+            </Tooltip>
+          </Link>
+        </>
       )}
+      <DeleteDialog
+        payload={{
+          type: 'item(s)',
+          title: getSelectedTitles(items, selected),
+          open,
+          setOpen,
+          handelDelete,
+        }}
+      />
     </Toolbar>
   );
 };
