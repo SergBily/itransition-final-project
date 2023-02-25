@@ -21,7 +21,7 @@ import TopicField from '../topicField/TopicField';
 import styles from './styles.module.scss';
 import routes from '../../../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
-import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest';
+import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest.model';
 import { createCollection, newCollectionReset } from '../../../../redux/features/newCollectionSlice';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';

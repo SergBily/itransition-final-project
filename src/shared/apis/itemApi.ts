@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { urls } from '../constants/urls';
 import $api from '../http/http';
-import ItemStructure from '../models/items/itemStructure';
-import NewItemRequest from '../models/items/newItemRequest';
+import ItemStructure from '../models/items/itemStructure.model';
+import NewItemRequest from '../models/items/newItemRequest.model';
 
 export const createNewItem = async (payload: NewItemRequest):
 Promise<AxiosResponse<ItemStructure>> => $api.post(

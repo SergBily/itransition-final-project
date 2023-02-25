@@ -1,5 +1,5 @@
-import InitialState from './initialState';
-import CollectionResponse from '../newCollection/collectionResponse';
+import InitialState from './initialState.model';
+import CollectionResponse from '../newCollection/collectionResponse.model';
 
 interface NewCollection extends InitialState {
   collection?: CollectionResponse,

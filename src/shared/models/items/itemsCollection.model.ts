@@ -1,6 +1,6 @@
-import CollectionResponse from '../newCollection/collectionResponse';
-import InitialState from '../state/initialState';
-import ItemStructure from './itemStructure';
+import CollectionResponse from '../newCollection/collectionResponse.model';
+import InitialState from '../state/initialState.model';
+import ItemStructure from './itemStructure.model';
 
 interface ItemsCollection extends InitialState {
   items: ItemStructure[],

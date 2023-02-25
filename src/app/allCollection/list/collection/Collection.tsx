@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import CollectionDashboard from '../collectionDashboard/CollectionDashboard';
 import styles from './styles.module.scss';
-import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse';
+import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse.model';
 import { deleteCollectionApi } from '../../../../shared/apis/collectionApi';
 import getNameImage from '../../../../shared/utils/getNameImage';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';

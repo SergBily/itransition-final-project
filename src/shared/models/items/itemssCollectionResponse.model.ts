@@ -1,5 +1,5 @@
-import CollectionResponse from '../newCollection/collectionResponse';
-import ItemStructure from './itemStructure';
+import CollectionResponse from '../newCollection/collectionResponse.model';
+import ItemStructure from './itemStructure.model';
 
 interface ItemsCollectionResponse {
   collection: CollectionResponse

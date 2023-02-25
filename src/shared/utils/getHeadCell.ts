@@ -1,4 +1,4 @@
-import HeadCell from '../models/itemsTable/headCell';
+import HeadCell from '../models/itemsTable/headCell.model';
 import CustomFields from '../models/newCollection/customFields.model';
 import generateKey from './UniqueKey';
 

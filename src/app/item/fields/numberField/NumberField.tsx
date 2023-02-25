@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import PayloadField from '../../../../shared/models/items/payloadField';
+import PayloadField from '../../../../shared/models/items/payloadField.types';
 import styles from './styles.module.scss';
 import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
 

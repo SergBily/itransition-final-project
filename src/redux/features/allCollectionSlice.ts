@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { getCollections } from '../../shared/apis/collectionApi';
 import routes from '../../shared/constants/routes';
-import AllCollectionsResponse from '../../shared/models/allCollections/allCollectionsResponse';
+import AllCollectionsResponse from '../../shared/models/allCollections/allCollectionsResponse.model';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import AllCollection from '../../shared/models/state/allCollection.module';
 

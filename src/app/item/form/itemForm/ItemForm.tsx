@@ -12,7 +12,7 @@ import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup'
 import ItemFormField from '../itemFormField/ItemFormField';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import { createItem, newItemReset } from '../../../../redux/features/newItemSlice';
-import NewItemRequest from '../../../../shared/models/items/newItemRequest';
+import NewItemRequest from '../../../../shared/models/items/newItemRequest.model';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import Spinner from '../../../../common/spinner/Spinner';
 import toastConfig from '../../../../shared/toast/toastConfig';

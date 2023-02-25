@@ -3,9 +3,9 @@ import { AxiosError } from 'axios';
 import createNewItem from '../../shared/apis/itemApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
-import ItemStructure from '../../shared/models/items/itemStructure';
-import NewItemRequest from '../../shared/models/items/newItemRequest';
-import ItemState from '../../shared/models/state/itemState';
+import ItemStructure from '../../shared/models/items/itemStructure.model';
+import NewItemRequest from '../../shared/models/items/newItemRequest.model';
+import ItemState from '../../shared/models/state/itemState.model';
 
 const initialState: ItemState = {
   status: 'idle',

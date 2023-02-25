@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios';
 import { urls } from '../constants/urls';
 import $api from '../http/http';
-import AllCollectionsResponse from '../models/allCollections/allCollectionsResponse';
-import ItemsCollectionResponse from '../models/items/itemssCollectionResponse';
-import CollectionRequest from '../models/newCollection/collectionRequest';
-import CollectionResponse from '../models/newCollection/collectionResponse';
+import AllCollectionsResponse from '../models/allCollections/allCollectionsResponse.model';
+import ItemsCollectionResponse from '../models/items/itemssCollectionResponse.model';
+import CollectionRequest from '../models/newCollection/collectionRequest.model';
+import CollectionResponse from '../models/newCollection/collectionResponse.model';
 import getDefaultImagesUrls from '../utils/getDefaultImagesUrls';
 import { uploadImage } from './firebaseApi';
 

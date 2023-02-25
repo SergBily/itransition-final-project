@@ -4,8 +4,8 @@ import { getItemsCollectionApi } from '../../shared/apis/collectionApi';
 import { deleteItemsApi } from '../../shared/apis/itemApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
-import ItemsCollection from '../../shared/models/items/itemsCollection';
-import ItemsCollectionResponse from '../../shared/models/items/itemssCollectionResponse';
+import ItemsCollection from '../../shared/models/items/itemsCollection.model';
+import ItemsCollectionResponse from '../../shared/models/items/itemssCollectionResponse.model';
 
 const initialState: ItemsCollection = {
   items: [],

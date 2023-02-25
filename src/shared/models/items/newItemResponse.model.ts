@@ -1,4 +1,4 @@
-import ItemStructure from './itemStructure';
+import ItemStructure from './itemStructure.model';
 
 interface NewItemResponse extends ItemStructure {
   userId: string,
