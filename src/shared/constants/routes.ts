@@ -8,7 +8,8 @@ const routes = {
   COLLECTION_DELETE: '/collection/delete',
   COLLECTION: '/collection/',
   COLLECTION_ID: '/collection/:id',
-  ITEM_CREATE: '/item/create',
+  ITEM_CREATE: 'collection/:id/item/create',
+  ITEM_DELETE: 'collection/:id/item/delete',
 };
 
 export default routes;

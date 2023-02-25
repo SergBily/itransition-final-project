@@ -1,8 +1,8 @@
 import ItemStructure from './itemStructure';
 
-interface NewItemRequest extends ItemStructure {
+interface NewItemResponse extends ItemStructure {
   userId: string,
   collectionId: string
 }
 
-export default NewItemRequest;
+export default NewItemResponse;
