@@ -123,7 +123,7 @@ const NewCollection = () => {
             component="div"
             className={styles.buttonsBlock}
           >
-            <FormButtonGroup type="collection" id="" />
+            <FormButtonGroup type="collection1" id="" />
           </Box>
         </form>
       </Grid>

@@ -8,6 +8,7 @@ import { alpha } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import routes from '../../../../shared/constants/routes';
 import styles from './styles.module.scss';
@@ -67,10 +68,23 @@ const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarPr
           {collection && collection.title.toUpperCase()}
         </Typography>
       )}
+      {selected.length === 1
+        && (
+          <Link
+            to={`${routes.COLLECTION}${id}/edit/${selected[0]}`}
+            className={styles.link}
+          >
+            <Tooltip title="Edit">
+              <IconButton>
+                <EditIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
+          </Link>
+        )}
       {selected.length > 0 ? (
         <Tooltip title="Delete">
           <IconButton onClick={() => setOpen(true)}>
-            <DeleteIcon />
+            <DeleteIcon fontSize="large" />
           </IconButton>
         </Tooltip>
       ) : (

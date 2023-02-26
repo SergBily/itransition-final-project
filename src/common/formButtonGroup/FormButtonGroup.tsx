@@ -21,12 +21,12 @@ const FormButtonGroup = ({ type, id }: FormButtonGroupProps) => (
         type="submit"
         variant="contained"
       >
-        <FormattedMessage id={`app.${type}.button.create`} />
+        <FormattedMessage id={`app.groups.button.create.${type}`} />
       </Button>
     </Grid>
     <Grid item xs={1}>
       <Link
-        to={type === 'item' ? `${routes.COLLECTION}${id}` : routes.COLLECTIONS}
+        to={type === 'item1' || type === 'item2' ? `${routes.COLLECTION}${id}` : routes.COLLECTIONS}
         className={styles.link}
       >
         <Typography variant="button">

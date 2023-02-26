@@ -174,7 +174,7 @@ const NewItem = () => {
             component="div"
             className={styles.buttonsBlock}
           >
-            <FormButtonGroup type="item" id={id as string} />
+            <FormButtonGroup type="item1" id={id as string} />
           </Box>
         </form>
         {status === 'loading' && <Spinner />}

@@ -33,6 +33,10 @@ const ItemCreate = loadable(() => import('../../app/item/creation/newItem/NewIte
   resolveComponent: (components) => components.default,
 });
 
+const ItemEdit = loadable(() => import('../../app/item/edit/editItem/EditItem'), {
+  resolveComponent: (components) => components.default,
+});
+
 const AppRoutes = () => (
   <Routes>
     <Route path={routes.HOME} element={<Home />} />
@@ -42,6 +46,7 @@ const AppRoutes = () => (
     <Route path={routes.COLLECTION_CREATE} element={<CollectionCreate />} />
     <Route path={routes.COLLECTION_ID} element={<Collection />} />
     <Route path={routes.ITEM_CREATE} element={<ItemCreate />} />
+    <Route path={routes.ITEM_EDIT} element={<ItemEdit />} />
   </Routes>
 );
 

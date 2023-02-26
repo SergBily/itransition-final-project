@@ -59,7 +59,10 @@
   "app.collection.custom.fields.textarea": "Textarea",
   "app.collection.custom.fields.date": "Date",
   "app.collection.custom.fields.checkbox": "Checkbox",
-  "app.collection.button.create": "Create collection",
+  "app.groups.button.create.collection1": "Create collection",
+  "app.groups.button.create.collection2": "Edit collection",
+  "app.groups.button.create.item1": "Create item",
+  "app.groups.button.create.item2": "Edit item",
   "app.collection.button.cancel": "Cancel",
   "app.collection.title": "New collection",
   "app.collection.response.error.title": "You already have a collection",
@@ -73,10 +76,10 @@
   "app.item.creator.description": "description",
   "app.item.response.error.title": "You already have a item",
   "app.item.response.success": "The item {title} has created",
-  "app.item.button.create": "Create item",
   "app.item.new.field.title": "Title",
   "app.item.new.field.tags": "Tags",
   "app.item.new.field.tags.placeholder": "Please add tag and click save",
   "app.item.new.create": "Add item",
-  "app.item.notFound": "The item has been removed because it does not comply with the site's policy"
+  "app.item.notFound": "The item has been removed because it does not comply with the site's policy",
+  "app.item.edit": "Edit Item"
 }
