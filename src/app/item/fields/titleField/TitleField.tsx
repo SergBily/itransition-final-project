@@ -6,10 +6,10 @@ import styles from './styles.module.scss';
 import requiredValidator from '../../../../shared/validators/requiredValidator';
 
 type TitleFieldPayload = {
-  value: string,
+  value: string | undefined,
   register: UseFormRegister<Record<string, string>>,
   errors: FieldErrors<Record<string, string>>,
-  error: string[],
+  errorsBD: string[],
   errorMessage: string
 };
 
@@ -19,14 +19,14 @@ interface TitleFieldProps {
 
 const TitleField = ({ payload }: TitleFieldProps) => {
   const {
-    errors, error, errorMessage, value, register,
+    errors, errorsBD, errorMessage, value, register,
   } = payload;
 
   return (
     <>
       <TextField
         className={styles.textField}
-        error={(error && error[0] === 'title') || !!errors.title?.message}
+        error={(errorsBD && errorsBD[0] === 'title') || !!errors.title?.message}
         fullWidth
         id="title"
         type="text"
@@ -43,7 +43,7 @@ const TitleField = ({ payload }: TitleFieldProps) => {
       && (
         <FormattedMessage id={errors.title?.message} />
       )}
-        {error && error[0] === 'title'
+        {errorsBD && errorsBD[0] === 'title'
       && (
       <FormattedMessage id={errorMessage} />
       )}

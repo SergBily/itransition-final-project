@@ -52,7 +52,7 @@ const NewCollection = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
-    errors: error, collection, errorMessage, status,
+    errors: errorsBD, collection, errorMessage, status,
   } = useAppSelector((store) => store.newCollection);
   const { userId } = useAppSelector(selectUser);
 
@@ -99,7 +99,7 @@ const NewCollection = () => {
           </CollectionFormField>
           <CollectionFormField label="title" Icon={Filter2Icon}>
             <TitleField payload={{
-              value: '', errors, error, errorMessage, register,
+              value: '', errors, errorsBD, errorMessage, register,
             }}
             />
           </CollectionFormField>
