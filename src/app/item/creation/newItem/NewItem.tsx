@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Checkbox, Paper, Typography,
+  Box,
+  Checkbox, Grid, Paper, Typography,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import styles from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
@@ -13,10 +15,18 @@ import StringField from '../../fields/stringField/StringField';
 import NumberField from '../../fields/numberField/NumberField';
 import DateField from '../../fields/dateField/DateField';
 import generateKey from '../../../../shared/utils/UniqueKey';
-import { } from '../../../../redux/selectors/authSelectors';
-import ItemForm from '../../form/itemForm/ItemForm';
+import { selectUser } from '../../../../redux/selectors/authSelectors';
 import { getItemsCollection } from '../../../../redux/features/ItemsCollectionSlice';
 import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
+import { Collection } from '../../../../shared/models/items/itemsCollection.model';
+import toastConfig from '../../../../shared/toast/toastConfig';
+import { createItem, newItemReset } from '../../../../redux/features/itemSlice';
+import NewItemRequest from '../../../../shared/models/items/newItemRequest.model';
+import routes from '../../../../shared/constants/routes';
+import TitleField from '../../fields/titleField/TitleField';
+import TagsField from '../../fields/tagsField/TagsField';
+import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
+import Spinner from '../../../../common/spinner/Spinner';
 
 const createField = (label: string, size: string, children: JSX.Element): JSX.Element => (
   <ItemFormField payload={{ label, size }} key={generateKey()}>
@@ -28,18 +38,46 @@ const NewItem = () => {
   const {
     register, handleSubmit, getValues, setValue, formState: { errors },
   } = useForm<Record<string, string>>();
+  const [fields, setFields] = useState<JSX.Element[] | null>(null);
+  const [tags, setTags] = useState<string[]>([]);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { collection } = useAppSelector((state) => state.items);
+  const { userId } = useAppSelector(selectUser);
+  const { collection, status } = useAppSelector((state) => state.items);
+  const {
+    errors: errorsBD, item, errorMessage, status: newItemStatus,
+  } = useAppSelector((state) => state.newItem);
 
   useEffect(() => {
     dispatch(getItemsCollection(id as string));
   }, []);
 
-  const getCustomFields = (): JSX.Element[] => {
+  useEffect(() => {
+    if (newItemStatus === 'success') {
+      toast.success(<FormattedMessage
+        id="app.item.response.success"
+        values={{ title: item?.title }}
+      />, toastConfig);
+      navigate(`${routes.COLLECTION}${id}`);
+    }
+    dispatch(newItemReset());
+  }, [newItemStatus]);
+
+  const onFormSubmit = (data: any): void => {
+    const itemData: NewItemRequest = {
+      ...data,
+      tags,
+      userId,
+      collectionId: id,
+    };
+    dispatch(createItem(itemData));
+  };
+
+  const getCustomFields = (c: Collection): JSX.Element[] => {
     let res: JSX.Element[] = [];
     if (collection) {
-      const fields = Object.entries(collection.customFields).map(
+      const fieldsItem = Object.entries(c.customFields).map(
         (e) => e[1].map((v: string) => {
           let m: JSX.Element;
           switch (e[0]) {
@@ -95,10 +133,16 @@ const NewItem = () => {
           return m;
         }),
       );
-      res = [...res, ...fields.flat()];
+      res = [...res, ...fieldsItem.flat()];
     }
     return res;
   };
+
+  useEffect(() => {
+    if (status === 'success') {
+      setFields(getCustomFields(collection as Collection));
+    }
+  }, [status]);
 
   return (
     <Paper
@@ -111,13 +155,30 @@ const NewItem = () => {
       >
         <FormattedMessage id="app.item.creator.header" />
       </Typography>
-      <ItemForm
-        getCustomFields={getCustomFields}
-        handleSubmit={handleSubmit}
-        errors={errors}
-        id={id as string}
-        register={register}
-      />
+      <Grid container>
+        <form
+          onSubmit={handleSubmit(onFormSubmit)}
+          className={styles.form}
+        >
+          <ItemFormField payload={{ label: 'title', size: '' }}>
+            <TitleField payload={{
+              value: '', errorsBD, errorMessage, errors, register,
+            }}
+            />
+          </ItemFormField>
+          <ItemFormField payload={{ label: 'tags', size: '' }}>
+            <TagsField setTags={setTags} tags={tags} />
+          </ItemFormField>
+          {fields && fields.map((e) => e)}
+          <Box
+            component="div"
+            className={styles.buttonsBlock}
+          >
+            <FormButtonGroup type="item" id={id as string} />
+          </Box>
+        </form>
+        {status === 'loading' && <Spinner />}
+      </Grid>
     </Paper>
   );
 };

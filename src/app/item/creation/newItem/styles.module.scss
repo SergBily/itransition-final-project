@@ -12,6 +12,18 @@
   margin: 0.5rem 1rem;
 }
 
+.form {
+  min-width: 100%;
+}
+
+.buttonsBlock {
+  @include flex();
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+
 @media (max-width: 600px) {
   .title {
     font-size: 2rem;
@@ -20,5 +32,10 @@
 
   .wrapper {
     padding: 0 5px;
+  }
+
+  .buttonsBlock {
+    flex-direction: column;
+    text-align: center;
   }
 }
