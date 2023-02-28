@@ -11,6 +11,7 @@ import Comments from './comments/Comments';
 import styles from './styles.module.scss';
 import TitleItemPage from './title/TitleItemPage';
 import CommentRequest from '../../../shared/models/comment/commentRequest';
+import { updateVisitsItem } from '../../../shared/apis/itemApi';
 
 const ItemPage = () => {
   const { userId, name } = useAppSelector(selectUser);
@@ -26,6 +27,7 @@ const ItemPage = () => {
       itemId: itemId as string,
       collectionId: id as string,
     }));
+    updateVisitsItem(itemId as string);
     openSocket(itemId as string);
     return () => disconnect();
   }, []);

@@ -13,6 +13,8 @@ const routes = {
   ITEM_DELETE: 'collection/:id/item/delete',
   ITEM_EDIT: '/collection/:id/edit/:itemId',
   ITEM_PAGE: '/collection/:id/item/:itemId',
+  ADD_LIKE: '/item/like/add',
+  REMOVE_LIKE: '/item/like/remove',
 };
 
 export default routes;

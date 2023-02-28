@@ -42,6 +42,9 @@ export const itemPageSlice = createSlice({
     newComment: (state, { payload }) => {
       state.comments = [...state.comments, payload];
     },
+    like: (state, { payload }) => {
+      state.item = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,5 +65,5 @@ export const itemPageSlice = createSlice({
   },
 });
 
-export const { itemPageReset, newComment } = itemPageSlice.actions;
+export const { itemPageReset, newComment, like } = itemPageSlice.actions;
 export default itemPageSlice.reducer;

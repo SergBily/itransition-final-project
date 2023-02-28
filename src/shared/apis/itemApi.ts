@@ -36,6 +36,21 @@ Promise<AxiosResponse<ItemStructure>> => $api.get(`${urls.ITEM}/${itemId}`);
 export const getItemsCollectionApi = async (collectionId: string):
 Promise<AxiosResponse<ItemStructure[]>> => $api.get(`${urls.ALL_ITEMS}/${collectionId}`);
 
+export const updateVisitsItem = async (id: string):
+Promise<AxiosResponse<void>> => $api.patch(`${urls.ITEM}/${id}`);
+
+export const addLikeItem = async (payload: string[]):
+Promise<AxiosResponse<ItemStructure>> => {
+  const [id, userId] = payload;
+  return $api.patch(`${urls.ADD_LIKE}/${id}`, { userId });
+};
+
+export const removeLikeItem = async (payload: string[]):
+Promise<AxiosResponse<ItemStructure>> => {
+  const [id, userId] = payload;
+  return $api.patch(`${urls.REMOVE_LIKE}/${id}`, { userId });
+};
+
 export const getAllItemsCollectionApi = async (id: string):
 Promise<ItemsCollectionResponse> => {
   const response = await Promise.all([getCollection(id), getItemsCollectionApi(id)]);

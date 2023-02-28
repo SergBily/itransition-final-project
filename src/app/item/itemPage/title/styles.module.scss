@@ -9,10 +9,26 @@
   opacity: 0;
 }
 
+.boxTitle {
+  @include flex();
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 10px;
+}
+
+.btnLikes {
+  @include wh(32px, 32px);
+  @include flex();
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+}
+
 .title {
 color: #3d2e01;
 text-align: center;
-margin-top: 2rem;
 }
 
 .containerRating {
