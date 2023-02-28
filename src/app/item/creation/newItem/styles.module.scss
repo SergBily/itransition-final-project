@@ -2,8 +2,18 @@
 @import '../../../../shared/styles/globalLayout.scss';
 
 .wrapper {
+  position: relative;
   margin-top: 1.5rem;
   background-color: $backgroundNew;
+  opacity: 0;
+  left: -100%;
+  overflow: hidden;
+}
+
+.boxCustom {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 .title {

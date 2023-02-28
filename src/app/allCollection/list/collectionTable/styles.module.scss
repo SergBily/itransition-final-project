@@ -1,10 +1,8 @@
 .root {
+  position: relative;
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
-  transform: translate(-50%, 0);
-  -webkit-transform: translate(-50%, 0);
-  -moz-transform: translate(-50%, 0);
-  -ms-transform: translate(-50%, 0);
-  -o-transform: translate(-50%, 0);
+  left: -100%;
+  opacity: 0;
 }

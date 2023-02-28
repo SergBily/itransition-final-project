@@ -68,8 +68,10 @@ const NewCollection = () => {
   }, [status]);
 
   const onFormSubmit = (data: Record<string, string>): void => {
+    const newData: Record<string, string> = { ...data, description: data.descriptionCollection };
+    delete newData.descriptionCollection;
     const collectionData: CollectionRequest = {
-      ...data as DataForm,
+      ...newData as DataForm,
       image: selectedImage,
       customFields: customItemFields,
       userId,
@@ -106,7 +108,7 @@ const NewCollection = () => {
           <CollectionFormField label="description" Icon={Filter3Icon}>
             <MarkdownForm
               payload={{
-                label: 'description', value: '', register, getValues, setValue,
+                label: 'descriptionCollection', value: '', register, getValues, setValue,
               }}
             />
           </CollectionFormField>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Card, CardActionArea, CardMedia, CardContent, Typography,
+  Card, CardActionArea, CardMedia, CardContent, Typography, Skeleton,
 } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -31,6 +31,7 @@ const Collection = ({ payload }: CollectionProps) => {
   const [isHovering, setIsHovering] = useState(false);
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectUser);
+  const { status } = useAppSelector(((state) => state.collections));
   const handleMouseEnter = () => {
     setIsHovering(true);
   };
@@ -57,7 +58,6 @@ const Collection = ({ payload }: CollectionProps) => {
   };
 
   return (
-
     <Card
       id={id}
       className={styles.root}
@@ -69,12 +69,16 @@ const Collection = ({ payload }: CollectionProps) => {
         to={`${routes.COLLECTION}${id}`}
       >
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="160"
-            image={imageUrl}
-            alt={title}
-          />
+          {status === 'loading'
+            ? (<Skeleton width={272} height={160} variant="rounded" />)
+            : (
+              <CardMedia
+                component="img"
+                height="160"
+                image={imageUrl}
+                alt={title}
+              />
+            )}
           <CardContent>
             <Typography
               gutterBottom
@@ -110,7 +114,6 @@ const Collection = ({ payload }: CollectionProps) => {
       }}
       />
     </Card>
-
   );
 };
 

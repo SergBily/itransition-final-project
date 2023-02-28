@@ -20,7 +20,9 @@ const CollectionTable = () => {
 
     gsap.to(
       '.animationCollections',
-      { transform: 'translate(0,0)', duration: 0.3, ease: 'power1.inOut' },
+      {
+        x: '100%', opacity: 1, duration: 0.9, ease: 'circ',
+      },
     );
   }, []);
 

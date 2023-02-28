@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import gsap from 'gsap';
+import classNames from 'classnames';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import styles from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
@@ -51,6 +53,13 @@ const NewItem = () => {
 
   useEffect(() => {
     dispatch(getItemsCollection(id as string));
+    const animation = gsap.timeline();
+    animation.to('.new', {
+      x: '100%', opacity: 1, duration: 0.7, ease: 'circ',
+    });
+    animation.to('.box__custom', {
+      height: 'auto', opacity: 1, duration: 0.9, ease: 'circ',
+    });
   }, []);
 
   useEffect(() => {
@@ -75,67 +84,63 @@ const NewItem = () => {
   };
 
   const getCustomFields = (c: Collection): JSX.Element[] => {
-    let res: JSX.Element[] = [];
-    if (collection) {
-      const fieldsItem = Object.entries(c.customFields).map(
-        (e) => e[1].map((v: string) => {
-          let m: JSX.Element;
-          switch (e[0]) {
-            case 'string':
-              m = (
-                createField(
-                  v,
-                  '',
-                  <StringField payload={{ key: v, register }} />,
-                )
-              );
-              break;
-            case 'number':
-              m = (
-                createField(
-                  v,
-                  '',
-                  <NumberField payload={{ key: v, register }} />,
-                )
-              );
-              break;
-            case 'textarea':
-              m = (
-                createField(
-                  v,
-                  'full',
-                  <MarkdownForm payload={{
-                    label: v, register, getValues, setValue,
-                  }}
-                  />,
-                )
-              );
-              break;
-            case 'date':
-              m = (
-                createField(
-                  v,
-                  '',
-                  <DateField payload={{ key: v, register }} />,
-                )
-              );
-              break;
-            default:
-              m = (
-                createField(
-                  v,
-                  '',
-                  <Checkbox {...register(`customFields.checkbox.${checkTitleIsNan(v)}`)} />,
-                )
-              );
-              break;
-          }
-          return m;
-        }),
-      );
-      res = [...res, ...fieldsItem.flat()];
-    }
-    return res;
+    const elementsJsx = Object.entries(c.customFields).map(
+      (e) => e[1].map((v: string) => {
+        let m: JSX.Element;
+        switch (e[0]) {
+          case 'string':
+            m = (
+              createField(
+                v,
+                '',
+                <StringField payload={{ key: v, register }} />,
+              )
+            );
+            break;
+          case 'number':
+            m = (
+              createField(
+                v,
+                '',
+                <NumberField payload={{ key: v, register }} />,
+              )
+            );
+            break;
+          case 'textarea':
+            m = (
+              createField(
+                v,
+                'full',
+                <MarkdownForm payload={{
+                  label: v, register, getValues, setValue,
+                }}
+                />,
+              )
+            );
+            break;
+          case 'date':
+            m = (
+              createField(
+                v,
+                '',
+                <DateField payload={{ key: v, register }} />,
+              )
+            );
+            break;
+          default:
+            m = (
+              createField(
+                v,
+                '',
+                <Checkbox {...register(`customFields.checkbox.${checkTitleIsNan(v)}`)} />,
+              )
+            );
+            break;
+        }
+        return m;
+      }),
+    );
+    return elementsJsx.flat();
   };
 
   useEffect(() => {
@@ -147,7 +152,7 @@ const NewItem = () => {
   return (
     <Paper
       elevation={5}
-      className={styles.wrapper}
+      className={classNames(styles.wrapper, 'new')}
     >
       <Typography
         variant="h3"
@@ -169,7 +174,12 @@ const NewItem = () => {
           <ItemFormField payload={{ label: 'tags', size: '' }}>
             <TagsField setTags={setTags} tags={tags} />
           </ItemFormField>
-          {fields && fields.map((e) => e)}
+          <Box
+            component="div"
+            className={classNames(styles.boxCustom, 'box__custom')}
+          >
+            {fields && fields.map((e) => e)}
+          </Box>
           <Box
             component="div"
             className={styles.buttonsBlock}
