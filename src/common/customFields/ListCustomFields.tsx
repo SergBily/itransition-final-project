@@ -4,7 +4,7 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {
-  Chip, InputAdornment, Stack, TextField,
+  Chip, InputAdornment, Stack, TextField, Typography,
 } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -34,6 +34,7 @@ const ListCustomFields = ({ setCustomItemFields }: ListCustomFieldsProps) => {
   const [isTitleField, setisTitleField] = useState<boolean>(false);
   const [selectedField, setselectedField] = useState<Fields>('number');
   const [addedField, setaddedField] = useState<string[]>([]);
+  const [errorField, setErrorField] = useState<boolean>(false);
   const [widthSize, setWidthSize] = useState<number>(screenSize.INITIAL);
   const reportWindowSize = () => {
     setWidthSize(window.innerWidth);
@@ -53,6 +54,11 @@ const ListCustomFields = ({ setCustomItemFields }: ListCustomFieldsProps) => {
   };
 
   const handleSaveTitleField = (): void => {
+    if (titleField === 'title') {
+      setErrorField(true);
+      setTimeout(() => setErrorField(false), 4000);
+      return;
+    }
     setaddedField((p) => [...p, titleField]);
     setCustomItemFields((pre) => ({ ...pre, [selectedField]: [...pre[selectedField], titleField] }));
     setisTitleField(false);
@@ -153,6 +159,11 @@ const ListCustomFields = ({ setCustomItemFields }: ListCustomFieldsProps) => {
               </Box>
             </Box>
           )}
+        {errorField && (
+        <Typography variant="body2" color="error">
+          <FormattedMessage id="app.collection.new.custom.fielsd.error" />
+        </Typography>
+        )}
       </Box>
     </Box>
   );
