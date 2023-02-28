@@ -5,12 +5,12 @@ import { visuallyHidden } from '@mui/utils';
 import {
   Box, Checkbox, TableCell, TableRow,
 } from '@mui/material';
-import { Collection } from '../../../../shared/models/items/itemsCollection.model';
 import getHeadCell from '../../../../shared/utils/getHeadCell';
 import HeadCell from '../../../../shared/models/itemsTable/headCell.model';
 import { useAppSelector } from '../../../../shared/hooks/hooks';
 import styles from './styles.module.scss';
 import Order from '../../../../shared/models/items/order.type';
+import Collection from '../../../../shared/models/allCollections/collection.type';
 
 interface EnhancedTableProps {
   numSelected: number;

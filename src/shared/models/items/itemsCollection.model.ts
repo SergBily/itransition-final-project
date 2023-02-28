@@ -1,4 +1,4 @@
-import CollectionResponse from '../newCollection/collectionResponse.model';
+import Collection from '../allCollections/collection.type';
 import InitialState from '../state/initialState.model';
 import ItemStructure from './itemStructure.model';
 
@@ -10,7 +10,5 @@ interface ItemsCollection extends InitialState {
   delStatus: 'idle' | 'loading' | 'failed' | 'success',
   getStatus: 'idle' | 'loading' | 'failed' | 'success',
 }
-
-export type Collection = Omit<CollectionResponse, 'imageUrl' | 'description'>;
 
 export default ItemsCollection;
