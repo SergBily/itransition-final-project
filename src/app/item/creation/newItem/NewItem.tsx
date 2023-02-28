@@ -20,16 +20,14 @@ import generateKey from '../../../../shared/utils/UniqueKey';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import { getItemsCollection } from '../../../../redux/features/ItemsCollectionSlice';
 import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
-import { Collection } from '../../../../shared/models/items/itemsCollection.model';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { createItem, newItemReset } from '../../../../redux/features/itemSlice';
-// import NewItemRequest from '../../../../shared/models/items/newItemRequest.model';
 import routes from '../../../../shared/constants/routes';
 import TitleField from '../../fields/titleField/TitleField';
 import TagsField from '../../fields/tagsField/TagsField';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
 import Spinner from '../../../../common/spinner/Spinner';
-// import CustomFields from '../../../../shared/models/newCollection/customFields.model';
+import Collection from '../../../../shared/models/allCollections/collection.type';
 
 const customFieldsInit = {
   number: {},
