@@ -20,7 +20,7 @@ const createElement = (
 ): JSX.Element => (
   <Box
     component="div"
-    className={classNames(styles.boxCustomFields, `animation${nameStyle}`)}
+    className={styles.boxCustomFields}
     key={generateKey()}
   >
     <Typography
@@ -76,8 +76,7 @@ const customFieldslayout = (item: ItemStructure): JSX.Element[] => {
 
 const BodyItemPage = ({ item }: BodyItemPagePrors) => {
   useEffect(() => {
-    const animation = gsap.timeline();
-    animation.to('.styles_boxCustomFields__qBM9H', {
+    gsap.to('.styles_root__90aPB', {
       y: '-250px', opacity: 1, duration: 0.9, ease: 'circ',
     });
   });

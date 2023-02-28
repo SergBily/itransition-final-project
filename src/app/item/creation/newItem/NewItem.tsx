@@ -23,12 +23,21 @@ import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
 import { Collection } from '../../../../shared/models/items/itemsCollection.model';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { createItem, newItemReset } from '../../../../redux/features/itemSlice';
-import NewItemRequest from '../../../../shared/models/items/newItemRequest.model';
+// import NewItemRequest from '../../../../shared/models/items/newItemRequest.model';
 import routes from '../../../../shared/constants/routes';
 import TitleField from '../../fields/titleField/TitleField';
 import TagsField from '../../fields/tagsField/TagsField';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
 import Spinner from '../../../../common/spinner/Spinner';
+// import CustomFields from '../../../../shared/models/newCollection/customFields.model';
+
+const customFieldsInit = {
+  number: {},
+  string: {},
+  textarea: {},
+  date: {},
+  checkbox: {},
+};
 
 const createField = (label: string, size: string, children: JSX.Element): JSX.Element => (
   <ItemFormField payload={{ label, size }} key={generateKey()}>
@@ -73,12 +82,14 @@ const NewItem = () => {
     dispatch(newItemReset());
   }, [newItemStatus]);
 
-  const onFormSubmit = (data: any): void => {
-    const itemData: NewItemRequest = {
-      ...data,
+  const onFormSubmit = (data: Record<string, string>): void => {
+    const itemData: any = {
+      title: data.title,
+      customFields: data?.customFields
+        ? data.customFields : customFieldsInit,
       tags,
       userId,
-      collectionId: id,
+      collectionId: id as string,
     };
     dispatch(createItem(itemData));
   };

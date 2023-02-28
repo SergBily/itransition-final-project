@@ -1,5 +1,11 @@
 @import '../../../../shared/styles/globalLayout.scss';
 
+.wrapper {
+  position: relative;
+  opacity: 0;
+  top: 250px;
+}
+
 .root {
   width: 100%;
   background-color: #c89f641d;

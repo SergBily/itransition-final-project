@@ -1,9 +1,13 @@
 .boxCustomFields {
   width: auto;
   margin: 2rem 0;
+}
+
+.root {
   position: relative;
   opacity: 0;
   top: 250px;
+  min-height: 30px;
 }
 
 .text {

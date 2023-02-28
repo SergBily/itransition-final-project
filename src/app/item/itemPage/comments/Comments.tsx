@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import { useEffect, useState } from 'react';
+import gsap from 'gsap';
 import styles from './styles.module.scss';
 import screenSize from '../../../../shared/constants/screenSize';
 import { useAppSelector } from '../../../../shared/hooks/hooks';
@@ -70,6 +71,9 @@ const Comments = ({ saveComment, comments }: CommentsProps) => {
 
   useEffect(() => {
     window.addEventListener('resize', reportWindowSize);
+    gsap.to('.styles_wrapper__AJaFW', {
+      y: '-250px', opacity: 1, duration: 0.9, ease: 'circ',
+    });
     return () => window.removeEventListener('resize', reportWindowSize);
   }, []);
 
@@ -80,7 +84,10 @@ const Comments = ({ saveComment, comments }: CommentsProps) => {
   };
 
   return (
-    <Paper elevation={6}>
+    <Paper
+      elevation={6}
+      className={styles.wrapper}
+    >
       <Box component="div" className={styles.root}>
         <Box component="div" className={styles.tabs}>
           <Tabs
