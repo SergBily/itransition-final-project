@@ -1,0 +1,9 @@
+@import '../../../../shared/styles/globalVariables.scss';
+
+.textField {
+  background-color: $fieldColor;
+}
+
+.error {
+  color: #ff0000;
+}

@@ -1,8 +1,8 @@
-import InitialState from './initialState';
-import AllCollectionsResponse from '../allCollections/allCollectionsResponse';
+import InitialState from './initialState.model';
+import AllCollectionsResponse from '../allCollections/allCollectionsResponse.model';
 
 interface AllCollection extends InitialState {
-  allCollection?: AllCollectionsResponse[];
+  allCollections?: AllCollectionsResponse[];
   errors: string[]
 }
 

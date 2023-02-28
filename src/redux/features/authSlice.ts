@@ -6,7 +6,7 @@ import { registrationApi, logoutApi, loginApi } from '../../shared/apis/authApi'
 import { AuthForm, LoginForm } from '../../shared/models/authForm.model';
 import { AuthResponse } from '../../shared/models/authResponse.model';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
-import LocalStorageData from '../../shared/models/localStorageData';
+import LocalStorageData from '../../shared/models/localStorageData.model';
 
 const initialState: AuthState = {
   status: 'idle',

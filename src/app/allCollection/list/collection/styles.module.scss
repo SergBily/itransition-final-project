@@ -1,0 +1,29 @@
+@import '../../../../shared//styles//globalVariables.scss';
+
+.root {
+  position: relative;
+  width: 272px;
+  min-height: 400px;
+  max-height: 400px;
+}
+
+.description {
+  min-height: 125px;
+  max-height: 125px;
+  overflow-y: auto;
+}
+
+.topic {
+  text-align: center;
+  color: $colorTitleCollection;
+}
+
+.title {
+  font-weight: 500;
+  text-decoration: dotted;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}

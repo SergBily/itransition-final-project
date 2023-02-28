@@ -3,8 +3,8 @@ import { AxiosError } from 'axios';
 import { createNewCollection } from '../../shared/apis/collectionApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
-import CollectionRequest from '../../shared/models/newCollection/collectionRequest';
-import CollectionResponse from '../../shared/models/newCollection/collectionResponse';
+import CollectionRequest from '../../shared/models/newCollection/collectionRequest.model';
+import CollectionResponse from '../../shared/models/newCollection/collectionResponse.model';
 import NewCollection from '../../shared/models/state/newCollection.model';
 
 const initialState: NewCollection = {
@@ -33,7 +33,7 @@ export const newCollectionSlice = createSlice({
   name: 'newCollection',
   initialState,
   reducers: {
-    reset: (state) => {
+    newCollectionReset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
       state.errors = [];
@@ -56,5 +56,5 @@ export const newCollectionSlice = createSlice({
   },
 });
 
-export const { reset } = newCollectionSlice.actions;
+export const { newCollectionReset } = newCollectionSlice.actions;
 export default newCollectionSlice.reducer;

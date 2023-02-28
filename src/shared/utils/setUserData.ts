@@ -1,5 +1,5 @@
 import localStorageKeys from '../constants/localStorageKeys';
-import LocalStorageData from '../models/localStorageData';
+import LocalStorageData from '../models/localStorageData.model';
 
 const setUserData = (payload: LocalStorageData): void => {
   localStorage.setItem(localStorageKeys.USERId, payload.userId);

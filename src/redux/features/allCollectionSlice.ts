@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { getCollections } from '../../shared/apis/collectionApi';
+import { getAllCollections } from '../../shared/apis/collectionApi';
 import routes from '../../shared/constants/routes';
-import AllCollectionsResponse from '../../shared/models/allCollections/allCollectionsResponse';
+import AllCollectionsResponse from '../../shared/models/allCollections/allCollectionsResponse.model';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import AllCollection from '../../shared/models/state/allCollection.module';
 
@@ -16,7 +16,7 @@ export const getAllCollection = createAsyncThunk<AllCollectionsResponse[], strin
   routes.COLLECTIONS,
   async (userId, thunkAPI) => {
     try {
-      const response = await getCollections(userId);
+      const response = await getAllCollections(userId);
       const { data } = response;
       return data;
     } catch (e) {
@@ -29,10 +29,10 @@ export const getAllCollection = createAsyncThunk<AllCollectionsResponse[], strin
 );
 
 export const allCollectionsSlice = createSlice({
-  name: 'collection',
+  name: 'collections',
   initialState,
   reducers: {
-    reset: (state) => {
+    allCollectionReset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
       state.errors = [];
@@ -45,7 +45,7 @@ export const allCollectionsSlice = createSlice({
       })
       .addCase(getAllCollection.fulfilled, (state, { payload }) => {
         state.status = 'success';
-        state.allCollection = payload;
+        state.allCollections = payload;
       })
       .addCase(getAllCollection.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -55,5 +55,5 @@ export const allCollectionsSlice = createSlice({
   },
 });
 
-export const { reset } = allCollectionsSlice.actions;
+export const { allCollectionReset } = allCollectionsSlice.actions;
 export default allCollectionsSlice.reducer;

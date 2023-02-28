@@ -1,0 +1,55 @@
+@import '../../../../shared//styles/globalLayout.scss';
+@import '../../../../shared//styles/globalVariables.scss';
+
+.root {
+  @include flex();
+  flex-direction: column;
+}
+
+.boxInput {
+  width: 100%;
+}
+
+.textField {
+  background-color: $fieldColor;
+}
+
+.button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.stack {
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.2rem;
+}
+
+.icon {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.4);
+      -webkit-transform: scale(1.4);
+      -moz-transform: scale(1.4);
+      -ms-transform: scale(1.4);
+      -o-transform: scale(1.4);
+      transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 600px) {
+  .stack {
+    flex-wrap: wrap;
+  }
+}

@@ -12,4 +12,13 @@ export const urls = {
   COLLECTIONS: `${BASE_URL}/collection/all`,
   NEW_COLLECTION: `${BASE_URL}/collection/create`,
   DELETE_COLLECTION: `${BASE_URL}/collection/delete`,
+  COLLECTION: `${BASE_URL}/collection`,
+  ALL_ITEMS: `${BASE_URL}/item/all`,
+  NEW_ITEM: `${BASE_URL}/item/create`,
+  DELETE_ITEM: `${BASE_URL}/item/delete`,
+  EDIT_ITEM: `${BASE_URL}/item/edit`,
+  ITEM: `${BASE_URL}/item`,
+  ADD_LIKE: `${BASE_URL}/item/like/add`,
+  REMOVE_LIKE: `${BASE_URL}/item/like/remove`,
+  COMMENTS_ITEM: `${BASE_URL}/comment/all`,
 };

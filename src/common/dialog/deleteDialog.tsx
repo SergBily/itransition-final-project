@@ -16,10 +16,10 @@ const Transition = React.forwardRef((
 
 type PayloadDialog = {
   type: string,
-  title: string,
+  title: string[],
   open: boolean,
   setOpen: (e: boolean) => void,
-  deleteCollection: () => void
+  handelDelete: () => void
 };
 
 interface DeleteDialogProps {
@@ -28,15 +28,18 @@ interface DeleteDialogProps {
 
 const DeleteDialog = ({ payload }: DeleteDialogProps) => {
   const {
-    type, title, open, setOpen, deleteCollection,
+    type, title, open, setOpen, handelDelete,
   } = payload;
+  const convertedTitles = title.length > 1
+    ? title.join(', ')?.toUpperCase()
+    : title[0]?.toUpperCase();
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleDelete = () => {
+  const handleDeleteDialog = () => {
     setOpen(false);
-    deleteCollection();
+    handelDelete();
   };
 
   return (
@@ -49,16 +52,16 @@ const DeleteDialog = ({ payload }: DeleteDialogProps) => {
     >
       <DialogTitle>
         <FormattedMessage
-          id="app.collection.dialog"
-          values={{ type, title }}
+          id="app.dialog"
+          values={{ type, convertedTitles }}
         />
       </DialogTitle>
       <DialogActions>
         <Button onClick={handleClose}>
-          <FormattedMessage id="app.collection.dialog.button1" />
+          <FormattedMessage id="app.dialog.button1" />
         </Button>
-        <Button onClick={handleDelete}>
-          <FormattedMessage id="app.collection.dialog.button2" />
+        <Button onClick={handleDeleteDialog}>
+          <FormattedMessage id="app.dialog.button2" />
         </Button>
       </DialogActions>
     </Dialog>

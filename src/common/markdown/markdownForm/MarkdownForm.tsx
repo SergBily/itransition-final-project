@@ -6,7 +6,8 @@ import {
   Paper, TextareaAutosize, Tooltip,
 } from '@mui/material';
 import {
-  UseFormRegister, UseFormSetValue, UseFormWatch,
+  UseFormGetValues,
+  UseFormRegister, UseFormSetValue,
 } from 'react-hook-form';
 import ReactMarkdown from 'react-markdown';
 import { FormattedMessage } from 'react-intl';
@@ -18,7 +19,7 @@ import links from '../../../shared/constants/links';
 import markdown from '../../../assets/images/markdown.svg';
 import insertMarkup from '../../../shared/utils/insertMarkdownSymbol';
 import styles from './styles.module.scss';
-import CollectionStructure from '../../../shared/models/newCollection/collectionStructure.model';
+import checkTitleIsNan from '../../../shared/utils/checkTitleIsNan';
 
 function a11yProps(index: number) {
   return {
@@ -27,26 +28,32 @@ function a11yProps(index: number) {
   };
 }
 
-interface MarkdownFormProps {
+type MarkdownFormPayload = {
+  value?: string,
   label: string,
-  register: UseFormRegister<CollectionStructure>,
-  watch: UseFormWatch<CollectionStructure>,
-  setValueTextArea: UseFormSetValue<CollectionStructure>
+  register: UseFormRegister<Record<string, string>>,
+  getValues: UseFormGetValues<Record<string, string>>,
+  setValue: UseFormSetValue<Record<string, string>>
+};
+
+interface MarkdownFormProps {
+  payload: MarkdownFormPayload
 }
 
-const MarkdownForm = ({
-  label, register, watch, setValueTextArea,
-}: MarkdownFormProps) => {
-  const [value, setValue] = useState<number>(0);
+const MarkdownForm = ({ payload }: MarkdownFormProps) => {
+  const {
+    value = '', label, register, setValue, getValues,
+  } = payload;
+  const [valueTabs, setValueTabs] = useState<number>(0);
   const [choosedList, setChoosedList] = useState<string>('');
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setValueTabs(newValue);
   };
 
   const handlerKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
-      insertMarkup('description__textarea', choosedList);
+      insertMarkup(label, choosedList);
     }
   };
 
@@ -58,27 +65,31 @@ const MarkdownForm = ({
       >
         <Tabs
           className={styles.tabs}
-          value={value}
+          value={valueTabs}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          aria-label="tabs"
         >
           <Tab label={<FormattedMessage id="app.collection.markdown.panel" />} {...a11yProps(0)} />
           <Tab label={<FormattedMessage id="app.collection.markdown.panel2" />} {...a11yProps(1)} />
           <MarkdownToolbar
-            setValueTextArea={setValueTextArea}
+            setValueTextArea={setValue}
             setChoosedList={setChoosedList}
+            label={label}
           />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={valueTabs} index={0}>
         <TextareaAutosize
-          className={classNames(styles.textareaAutosize, 'description__textarea')}
+          className={classNames(styles.textareaAutosize, `label${label}`)}
           maxRows={4}
           minRows={4}
+          autoFocus={valueTabs === 0}
           aria-label="maximum height"
           placeholder="Maximum 4 rows"
+          defaultValue={value}
           onKeyDown={handlerKeyDown}
-          {...register(`${label}` as keyof CollectionStructure)}
+          {...register(label === 'descriptionCollection'
+            ? label : `customFields.textarea.${checkTitleIsNan(label)}`)}
         />
         <Tooltip title={<FormattedMessage id="app.collection.markdown.support" />}>
           <Box
@@ -98,9 +109,10 @@ const MarkdownForm = ({
           </Box>
         </Tooltip>
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={valueTabs} index={1}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {watch('description')}
+          {getValues(label === 'descriptionCollection'
+            ? label : `customFields.textarea.${checkTitleIsNan(label)}`)}
         </ReactMarkdown>
       </TabPanel>
     </Paper>
