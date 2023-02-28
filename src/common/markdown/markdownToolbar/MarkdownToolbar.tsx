@@ -39,7 +39,7 @@ const MarkdownToolbar = ({ setValueTextArea, setChoosedList, label }: MarkdownTo
   const onInsetSymbol = (e: React.MouseEvent) => {
     const action = (e.currentTarget as HTMLButtonElement).dataset.type as string;
     setChoosedList(action);
-    setValueTextArea(label === 'description'
+    setValueTextArea(label === 'descriptionCollection'
       ? label : `customFields.textarea.${checkTitleIsNan(label)}`, insertMarkup(label, action));
   };
   const reportWindowSize = () => {
@@ -47,8 +47,6 @@ const MarkdownToolbar = ({ setValueTextArea, setChoosedList, label }: MarkdownTo
   };
   useEffect(() => {
     window.addEventListener('resize', reportWindowSize);
-    console.log('00');
-
     return () => window.removeEventListener('resize', reportWindowSize);
   }, []);
 

@@ -88,7 +88,7 @@ const MarkdownForm = ({ payload }: MarkdownFormProps) => {
           placeholder="Maximum 4 rows"
           defaultValue={value}
           onKeyDown={handlerKeyDown}
-          {...register(label === 'description'
+          {...register(label === 'descriptionCollection'
             ? label : `customFields.textarea.${checkTitleIsNan(label)}`)}
         />
         <Tooltip title={<FormattedMessage id="app.collection.markdown.support" />}>
@@ -111,7 +111,7 @@ const MarkdownForm = ({ payload }: MarkdownFormProps) => {
       </TabPanel>
       <TabPanel value={valueTabs} index={1}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {getValues(label === 'description'
+          {getValues(label === 'descriptionCollection'
             ? label : `customFields.textarea.${checkTitleIsNan(label)}`)}
         </ReactMarkdown>
       </TabPanel>
