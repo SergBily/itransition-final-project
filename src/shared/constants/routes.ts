@@ -12,6 +12,7 @@ const routes = {
   ITEM_CREATE: 'collection/:id/item/create',
   ITEM_DELETE: 'collection/:id/item/delete',
   ITEM_EDIT: '/collection/:id/edit/:itemId',
+  ITEM_PAGE: '/collection/:id/item/:itemId',
 };
 
 export default routes;

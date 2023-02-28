@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import EditIcon from '@mui/icons-material/Edit';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import routes from '../../../../shared/constants/routes';
 import styles from './styles.module.scss';
@@ -70,26 +71,45 @@ const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarPr
       )}
       {selected.length === 1
         && (
+        <>
+          <Link
+            to={`${routes.COLLECTION}${id}/item/${selected[0]}`}
+            className={styles.link}
+          >
+            <Tooltip title={<FormattedMessage id="app.item.tooltip.open" />}>
+              <IconButton>
+                <Typography
+                  variant="body2"
+                  color="initial"
+                  className={styles.tooltipButton}
+                >
+                  <FormattedMessage id="app.item.tooltip.open" />
+                </Typography>
+                <FileOpenIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
+          </Link>
           <Link
             to={`${routes.COLLECTION}${id}/edit/${selected[0]}`}
             className={styles.link}
           >
-            <Tooltip title="Edit">
+            <Tooltip title={<FormattedMessage id="app.item.tooltip.edit" />}>
               <IconButton>
                 <EditIcon fontSize="large" />
               </IconButton>
             </Tooltip>
           </Link>
+        </>
         )}
       {selected.length > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title={<FormattedMessage id="app.item.tooltip.delete" />}>
           <IconButton onClick={() => setOpen(true)}>
             <DeleteIcon fontSize="large" />
           </IconButton>
         </Tooltip>
       ) : (
         <>
-          <Tooltip title="Filter list">
+          <Tooltip title={<FormattedMessage id="app.item.tooltip.filter" />}>
             <IconButton>
               <FilterListIcon fontSize="large" />
             </IconButton>
@@ -98,13 +118,16 @@ const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarPr
             to={`${routes.COLLECTION}${id}/item/create`}
             className={styles.link}
           >
-            <Tooltip title="Add item" className={styles.tooltip}>
+            <Tooltip
+              title={<FormattedMessage id="app.item.tooltip.add" />}
+              className={styles.tooltip}
+            >
               <IconButton>
                 <AddIcon fontSize="large" />
                 <Typography
                   variant="body2"
                   color="initial"
-                  className={styles.addButton}
+                  className={styles.tooltipButton}
                 >
                   <FormattedMessage id="app.item.new.create" />
                 </Typography>

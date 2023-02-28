@@ -37,6 +37,10 @@ const ItemEdit = loadable(() => import('../../app/item/edit/editItem/EditItem'),
   resolveComponent: (components) => components.default,
 });
 
+const ItemPage = loadable(() => import('../../app/item/itemPage/ItemPage'), {
+  resolveComponent: (components) => components.default,
+});
+
 const AppRoutes = () => (
   <Routes>
     <Route path={routes.HOME} element={<Home />} />
@@ -47,6 +51,7 @@ const AppRoutes = () => (
     <Route path={routes.COLLECTION_ID} element={<Collection />} />
     <Route path={routes.ITEM_CREATE} element={<ItemCreate />} />
     <Route path={routes.ITEM_EDIT} element={<ItemEdit />} />
+    <Route path={routes.ITEM_PAGE} element={<ItemPage />} />
   </Routes>
 );
 

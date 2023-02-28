@@ -180,7 +180,7 @@ const ItemsTable = () => {
                             align="right"
                           >
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                              {typeof v === 'string' ? v[1] : `${v[1]}`}
+                              {typeof v[1] === 'string' ? v[1] : v[1] ? 'yes' : 'no'}
                             </ReactMarkdown>
                           </TableCell>
                         );

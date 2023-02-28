@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { getItemsCollectionApi } from '../../shared/apis/collectionApi';
-import { deleteItemsApi, getItemApi } from '../../shared/apis/itemApi';
+import { deleteItemsApi, getAllItemsCollectionApi, getItemApi } from '../../shared/apis/itemApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import ItemsCollection from '../../shared/models/items/itemsCollection.model';
@@ -23,9 +22,7 @@ export const getItemsCollection = createAsyncThunk<ItemsCollectionResponse, stri
   routes.COLLECTION_ID,
   async (id, thunkAPI) => {
     try {
-      const response = await getItemsCollectionApi(id);
-      const { data } = response;
-      return data;
+      return await getAllItemsCollectionApi(id);
     } catch (e) {
       const error = e as AxiosError;
       const message = (error.response && error.response.data) as ErrorResponse

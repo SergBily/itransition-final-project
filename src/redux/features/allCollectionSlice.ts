@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { getCollections } from '../../shared/apis/collectionApi';
+import { getAllCollections } from '../../shared/apis/collectionApi';
 import routes from '../../shared/constants/routes';
 import AllCollectionsResponse from '../../shared/models/allCollections/allCollectionsResponse.model';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
@@ -16,7 +16,7 @@ export const getAllCollection = createAsyncThunk<AllCollectionsResponse[], strin
   routes.COLLECTIONS,
   async (userId, thunkAPI) => {
     try {
-      const response = await getCollections(userId);
+      const response = await getAllCollections(userId);
       const { data } = response;
       return data;
     } catch (e) {
