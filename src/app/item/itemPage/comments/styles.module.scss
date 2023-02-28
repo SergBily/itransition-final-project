@@ -1,0 +1,52 @@
+@import '../../../../shared/styles/globalLayout.scss';
+
+.root {
+  width: 100%;
+  background-color: #c89f641d;
+  margin-bottom: 1rem;
+  min-height: 235px;
+}
+
+.tabs {
+  border-bottom: 0.5rem;
+}
+
+.textareaAutosize {
+  width: 100%;
+  font-size: large;
+  padding-left: 10px;
+}
+
+.btn {
+  margin-top: 1rem;
+}
+
+.blockCommentTitle {
+  margin-bottom: 1rem;
+  @include flex();
+  gap: 40px;
+}
+
+.blockComment {
+  margin-bottom: 1rem;
+  background-color: #c89f641d;
+  padding: 0.5rem;
+}
+
+.block {
+  @include flex();
+  gap: 40px;
+}
+
+.sender {
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .block {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}

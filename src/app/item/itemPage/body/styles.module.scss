@@ -1,0 +1,40 @@
+.boxCustomFields {
+  width: auto;
+  margin: 2rem 0;
+  position: relative;
+  opacity: 0;
+  top: 250px;
+}
+
+.text {
+  margin-left: 2rem;
+  background-color: #fcf9f5;
+}
+
+.string,
+.number, 
+.textarea,
+.date,
+.checkbox {
+  position: relative;
+  margin: 0 0 2rem 1rem;
+  color: #3d2e01;
+}
+
+.string::after,
+.number::after,
+.textarea::after,
+.date::after,
+.checkbox::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, #2a0f1e,#c89f64);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}

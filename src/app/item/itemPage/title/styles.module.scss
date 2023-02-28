@@ -1,0 +1,50 @@
+@import '../../../../shared/styles/globalLayout.scss';
+
+.root {
+  @include wh(100%, auto);
+  position: relative;
+  background-color: #fcf4de;
+  margin: 0;
+  left: -100%;
+  opacity: 0;
+}
+
+.title {
+color: #3d2e01;
+text-align: center;
+margin-top: 2rem;
+}
+
+.containerRating {
+  @include flex();
+  justify-content: space-between;
+  text-align: center;
+}
+
+.topic {
+  width: 100px;
+  margin-left: 2rem;
+}
+
+.rating {
+  width: 150px;
+}
+
+.boxChip {
+  @include flex();
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0.5rem 0 0.5rem 0;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+    }
+
+    .topic {
+      margin-left: 0.5rem;
+    }
+    
+}
