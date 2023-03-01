@@ -13,49 +13,53 @@ import requiredValidator from '../../../../shared/validators/requiredValidator';
 const topics = ['books', 'cars', 'wine', 'stamps', 'paintings'];
 
 interface TopicFieldProps {
-  register: UseFormRegister<Record<string, string>>,
-  errors: FieldErrors<CollectionStructure>
+  register: UseFormRegister<Record<string, string>>;
+  errors: FieldErrors<CollectionStructure>;
+  selectValue?: string | undefined;
 }
 
-const TopicField = ({ register, errors }: TopicFieldProps) => (
-  <>
-    <Box
-      component="div"
-      className={styles.root}
-    >
-      <FormControl fullWidth>
-        <InputLabel id="topic-select-label">
-          <FormattedMessage id="app.collection.topic.select" />
-        </InputLabel>
-        <Select
-          labelId="topic-select-label"
-          id="topic-select"
-          label="Topic"
-          size="small"
-          defaultValue=""
-          error={!!errors.topic?.message}
-          {...register(
-            'topic',
-            requiredValidator('app.collection.response.error.topic'),
-          )}
-        >
-          {topics.map((e) => (
-            <MenuItem key={e} value={e}>
-              <FormattedMessage id={`app.collection.topic.select.${e}`} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Box>
-    <Box component="p" className={styles.error}>
-      {!!errors.topic?.message
-            && (
-              <FormattedMessage id={errors.topic?.message} />
-            )}
-    </Box>
-    {' '}
+const TopicField = (payload: TopicFieldProps) => {
+  const { register, errors, selectValue = '' } = payload;
 
-  </>
-);
+  return (
+    <>
+      <Box
+        component="div"
+        className={styles.root}
+      >
+        <FormControl fullWidth>
+          <InputLabel id="topic-select-label">
+            <FormattedMessage id="app.collection.topic.select" />
+          </InputLabel>
+          <Select
+            labelId="topic-select-label"
+            id="topic-select"
+            label="Topic"
+            size="small"
+            value={selectValue}
+            defaultValue=""
+            error={!!errors.topic?.message}
+            {...register(
+              'topic',
+              requiredValidator('app.collection.response.error.topic'),
+            )}
+          >
+            {topics.map((e) => (
+              <MenuItem key={e} value={e}>
+                <FormattedMessage id={`app.collection.topic.select.${e}`} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+      <Box component="p" className={styles.error}>
+        {!!errors.topic?.message
+              && (
+                <FormattedMessage id={errors.topic?.message} />
+              )}
+      </Box>
+    </>
+  );
+};
 
 export default TopicField;

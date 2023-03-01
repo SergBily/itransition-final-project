@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip, IconButton, Box } from '@mui/material';
+import {
+  Tooltip, IconButton, Box,
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import gsap from 'gsap';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import styles from './sytles.module.scss';
 import DeleteDialog from '../../../../common/dialog/deleteDialog';
+import routes from '../../../../shared/constants/routes';
 
 type PayloadDashboard = {
   isHovering: boolean,
@@ -58,11 +62,13 @@ const CollectionDashboard = ({ payload }: CollectionDashboardProps) => {
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title={<FormattedMessage id="app.collection.dashboard2" />}>
-          <IconButton color="warning">
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
+        <Link to={`${routes.COLLECTION}edit/${id}`}>
+          <Tooltip title={<FormattedMessage id="app.collection.dashboard2" />}>
+            <IconButton color="warning">
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Link>
       </Box>
       <DeleteDialog
         payload={{

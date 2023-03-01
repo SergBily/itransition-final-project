@@ -10,6 +10,7 @@ export const urls = {
   LOGIN: `${BASE_URL}/login`,
   REFRESH: `${BASE_URL}/refresh`,
   COLLECTIONS: `${BASE_URL}/collection/all`,
+  EDIT_COLLECTION: `${BASE_URL}/collection/edit`,
   NEW_COLLECTION: `${BASE_URL}/collection/create`,
   DELETE_COLLECTION: `${BASE_URL}/collection/delete`,
   COLLECTION: `${BASE_URL}/collection`,

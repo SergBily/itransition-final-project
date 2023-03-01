@@ -33,6 +33,7 @@
   "app.collection.new.field.description": "Описание",
   "app.collection.new.field.image": "Изображение",
   "app.collection.new.field.itemFields": "Поля элементов",
+  "app.collection.edit.title": "Редактировать коллекцию",
   "app.collection.new.custom.fielsd.error": "Это поле является обязательным и его не нужно добавлять",
   "app.collection.markdown.panel": "Писать",
   "app.collection.markdown.panel2": "Предварительный просмотр",

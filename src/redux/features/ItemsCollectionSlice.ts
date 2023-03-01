@@ -19,7 +19,7 @@ const initialState: ItemsCollection = {
 };
 
 export const getItemsCollection = createAsyncThunk<ItemsCollectionResponse, string>(
-  routes.COLLECTION_ID,
+  routes.COLLECTION_ITEMS,
   async (id, thunkAPI) => {
     try {
       return await getAllItemsCollectionApi(id);

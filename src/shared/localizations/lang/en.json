@@ -33,6 +33,7 @@
   "app.collection.new.field.description": "Description",
   "app.collection.new.field.image": "Image",
   "app.collection.new.field.itemFields": "Item fields",
+  "app.collection.edit.title": "Edit collection",
   "app.collection.new.custom.fielsd.error": "This field is required and does not need to be added",
   "app.collection.markdown.panel": "Write",
   "app.collection.markdown.panel2": "Preview",

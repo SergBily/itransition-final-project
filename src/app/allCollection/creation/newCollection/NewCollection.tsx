@@ -28,12 +28,7 @@ import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
 import TitleField from '../../../item/fields/titleField/TitleField';
-
-type DataForm = {
-  topic: string,
-  title: string,
-  description: string
-};
+import DataForm from '../../../../shared/models/allCollections/dataForm.type';
 
 const fields: CustomFields = {
   number: [],

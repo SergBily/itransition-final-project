@@ -5,6 +5,8 @@ import newCollectionReducer from './features/newCollectionSlice';
 import itemsReducer from './features/ItemsCollectionSlice';
 import newItemReducer from './features/itemSlice';
 import itemPageReducer from './features/itemPageSlice';
+import editCollectionReducer from './features/editCollectionSlice';
+import collectionReducer from './features/collectionSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
     items: itemsReducer,
     newItem: newItemReducer,
     itemPage: itemPageReducer,
+    editCollection: editCollectionReducer,
+    collection: collectionReducer,
   },
 });
 

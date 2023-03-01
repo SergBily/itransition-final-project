@@ -25,6 +25,7 @@ import styles from './styles.module.scss';
 import convertItemsForTable from '../../../../shared/utils/convertItemsForTable';
 import Order from '../../../../shared/models/items/order.type';
 import { getComparator, stableSort } from '../../../../shared/sort/sortTable';
+import Collection from '../../../../shared/models/allCollections/collection.type';
 
 const ItemsTable = () => {
   const [order, setOrder] = useState<Order>('asc');
@@ -37,7 +38,7 @@ const ItemsTable = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const {
-    status, items, delStatus,
+    status, items, delStatus, collection,
   } = useAppSelector((state) => state.items);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const ItemsTable = () => {
 
   useEffect(() => {
     if (status === 'success') {
-      setcustomFields(convertItemsForTable(items));
+      setcustomFields(convertItemsForTable(items, collection as Collection));
     }
     dispatch(itemsCollectionReset());
   }, [status]);
@@ -115,102 +116,104 @@ const ItemsTable = () => {
 
   return (
     <Box component="div" className={classNames(styles.root, 'animationTable')}>
-      <Paper className={styles.wrapper}>
-        <ItemsTableToolbar selected={selected} id={id as string} setSelected={setSelected} />
-        <TableContainer>
-          <Table
-            className={styles.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={items.length}
-            />
-            <TableBody>
-              {customFields && stableSort(customFields, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+      {items && (
+        <Paper className={styles.wrapper}>
+          <ItemsTableToolbar selected={selected} id={id as string} setSelected={setSelected} />
+          <TableContainer>
+            <Table
+              className={styles.table}
+              aria-labelledby="tableTitle"
+              size={dense ? 'small' : 'medium'}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={items.length}
+              />
+              <TableBody>
+                {customFields && stableSort(customFields, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="info"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      {Object.entries(row).map((v, i) => {
-                        if (i === 0) return;
-                        if (i === 1) {
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row.id)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.id}
+                        selected={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            color="info"
+                            checked={isItemSelected}
+                            inputProps={{
+                              'aria-labelledby': labelId,
+                            }}
+                          />
+                        </TableCell>
+                        {Object.entries(row).map((v, i) => {
+                          if (i === 0) return;
+                          if (i === 1) {
+                            return (
+                              <TableCell
+                                className={styles.tableCell}
+                                key={row.id}
+                                component="th"
+                                id={labelId}
+                                scope="row"
+                                padding="none"
+                              >
+                                {v[1].slice(0, 1).toUpperCase() + v[1].slice(1)}
+                              </TableCell>
+                            );
+                          }
                           return (
                             <TableCell
                               className={styles.tableCell}
-                              key={row.id}
-                              component="th"
-                              id={labelId}
-                              scope="row"
-                              padding="none"
+                              key={generateKey()}
+                              align="right"
                             >
-                              {v[1].slice(0, 1).toUpperCase() + v[1].slice(1)}
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {typeof v[1] === 'string' ? v[1] : v[1] ? 'yes' : 'no'}
+                              </ReactMarkdown>
                             </TableCell>
                           );
-                        }
-                        return (
-                          <TableCell
-                            className={styles.tableCell}
-                            key={generateKey()}
-                            align="right"
-                          >
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                              {typeof v[1] === 'string' ? v[1] : v[1] ? 'yes' : 'no'}
-                            </ReactMarkdown>
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          className={styles.pagination}
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={items.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+                        })}
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            className={styles.pagination}
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={items.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"

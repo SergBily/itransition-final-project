@@ -1,0 +1,52 @@
+@import '../../../shared/styles/globalVariables.scss';
+@import '../../../shared/styles/globalLayout.scss';
+
+.wrapper {
+  margin-top: 1.5rem;
+  background-color: $backgroundNew;
+}
+
+.form {
+  min-width: 100%;
+}
+
+.textField {
+  background-color: $fieldColor;
+}
+
+.buttonsBlock {
+  @include flex();
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.title {
+  border-bottom: 1px solid black;
+  color: $colorTitleCreate;
+  margin: 0.5rem 1rem;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.error {
+  color: #ff0000;
+}
+
+@media (max-width: 600px) {
+  .buttonsBlock {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .wrapper {
+    padding: 0 5px;
+  }
+}
