@@ -97,5 +97,7 @@
   "app.item.comments.btn": "Опубликовывать",
   "app.item.comments.all": "Еще никто не оставил комментарий!",
   "app.item.comments.sender": "Отправитель",
-  "app.item.comments.comment": "Комментарий"
+  "app.item.comments.comment": "Комментарий",
+  "app.home.tab1": "Последние добавленные элементы",
+  "app.home.tab2": "Коллекции с наибольшим числом элементов"
 }

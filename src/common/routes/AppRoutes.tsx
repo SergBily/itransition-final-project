@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import loadable from '@loadable/component';
 import routes from '../../shared/constants/routes';
-import Home from '../../app/home/Home';
+import Home from '../../app/home/table/HomeTable';
 
 const Login = loadable(() => import('../../app/auth/Login'), {
   resolveComponent: (components) => components.default,
