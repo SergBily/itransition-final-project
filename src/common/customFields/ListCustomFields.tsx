@@ -47,10 +47,6 @@ const ListCustomFields = (payload: ListCustomFieldsProps) => {
     return () => window.removeEventListener('resize', reportWindowSize);
   }, []);
 
-  useEffect(() => {
-    setaddedField(fields);
-  }, [fields]);
-
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
   const handleTypeField = (e: React.MouseEvent<HTMLDivElement>): void => {

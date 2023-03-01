@@ -45,7 +45,7 @@ const EditCollection = () => {
   } = useForm<Record<string, string>>();
   const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
-  const [fieldsCollection, setfieldsCollection] = useState<string[]>([]);
+  const [fieldsCollection, setfieldsCollection] = useState<string[] | null>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectUser);
@@ -134,7 +134,8 @@ const EditCollection = () => {
             />
           </CollectionFormField>
           <CollectionFormField label="itemFields" Icon={Filter5Icon}>
-            <ListCustomFields setCustomItemFields={setCustomItemFields} fields={fieldsCollection} />
+            {fieldsCollection
+              && <ListCustomFields setCustomItemFields={setCustomItemFields} fields={fieldsCollection} />}
           </CollectionFormField>
           <Box
             component="div"
