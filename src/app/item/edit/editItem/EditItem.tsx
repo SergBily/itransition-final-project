@@ -28,6 +28,9 @@ import Spinner from '../../../../common/spinner/Spinner';
 import routes from '../../../../shared/constants/routes';
 import toastConfig from '../../../../shared/toast/toastConfig';
 import { editItem, newItemReset } from '../../../../redux/features/itemSlice';
+import { collectionReset, getCollection } from '../../../../redux/features/collectionSlice';
+import Collection from '../../../../shared/models/allCollections/collection.type';
+import convertFieldsForEdit from '../../../../shared/utils/convertFieldsForEdit';
 
 const createField = (label: string, size: string, children: JSX.Element): JSX.Element => (
   <ItemFormField payload={{ label, size }} key={generateKey()}>
@@ -47,9 +50,11 @@ const EditItem = () => {
   const { itemId, id } = useParams();
   const { getStatus, item, errors: errorsBD } = useAppSelector((state) => state.items);
   const { errorMessage, editStatus } = useAppSelector((state) => state.newItem);
+  const { collection } = useAppSelector((state) => state.collection);
 
   useEffect(() => {
     dispatch(getItem(itemId as string));
+    dispatch(getCollection(id as string));
     const animation = gsap.timeline();
     animation.to('.edit', {
       x: '100%', opacity: 1, duration: 0.7, ease: 'circ',
@@ -80,8 +85,9 @@ const EditItem = () => {
     dispatch(editItem({ itemId: itemId as string, payload: itemData }));
   };
 
-  const getCustomFields = (i: ItemStructure): JSX.Element[] => {
-    const elementsJsx = Object.entries(i.customFields).map((e) => Object.entries(e[1])
+  const getCustomFields = (): JSX.Element[] => {
+    const convertedFields = convertFieldsForEdit(item as ItemStructure, collection as Collection);
+    const elementsJsx = Object.entries(convertedFields).map((e) => Object.entries(e[1])
       .map((v) => {
         let m: JSX.Element;
         switch (e[0]) {
@@ -144,10 +150,11 @@ const EditItem = () => {
 
   useEffect(() => {
     if (getStatus === 'success') {
-      setFields(getCustomFields(item as ItemStructure));
+      setFields(getCustomFields());
       dispatch(itemsCollectionReset());
       setTags(item?.tags as string[]);
       setValue('title', item?.title as string);
+      dispatch(collectionReset());
     }
     if (errorsBD[0] === 'notFound') {
       toast.warn(<FormattedMessage
