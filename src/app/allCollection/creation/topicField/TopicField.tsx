@@ -4,7 +4,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import {
+  FieldErrors, UseFormRegister, UseFormWatch,
+} from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import styles from './styles.module.scss';
 import CollectionStructure from '../../../../shared/models/newCollection/collectionStructure.model';
@@ -15,11 +17,13 @@ const topics = ['books', 'cars', 'wine', 'stamps', 'paintings'];
 interface TopicFieldProps {
   register: UseFormRegister<Record<string, string>>;
   errors: FieldErrors<CollectionStructure>;
-  selectValue?: string | undefined;
+  watch: UseFormWatch<Record<string, string>>
 }
 
 const TopicField = (payload: TopicFieldProps) => {
-  const { register, errors, selectValue = '' } = payload;
+  const {
+    register, errors, watch,
+  } = payload;
 
   return (
     <>
@@ -36,8 +40,7 @@ const TopicField = (payload: TopicFieldProps) => {
             id="topic-select"
             label="Topic"
             size="small"
-            value={selectValue}
-            defaultValue=""
+            value={watch('topic') ?? ''}
             error={!!errors.topic?.message}
             {...register(
               'topic',

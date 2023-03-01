@@ -40,7 +40,7 @@ const fields: CustomFields = {
 
 const NewCollection = () => {
   const {
-    register, handleSubmit, getValues, setValue, formState: { errors },
+    register, handleSubmit, getValues, setValue, watch, formState: { errors },
   } = useForm<Record<string, string>>();
   const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
@@ -92,7 +92,7 @@ const NewCollection = () => {
           className={styles.form}
         >
           <CollectionFormField label="topic" Icon={Filter1Icon}>
-            <TopicField register={register} errors={errors} />
+            <TopicField register={register} errors={errors} watch={watch} />
           </CollectionFormField>
           <CollectionFormField label="title" Icon={Filter2Icon}>
             <TitleField payload={{
