@@ -33,3 +33,6 @@ Promise<AxiosResponse> => $api.delete(`${urls.DELETE_COLLECTION}/${id}`);
 
 export const getCollectionApi = (id: string):
 Promise<AxiosResponse<CollectionResponse>> => $api.get(`${urls.COLLECTION}/${id}`);
+
+export const getLargestCollectionsApi = ():
+Promise<AxiosResponse<AllCollectionsResponse[]>> => $api.get(urls.LARGEST_COLLECTIONS);

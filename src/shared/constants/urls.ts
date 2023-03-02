@@ -22,4 +22,5 @@ export const urls = {
   ADD_LIKE: `${BASE_URL}/item/like/add`,
   REMOVE_LIKE: `${BASE_URL}/item/like/remove`,
   COMMENTS_ITEM: `${BASE_URL}/comment/all`,
+  LARGEST_COLLECTIONS: `${BASE_URL}/collection/home/largest`,
 };

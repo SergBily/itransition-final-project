@@ -7,6 +7,7 @@ const routes = {
   COLLECTION_CREATE: '/collection/create',
   COLLECTION_DELETE: '/collection/delete',
   COLLECTION_EDIT: '/collection/edit/:id',
+  COLLECTION_LARGEST: '/collection/largest',
   COLLECTION: '/collection/',
   ITEM: '/item',
   COLLECTION_ID: '/collection/:id',
@@ -17,6 +18,7 @@ const routes = {
   ITEM_PAGE: '/collection/:id/item/:itemId',
   ADD_LIKE: '/item/like/add',
   REMOVE_LIKE: '/item/like/remove',
+  COLLECTION_READ: '/collection/read/:id',
 };
 
 export default routes;
