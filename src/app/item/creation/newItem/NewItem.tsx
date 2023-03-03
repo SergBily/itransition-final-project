@@ -21,7 +21,7 @@ import { selectUser } from '../../../../redux/selectors/authSelectors';
 import { getItemsCollection } from '../../../../redux/features/ItemsCollectionSlice';
 import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
 import toastConfig from '../../../../shared/toast/toastConfig';
-import { createItem, newItemReset } from '../../../../redux/features/itemSlice';
+import { createItem, itemReset } from '../../../../redux/features/itemSlice';
 import routes from '../../../../shared/constants/routes';
 import TitleField from '../../fields/titleField/TitleField';
 import TagsField from '../../fields/tagsField/TagsField';
@@ -58,7 +58,7 @@ const NewItem = () => {
   const { collection, status } = useAppSelector((state) => state.items);
   const {
     errors: errorsBD, item, errorMessage, status: newItemStatus,
-  } = useAppSelector((state) => state.newItem);
+  } = useAppSelector((state) => state.item);
 
   useEffect(() => {
     dispatch(getItemsCollection(id as string));
@@ -81,7 +81,7 @@ const NewItem = () => {
         ? `${routes.COLLECTION}${id}/${manageId}`
         : `${routes.COLLECTION}${id}`);
     }
-    dispatch(newItemReset());
+    dispatch(itemReset());
   }, [newItemStatus]);
 
   const onFormSubmit = (data: Record<string, string>): void => {

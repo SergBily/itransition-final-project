@@ -6,6 +6,7 @@ import { Paper } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import CollectionsTable from '../CollectionsTable/CollectionsTable';
 import styles from './styles.module.scss';
+import LastItemsTable from '../lastItems/table/lastItemsTable/LastItemsTable';
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -63,7 +64,7 @@ const HomeTable: React.FC = (): JSX.Element => {
           <CollectionsTable />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <LastItemsTable />
         </TabPanel>
       </Box>
     </Paper>

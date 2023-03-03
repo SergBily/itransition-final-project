@@ -51,6 +51,8 @@ Promise<AxiosResponse<ItemStructure>> => {
   return $api.patch(`${urls.REMOVE_LIKE}/${id}`, { userId });
 };
 
+export const getLastItemsApi = (): Promise<AxiosResponse<ItemStructure[]>> => $api.get(urls.LAST_ITEMS);
+
 export const getAllItemsCollectionApi = async (id: string):
 Promise<ItemsCollectionResponse> => {
   const response = await Promise.all([getCollectionApi(id), getItemsCollectionApi(id)]);

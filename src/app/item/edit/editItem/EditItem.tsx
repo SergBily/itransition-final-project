@@ -27,7 +27,7 @@ import NewItemRequest from '../../../../shared/models/items/newItemRequest.model
 import Spinner from '../../../../common/spinner/Spinner';
 import routes from '../../../../shared/constants/routes';
 import toastConfig from '../../../../shared/toast/toastConfig';
-import { editItem, newItemReset } from '../../../../redux/features/itemSlice';
+import { editItem, itemReset } from '../../../../redux/features/itemSlice';
 import { collectionReset, getCollection } from '../../../../redux/features/collectionSlice';
 import Collection from '../../../../shared/models/allCollections/collection.type';
 import convertFieldsForEdit from '../../../../shared/utils/convertFieldsForEdit';
@@ -51,7 +51,7 @@ const EditItem = () => {
   const { userId } = useAppSelector(selectUser);
   const { itemId, id, manageId } = useParams();
   const { getStatus, item, errors: errorsBD } = useAppSelector((state) => state.items);
-  const { errorMessage, editStatus } = useAppSelector((state) => state.newItem);
+  const { errorMessage, editStatus } = useAppSelector((state) => state.item);
   const { collection } = useAppSelector((state) => state.collection);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const EditItem = () => {
         ? `${routes.COLLECTION}${id}/${manageId}`
         : `${routes.COLLECTION}${id}`);
     }
-    dispatch(newItemReset());
+    dispatch(itemReset());
   }, [editStatus]);
 
   const onFormSubmit = (data: any): void => {

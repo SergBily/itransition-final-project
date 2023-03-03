@@ -2,9 +2,10 @@ import ItemStructure from '../items/itemStructure.model';
 import InitialState from './initialState.model';
 
 interface ItemState extends InitialState {
-  item: ItemStructure | null,
-  errors: string[]
-  editStatus: 'idle' | 'loading' | 'failed' | 'success'
+  item: ItemStructure | null;
+  errors: string[];
+  editStatus: 'idle' | 'loading' | 'failed' | 'success';
+  lastItems: ItemStructure[];
 }
 
 export default ItemState;

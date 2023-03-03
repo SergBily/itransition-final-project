@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import createNewItem, { editItemApi } from '../../shared/apis/itemApi';
+import createNewItem, { editItemApi, getLastItemsApi } from '../../shared/apis/itemApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import ItemEditRequest from '../../shared/models/items/itemEditRequest.model';
@@ -14,6 +14,7 @@ const initialState: ItemState = {
   errorMessage: '',
   errors: [],
   item: null,
+  lastItems: [],
 };
 
 export const createItem = createAsyncThunk<ItemStructure, NewItemRequest>(
@@ -48,11 +49,27 @@ export const editItem = createAsyncThunk<string, ItemEditRequest>(
   },
 );
 
+export const getLastItems = createAsyncThunk<ItemStructure[], void>(
+  routes.LAST_ITEMS,
+  async (_, thunkAPI) => {
+    try {
+      const response = await getLastItemsApi();
+      const { data } = response;
+      return data;
+    } catch (e) {
+      const error = e as AxiosError;
+      const message = (error.response && error.response.data) as ErrorResponse
+        || error.message || error.toString();
+      return thunkAPI.rejectWithValue((message as ErrorResponse));
+    }
+  },
+);
+
 export const itemSlice = createSlice({
-  name: 'newItem',
+  name: 'item',
   initialState,
   reducers: {
-    newItemReset: (state) => {
+    itemReset: (state) => {
       state.status = 'idle';
       state.errorMessage = '';
       state.errors = [];
@@ -83,9 +100,12 @@ export const itemSlice = createSlice({
         state.editStatus = 'failed';
         state.errorMessage = (payload as ErrorResponse).message;
         state.errors = (payload as ErrorResponse).errors;
+      })
+      .addCase(getLastItems.fulfilled, (state, { payload }) => {
+        state.lastItems = payload;
       });
   },
 });
 
-export const { newItemReset } = itemSlice.actions;
+export const { itemReset } = itemSlice.actions;
 export default itemSlice.reducer;

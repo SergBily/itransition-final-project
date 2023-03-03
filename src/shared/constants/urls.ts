@@ -16,6 +16,7 @@ export const urls = {
   COLLECTION: `${BASE_URL}/collection`,
   ALL_ITEMS: `${BASE_URL}/item/all`,
   NEW_ITEM: `${BASE_URL}/item/create`,
+  LAST_ITEMS: `${BASE_URL}/item/home/last`,
   DELETE_ITEM: `${BASE_URL}/item/delete`,
   EDIT_ITEM: `${BASE_URL}/item/edit`,
   ITEM: `${BASE_URL}/item`,
