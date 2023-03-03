@@ -30,7 +30,9 @@ const Signup: React.FC = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const status = useAppSelector(selectStatus);
   const navigate = useNavigate();
-  const { name, token, userId } = useAppSelector(selectUser);
+  const {
+    name, token, userId, role,
+  } = useAppSelector(selectUser);
 
   useEffect(() => {
     if (status === 'failed') {
@@ -38,7 +40,9 @@ const Signup: React.FC = (): JSX.Element => {
       dispatch(reset());
     }
     if (status === 'success') {
-      setUserData({ name, token, userId });
+      setUserData({
+        name, token, userId, role,
+      });
       toast.success(<FormattedMessage
         id="app.signup.success"
         values={{ name }}

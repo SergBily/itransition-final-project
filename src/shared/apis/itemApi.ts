@@ -9,7 +9,7 @@ import ItemsCollectionResponse from '../models/items/itemssCollectionResponse.mo
 import ItemStructure from '../models/items/itemStructure.model';
 import NewItemRequest from '../models/items/newItemRequest.model';
 import CollectionResponse from '../models/newCollection/collectionResponse.model';
-import { getCollection } from './collectionApi';
+import { getCollectionApi } from './collectionApi';
 import getAllComents from './commentApi';
 
 export const createNewItem = async (payload: NewItemRequest):
@@ -51,9 +51,11 @@ Promise<AxiosResponse<ItemStructure>> => {
   return $api.patch(`${urls.REMOVE_LIKE}/${id}`, { userId });
 };
 
+export const getLastItemsApi = (): Promise<AxiosResponse<ItemStructure[]>> => $api.get(urls.LAST_ITEMS);
+
 export const getAllItemsCollectionApi = async (id: string):
 Promise<ItemsCollectionResponse> => {
-  const response = await Promise.all([getCollection(id), getItemsCollectionApi(id)]);
+  const response = await Promise.all([getCollectionApi(id), getItemsCollectionApi(id)]);
   const [collection, items] = response.map((n) => n.data);
   return { collection: collection as CollectionResponse, items: items as ItemStructure[] };
 };
@@ -62,7 +64,7 @@ export const getItemDataApi = async (payload: ItemPageRequest):
 Promise<ItemPageResponse> => {
   const vv = await Promise.all([
     getItemApi(payload.itemId),
-    getCollection(payload.collectionId),
+    getCollectionApi(payload.collectionId),
     getAllComents(payload.itemId)]);
   const [item, collection, comments] = vv.map((n) => n.data);
   return {

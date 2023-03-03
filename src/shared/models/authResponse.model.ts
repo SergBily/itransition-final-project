@@ -5,7 +5,10 @@ export interface AuthResponse {
 }
 
 export interface UserResponse {
-  email: string,
-  id: string,
-  name: string
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  createdAt: string;
 }

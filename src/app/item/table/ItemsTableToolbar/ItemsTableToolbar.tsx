@@ -20,10 +20,13 @@ import DeleteDialog from '../../../../common/dialog/deleteDialog';
 interface EnhancedTableToolbarProps {
   selected: string[];
   id: string,
-  setSelected: (a: string[]) => void
+  setSelected: (a: string[]) => void;
+  manageId: string | undefined;
 }
 
-const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarProps) => {
+const ItemsTableToolbar = ({
+  selected, id, setSelected, manageId,
+}: EnhancedTableToolbarProps) => {
   const [open, setOpen] = useState(false);
   const { collection } = useAppSelector((state) => state.items);
   const items = useAppSelector((state) => state.items.items);
@@ -90,7 +93,9 @@ const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarPr
             </Tooltip>
           </Link>
           <Link
-            to={`${routes.COLLECTION}${id}/edit/${selected[0]}`}
+            to={manageId
+              ? `${routes.COLLECTION}${id}/edit/${selected[0]}/${manageId}`
+              : `${routes.COLLECTION}${id}/edit/${selected[0]}`}
             className={styles.link}
           >
             <Tooltip title={<FormattedMessage id="app.item.tooltip.edit" />}>
@@ -115,7 +120,9 @@ const ItemsTableToolbar = ({ selected, id, setSelected }: EnhancedTableToolbarPr
             </IconButton>
           </Tooltip>
           <Link
-            to={`${routes.COLLECTION}${id}/item/create`}
+            to={manageId
+              ? `${routes.COLLECTION}${id}/item/create/${manageId}`
+              : `${routes.COLLECTION}${id}/item/create`}
             className={styles.link}
           >
             <Tooltip

@@ -21,7 +21,7 @@ import removeUserData from '../../shared/utils/removeUserData';
 const Header: React.FC = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-  const { token, name } = useAppSelector(selectUser);
+  const { token, name, role } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
@@ -83,6 +83,18 @@ const Header: React.FC = (): JSX.Element => {
           <MenuItem onClick={handleCollection} key={generateKey()}>
             <FormattedMessage id="app.header.collect" />
           </MenuItem>,
+          <Box component="div" key={generateKey()}>
+            { role === 'admin' && (
+            <Link
+              to={routes.ADMIN}
+              style={{ textDecoration: 'none', color: '#000' }}
+            >
+              <MenuItem onClick={handleCollection}>
+                <FormattedMessage id="app.header.admin" />
+              </MenuItem>
+            </Link>
+            )}
+          </Box>,
           <MenuItem onClick={handleLogout} key={generateKey()}>
             <FormattedMessage id="app.header.logout" />
           </MenuItem>,

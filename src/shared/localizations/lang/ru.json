@@ -4,6 +4,7 @@
   "app.header.signup": "Зарегистрироваться",
   "app.header.logout": "Выйти",
   "app.header.collect": "Мои коллекции",
+  "app.header.admin": "Управление",
   "app.dialog": "Вы уверены, что хотите удалить {type} {convertedTitles}?",
   "app.dialog.button1": "Отмена",
   "app.dialog.button2": "Удалить",
@@ -33,6 +34,7 @@
   "app.collection.new.field.description": "Описание",
   "app.collection.new.field.image": "Изображение",
   "app.collection.new.field.itemFields": "Поля элементов",
+  "app.collection.edit.title": "Редактировать коллекцию",
   "app.collection.new.custom.fielsd.error": "Это поле является обязательным и его не нужно добавлять",
   "app.collection.markdown.panel": "Писать",
   "app.collection.markdown.panel2": "Предварительный просмотр",
@@ -96,5 +98,12 @@
   "app.item.comments.btn": "Опубликовывать",
   "app.item.comments.all": "Еще никто не оставил комментарий!",
   "app.item.comments.sender": "Отправитель",
-  "app.item.comments.comment": "Комментарий"
+  "app.item.comments.comment": "Комментарий",
+  "app.home.tab1": "Последние добавленные элементы",
+  "app.home.tab2": "Коллекции с наибольшим числом элементов",
+  "app.admin.action": "Пользователь(ли) {user} успешно {action}",
+  "app.user.access": "У вас нет доступа!",
+  "app.admin.tooltip.manage": "Управлять",
+  "app.admin.tooltip.exit": "Выйти с режима управления",
+  "app.item.table.btn.back": "Вернуться к коллекциям"
 }

@@ -1,0 +1,32 @@
+.root {
+  max-width: 100%;
+  margin-top: 1rem;
+}
+
+.wrapper {
+  max-width: 100%;
+  margin-bottom: 1rem;
+  color: #643479;
+}
+
+.table {
+  min-width: 750px;
+  background-color: #EDEEF9;
+}
+
+.pagination {
+  background-color: #DEE0F2;
+}
+
+.blockLink {
+  position: relative;
+}
+
+.link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -14,6 +14,7 @@ const initialState: AuthState = {
   userId: '',
   token: '',
   name: '',
+  role: '',
 };
 
 export const registration = createAsyncThunk<AuthResponse, AuthForm>(
@@ -76,6 +77,7 @@ export const authSlice = createSlice({
       state.userId = payload.userId;
       state.name = payload.name;
       state.token = payload.token;
+      state.role = payload.role;
     },
   },
   extraReducers: (builder) => {
@@ -88,6 +90,7 @@ export const authSlice = createSlice({
         state.userId = payload.user.id;
         state.name = payload.user.name;
         state.token = payload.accessToken;
+        state.role = payload.user.role;
       })
       .addCase(registration.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -101,6 +104,7 @@ export const authSlice = createSlice({
         state.userId = payload.user.id;
         state.name = payload.user.name;
         state.token = payload.accessToken;
+        state.role = payload.user.role;
       })
       .addCase(login.rejected, (state, { payload }) => {
         state.status = 'failed';

@@ -20,6 +20,7 @@ const App: React.FC = (): JSX.Element => {
     userId: localStorage.getItem(localStorageKeys.USERId) ?? '',
     token: localStorage.getItem(localStorageKeys.TOKEN) ?? '',
     name: localStorage.getItem(localStorageKeys.NAME) ?? '',
+    role: localStorage.getItem(localStorageKeys.ROLE) ?? '',
   };
   const dispatch = useAppDispatch();
   dispatch(initUserState(initUser));

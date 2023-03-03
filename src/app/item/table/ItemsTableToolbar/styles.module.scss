@@ -1,5 +1,7 @@
+@import '../../../../shared/styles/globalVariables.scss';
+
 .root {
-  background-color: #479E727d;
+  background-color: $backgroundTableHead;
 }
 
 .typography {

@@ -26,9 +26,11 @@ const typesField = [
 
 interface ListCustomFieldsProps {
   setCustomItemFields: React.Dispatch<React.SetStateAction<CustomFields>>,
+  fields?: string[]
 }
 
-const ListCustomFields = ({ setCustomItemFields }: ListCustomFieldsProps) => {
+const ListCustomFields = (payload: ListCustomFieldsProps) => {
+  const { setCustomItemFields, fields = [] } = payload;
   const [open, setOpen] = useState<boolean>(false);
   const [titleField, settitleField] = useState<string>('');
   const [isTitleField, setisTitleField] = useState<boolean>(false);
@@ -41,6 +43,7 @@ const ListCustomFields = ({ setCustomItemFields }: ListCustomFieldsProps) => {
   };
   useEffect(() => {
     window.addEventListener('resize', reportWindowSize);
+    setaddedField(fields);
     return () => window.removeEventListener('resize', reportWindowSize);
   }, []);
 
@@ -73,13 +76,14 @@ const ListCustomFields = ({ setCustomItemFields }: ListCustomFieldsProps) => {
   const handleDelete = (e: React.MouseEvent) => {
     const f = ((e.currentTarget as HTMLOrSVGImageElement)
       .parentElement as HTMLDivElement).dataset.name as string;
-    setaddedField((p) => p.filter((r) => r !== f));
-    setCustomItemFields((p) => {
-      for (const [key, value] of Object.entries(p)) {
-        p[key as Fields] = value.filter((b: string) => b !== f);
-      }
-      return p;
-    });
+        <FormattedMessage id={`app.collection.custom.fields.${selectedField}`} />;
+        setaddedField((p) => p.filter((r) => r !== f));
+        setCustomItemFields((p) => {
+          for (const [key, value] of Object.entries(p)) {
+            p[key as Fields] = value.filter((b: string) => b !== f);
+          }
+          return p;
+        });
   };
 
   return (

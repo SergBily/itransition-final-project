@@ -9,7 +9,7 @@ import Filter4Icon from '@mui/icons-material/Filter4';
 import Filter5Icon from '@mui/icons-material/Filter5';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CollectionFormField from '../collectionFormField/CollectionFormField ';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
@@ -28,12 +28,9 @@ import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
 import TitleField from '../../../item/fields/titleField/TitleField';
-
-type DataForm = {
-  topic: string,
-  title: string,
-  description: string
-};
+import DataForm from '../../../../shared/models/allCollections/dataForm.type';
+import getManager from '../../../../shared/utils/getManager';
+import ControlMode from '../../../../common/controlMode/ControlMode';
 
 const fields: CustomFields = {
   number: [],
@@ -45,12 +42,13 @@ const fields: CustomFields = {
 
 const NewCollection = () => {
   const {
-    register, handleSubmit, getValues, setValue, formState: { errors },
+    register, handleSubmit, getValues, setValue, watch, formState: { errors },
   } = useForm<Record<string, string>>();
   const [selectedImage, setSelectedImage] = useState<DropImage | null>(null);
   const [customItemFields, setCustomItemFields] = useState<CustomFields>(fields);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { id } = useParams();
   const {
     errors: errorsBD, collection, errorMessage, status,
   } = useAppSelector((store) => store.newCollection);
@@ -62,7 +60,7 @@ const NewCollection = () => {
         id="app.collection.response.success"
         values={{ title: collection?.title }}
       />, toastConfig);
-      navigate(routes.COLLECTIONS);
+      navigate(id ? `${routes.COLLECTIONS}/${id}` : routes.COLLECTIONS);
       dispatch(newCollectionReset());
     }
   }, [status]);
@@ -74,63 +72,66 @@ const NewCollection = () => {
       ...newData as DataForm,
       image: selectedImage,
       customFields: customItemFields,
-      userId,
+      userId: getManager(id, userId),
     };
     dispatch(createCollection(collectionData));
     setSelectedImage(null);
   };
 
   return (
-    <Paper
-      elevation={5}
-      className={styles.wrapper}
-    >
-      <Typography
-        variant="h3"
-        className={styles.title}
+    <>
+      <Paper
+        elevation={5}
+        className={styles.wrapper}
       >
-        <FormattedMessage id="app.collection.title" />
-      </Typography>
-      <Grid container>
-        <form
-          onSubmit={handleSubmit(onFormSubmit)}
-          className={styles.form}
+        <Typography
+          variant="h3"
+          className={styles.title}
         >
-          <CollectionFormField label="topic" Icon={Filter1Icon}>
-            <TopicField register={register} errors={errors} />
-          </CollectionFormField>
-          <CollectionFormField label="title" Icon={Filter2Icon}>
-            <TitleField payload={{
-              value: '', errors, errorsBD, errorMessage, register,
-            }}
-            />
-          </CollectionFormField>
-          <CollectionFormField label="description" Icon={Filter3Icon}>
-            <MarkdownForm
-              payload={{
-                label: 'descriptionCollection', value: '', register, getValues, setValue,
-              }}
-            />
-          </CollectionFormField>
-          <CollectionFormField label="image" Icon={Filter4Icon}>
-            <Dropzone
-              setSelectedImage={setSelectedImage}
-              selectedImage={selectedImage as DropImage}
-            />
-          </CollectionFormField>
-          <CollectionFormField label="itemFields" Icon={Filter5Icon}>
-            <ListCustomFields setCustomItemFields={setCustomItemFields} />
-          </CollectionFormField>
-          <Box
-            component="div"
-            className={styles.buttonsBlock}
+          <FormattedMessage id="app.collection.title" />
+        </Typography>
+        <Grid container>
+          <form
+            onSubmit={handleSubmit(onFormSubmit)}
+            className={styles.form}
           >
-            <FormButtonGroup type="collection1" id="" />
-          </Box>
-        </form>
-      </Grid>
-      {status === 'loading' && <Spinner />}
-    </Paper>
+            <CollectionFormField label="topic" Icon={Filter1Icon}>
+              <TopicField register={register} errors={errors} watch={watch} />
+            </CollectionFormField>
+            <CollectionFormField label="title" Icon={Filter2Icon}>
+              <TitleField payload={{
+                value: '', errors, errorsBD, errorMessage, register,
+              }}
+              />
+            </CollectionFormField>
+            <CollectionFormField label="description" Icon={Filter3Icon}>
+              <MarkdownForm
+                payload={{
+                  label: 'descriptionCollection', value: '', register, getValues, setValue,
+                }}
+              />
+            </CollectionFormField>
+            <CollectionFormField label="image" Icon={Filter4Icon}>
+              <Dropzone
+                setSelectedImage={setSelectedImage}
+                selectedImage={selectedImage as DropImage}
+              />
+            </CollectionFormField>
+            <CollectionFormField label="itemFields" Icon={Filter5Icon}>
+              <ListCustomFields setCustomItemFields={setCustomItemFields} />
+            </CollectionFormField>
+            <Box
+              component="div"
+              className={styles.buttonsBlock}
+            >
+              <FormButtonGroup type="collection1" id="" manageId={id} />
+            </Box>
+          </form>
+        </Grid>
+        {status === 'loading' && <Spinner />}
+      </Paper>
+      { id && (<ControlMode />) }
+    </>
   );
 };
 

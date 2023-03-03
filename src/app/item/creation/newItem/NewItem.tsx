@@ -21,13 +21,15 @@ import { selectUser } from '../../../../redux/selectors/authSelectors';
 import { getItemsCollection } from '../../../../redux/features/ItemsCollectionSlice';
 import checkTitleIsNan from '../../../../shared/utils/checkTitleIsNan';
 import toastConfig from '../../../../shared/toast/toastConfig';
-import { createItem, newItemReset } from '../../../../redux/features/itemSlice';
+import { createItem, itemReset } from '../../../../redux/features/itemSlice';
 import routes from '../../../../shared/constants/routes';
 import TitleField from '../../fields/titleField/TitleField';
 import TagsField from '../../fields/tagsField/TagsField';
 import FormButtonGroup from '../../../../common/formButtonGroup/FormButtonGroup';
 import Spinner from '../../../../common/spinner/Spinner';
 import Collection from '../../../../shared/models/allCollections/collection.type';
+import getManager from '../../../../shared/utils/getManager';
+import ControlMode from '../../../../common/controlMode/ControlMode';
 
 const customFieldsInit = {
   number: {},
@@ -51,12 +53,12 @@ const NewItem = () => {
   const [tags, setTags] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, manageId } = useParams();
   const { userId } = useAppSelector(selectUser);
   const { collection, status } = useAppSelector((state) => state.items);
   const {
     errors: errorsBD, item, errorMessage, status: newItemStatus,
-  } = useAppSelector((state) => state.newItem);
+  } = useAppSelector((state) => state.item);
 
   useEffect(() => {
     dispatch(getItemsCollection(id as string));
@@ -75,9 +77,11 @@ const NewItem = () => {
         id="app.item.response.success"
         values={{ title: item?.title }}
       />, toastConfig);
-      navigate(`${routes.COLLECTION}${id}`);
+      navigate(manageId
+        ? `${routes.COLLECTION}${id}/${manageId}`
+        : `${routes.COLLECTION}${id}`);
     }
-    dispatch(newItemReset());
+    dispatch(itemReset());
   }, [newItemStatus]);
 
   const onFormSubmit = (data: Record<string, string>): void => {
@@ -86,7 +90,7 @@ const NewItem = () => {
       customFields: data?.customFields
         ? data.customFields : customFieldsInit,
       tags,
-      userId,
+      userId: getManager(manageId, userId),
       collectionId: id as string,
     };
     dispatch(createItem(itemData));
@@ -159,46 +163,49 @@ const NewItem = () => {
   }, [status]);
 
   return (
-    <Paper
-      elevation={5}
-      className={classNames(styles.wrapper, 'new')}
-    >
-      <Typography
-        variant="h3"
-        className={styles.title}
+    <>
+      <Paper
+        elevation={5}
+        className={classNames(styles.wrapper, 'new')}
       >
-        <FormattedMessage id="app.item.creator.header" />
-      </Typography>
-      <Grid container>
-        <form
-          onSubmit={handleSubmit(onFormSubmit)}
-          className={styles.form}
+        <Typography
+          variant="h3"
+          className={styles.title}
         >
-          <ItemFormField payload={{ label: 'title', size: '' }}>
-            <TitleField payload={{
-              value: '', errorsBD, errorMessage, errors, register,
-            }}
-            />
-          </ItemFormField>
-          <ItemFormField payload={{ label: 'tags', size: '' }}>
-            <TagsField setTags={setTags} tags={tags} />
-          </ItemFormField>
-          <Box
-            component="div"
-            className={classNames(styles.boxCustom, 'box__custom')}
+          <FormattedMessage id="app.item.creator.header" />
+        </Typography>
+        <Grid container>
+          <form
+            onSubmit={handleSubmit(onFormSubmit)}
+            className={styles.form}
           >
-            {fields && fields.map((e) => e)}
-          </Box>
-          <Box
-            component="div"
-            className={styles.buttonsBlock}
-          >
-            <FormButtonGroup type="item1" id={id as string} />
-          </Box>
-        </form>
-        {status === 'loading' && <Spinner />}
-      </Grid>
-    </Paper>
+            <ItemFormField payload={{ label: 'title', size: '' }}>
+              <TitleField payload={{
+                value: '', errorsBD, errorMessage, errors, register,
+              }}
+              />
+            </ItemFormField>
+            <ItemFormField payload={{ label: 'tags', size: '' }}>
+              <TagsField setTags={setTags} tags={tags} />
+            </ItemFormField>
+            <Box
+              component="div"
+              className={classNames(styles.boxCustom, 'box__custom')}
+            >
+              {fields && fields.map((e) => e)}
+            </Box>
+            <Box
+              component="div"
+              className={styles.buttonsBlock}
+            >
+              <FormButtonGroup type="item1" id={id as string} manageId={manageId} />
+            </Box>
+          </form>
+          {status === 'loading' && <Spinner />}
+        </Grid>
+      </Paper>
+      { manageId && (<ControlMode />) }
+    </>
   );
 };
 

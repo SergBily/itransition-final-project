@@ -27,7 +27,12 @@ import NewItemRequest from '../../../../shared/models/items/newItemRequest.model
 import Spinner from '../../../../common/spinner/Spinner';
 import routes from '../../../../shared/constants/routes';
 import toastConfig from '../../../../shared/toast/toastConfig';
-import { editItem, newItemReset } from '../../../../redux/features/itemSlice';
+import { editItem, itemReset } from '../../../../redux/features/itemSlice';
+import { collectionReset, getCollection } from '../../../../redux/features/collectionSlice';
+import Collection from '../../../../shared/models/allCollections/collection.type';
+import convertFieldsForEdit from '../../../../shared/utils/convertFieldsForEdit';
+import getManager from '../../../../shared/utils/getManager';
+import ControlMode from '../../../../common/controlMode/ControlMode';
 
 const createField = (label: string, size: string, children: JSX.Element): JSX.Element => (
   <ItemFormField payload={{ label, size }} key={generateKey()}>
@@ -44,12 +49,14 @@ const EditItem = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { userId } = useAppSelector(selectUser);
-  const { itemId, id } = useParams();
+  const { itemId, id, manageId } = useParams();
   const { getStatus, item, errors: errorsBD } = useAppSelector((state) => state.items);
-  const { errorMessage, editStatus } = useAppSelector((state) => state.newItem);
+  const { errorMessage, editStatus } = useAppSelector((state) => state.item);
+  const { collection } = useAppSelector((state) => state.collection);
 
   useEffect(() => {
     dispatch(getItem(itemId as string));
+    dispatch(getCollection(id as string));
     const animation = gsap.timeline();
     animation.to('.edit', {
       x: '100%', opacity: 1, duration: 0.7, ease: 'circ',
@@ -65,23 +72,26 @@ const EditItem = () => {
         id="app.item.response.success"
         values={{ title: item?.title }}
       />, toastConfig);
-      navigate(`${routes.COLLECTION}${id}`);
+      navigate(manageId
+        ? `${routes.COLLECTION}${id}/${manageId}`
+        : `${routes.COLLECTION}${id}`);
     }
-    dispatch(newItemReset());
+    dispatch(itemReset());
   }, [editStatus]);
 
   const onFormSubmit = (data: any): void => {
     const itemData: NewItemRequest = {
       ...data,
       tags,
-      userId,
+      userId: getManager(manageId, userId),
       collectionId: id,
     };
     dispatch(editItem({ itemId: itemId as string, payload: itemData }));
   };
 
-  const getCustomFields = (i: ItemStructure): JSX.Element[] => {
-    const elementsJsx = Object.entries(i.customFields).map((e) => Object.entries(e[1])
+  const getCustomFields = (): JSX.Element[] => {
+    const convertedFields = convertFieldsForEdit(item as ItemStructure, collection as Collection);
+    const elementsJsx = Object.entries(convertedFields).map((e) => Object.entries(e[1])
       .map((v) => {
         let m: JSX.Element;
         switch (e[0]) {
@@ -144,10 +154,11 @@ const EditItem = () => {
 
   useEffect(() => {
     if (getStatus === 'success') {
-      setFields(getCustomFields(item as ItemStructure));
+      setFields(getCustomFields());
       dispatch(itemsCollectionReset());
       setTags(item?.tags as string[]);
       setValue('title', item?.title as string);
+      dispatch(collectionReset());
     }
     if (errorsBD[0] === 'notFound') {
       toast.warn(<FormattedMessage
@@ -158,46 +169,49 @@ const EditItem = () => {
   }, [getStatus]);
 
   return (
-    <Paper
-      elevation={5}
-      className={classNames(styles.wrapper, 'edit')}
-    >
-      <Typography
-        variant="h3"
-        className={styles.title}
+    <>
+      <Paper
+        elevation={5}
+        className={classNames(styles.wrapper, 'edit')}
       >
-        <FormattedMessage id="app.item.edit" />
-      </Typography>
-      <Grid container>
-        <form
-          onSubmit={handleSubmit(onFormSubmit)}
-          className={styles.form}
+        <Typography
+          variant="h3"
+          className={styles.title}
         >
-          <ItemFormField payload={{ label: 'title', size: '' }}>
-            <TitleField payload={{
-              value: '', errorsBD, errorMessage, errors, register,
-            }}
-            />
-          </ItemFormField>
-          <ItemFormField payload={{ label: 'tags', size: '' }}>
-            <TagsField setTags={setTags} tags={tags} />
-          </ItemFormField>
-          <Box
-            component="div"
-            className={classNames(styles.boxCustom, 'box__custom')}
+          <FormattedMessage id="app.item.edit" />
+        </Typography>
+        <Grid container>
+          <form
+            onSubmit={handleSubmit(onFormSubmit)}
+            className={styles.form}
           >
-            {fields && fields.map((e) => e)}
-          </Box>
-          <Box
-            component="div"
-            className={styles.buttonsBlock}
-          >
-            <FormButtonGroup type="item2" id={id as string} />
-          </Box>
-        </form>
-        {editStatus === 'loading' && <Spinner />}
-      </Grid>
-    </Paper>
+            <ItemFormField payload={{ label: 'title', size: '' }}>
+              <TitleField payload={{
+                value: '', errorsBD, errorMessage, errors, register,
+              }}
+              />
+            </ItemFormField>
+            <ItemFormField payload={{ label: 'tags', size: '' }}>
+              <TagsField setTags={setTags} tags={tags} />
+            </ItemFormField>
+            <Box
+              component="div"
+              className={classNames(styles.boxCustom, 'box__custom')}
+            >
+              {fields && fields.map((e) => e)}
+            </Box>
+            <Box
+              component="div"
+              className={styles.buttonsBlock}
+            >
+              <FormButtonGroup type="item2" id={id as string} manageId={manageId} />
+            </Box>
+          </form>
+          {editStatus === 'loading' && <Spinner />}
+        </Grid>
+      </Paper>
+      {manageId && (<ControlMode />)}
+    </>
   );
 };
 

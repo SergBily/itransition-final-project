@@ -19,12 +19,14 @@ import toastConfig from '../../../../shared/toast/toastConfig';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import routes from '../../../../shared/constants/routes';
 import { defaultImagesName } from '../../../../shared/constants/collectionDefaultImage';
+import getManager from '../../../../shared/utils/getManager';
 
 interface CollectionProps {
-  payload: AllCollectionsResponse,
+  payload: AllCollectionsResponse;
+  manageId: string | undefined;
 }
 
-const Collection = ({ payload }: CollectionProps) => {
+const Collection = ({ payload, manageId }: CollectionProps) => {
   const {
     imageUrl, topic, title, description, id,
   } = payload;
@@ -44,13 +46,13 @@ const Collection = ({ payload }: CollectionProps) => {
       const imageName = getNameImage(imageUrl);
       if (!defaultImagesName.includes(imageName)) {
         await Promise.all([
-          deleteImage(imageName, userId),
+          deleteImage(imageName, getManager(manageId, userId)),
           deleteCollectionApi(id),
         ]);
       } else {
         await deleteCollectionApi(id);
       }
-      dispatch(getAllCollection(userId));
+      dispatch(getAllCollection(getManager(manageId, userId)));
       dispatch(allCollectionReset());
     } catch (e) {
       toast.error(<FormattedMessage id="app.collection.delete" />, toastConfig);
@@ -66,7 +68,7 @@ const Collection = ({ payload }: CollectionProps) => {
     >
       <Link
         className={styles.link}
-        to={`${routes.COLLECTION}${id}`}
+        to={manageId ? `${routes.COLLECTION}${id}/${manageId}` : `${routes.COLLECTION}${id}`}
       >
         <CardActionArea>
           {status === 'loading'
@@ -109,9 +111,11 @@ const Collection = ({ payload }: CollectionProps) => {
           </CardContent>
         </CardActionArea>
       </Link>
-      <CollectionDashboard payload={{
-        isHovering, id, title, deleteCollection,
-      }}
+      <CollectionDashboard
+        payload={{
+          isHovering, id, title, deleteCollection,
+        }}
+        manageId={manageId}
       />
     </Card>
   );

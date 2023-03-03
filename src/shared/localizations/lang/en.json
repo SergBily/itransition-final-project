@@ -4,6 +4,7 @@
   "app.header.signup": "Sign up",
   "app.header.logout": "Log out",
   "app.header.collect": "My collections",
+  "app.header.admin": "Administration",
   "app.dialog": "Are you sure you want to delete the {type} {convertedTitles}?",
   "app.dialog.button1": "Cancel",
   "app.dialog.button2": "Delite",
@@ -33,6 +34,7 @@
   "app.collection.new.field.description": "Description",
   "app.collection.new.field.image": "Image",
   "app.collection.new.field.itemFields": "Item fields",
+  "app.collection.edit.title": "Edit collection",
   "app.collection.new.custom.fielsd.error": "This field is required and does not need to be added",
   "app.collection.markdown.panel": "Write",
   "app.collection.markdown.panel2": "Preview",
@@ -96,5 +98,13 @@
   "app.item.comments.btn": "Publish",
   "app.item.comments.all": "Nobody has left a comment yet!",
   "app.item.comments.sender": "Sender",
-  "app.item.comments.comment": "Comment"
+  "app.item.comments.comment": "Comment",
+  "app.home.tab1": "Last added items",
+  "app.home.tab2": "Collections with the largest number of item",
+  "app.admin.action": "User(s) {user} successfully {action}",
+  "app.admin.action2": "Status or role {user} successfully {action}",
+  "app.user.access": "You don't have access!",
+  "app.admin.tooltip.manage": "Manage",
+  "app.admin.tooltip.exit": "Exit control mode",
+  "app.item.table.btn.back": "Back to collections"
 }

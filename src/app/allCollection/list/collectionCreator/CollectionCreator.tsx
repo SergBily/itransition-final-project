@@ -8,10 +8,14 @@ import { Link } from 'react-router-dom';
 import routes from '../../../../shared/constants/routes';
 import styles from './styles.module.scss';
 
-const CollectionCreator = () => (
+interface CollectionCreatorProps {
+  id: string | undefined
+}
+
+const CollectionCreator = ({ id }: CollectionCreatorProps) => (
   <Card className={styles.root}>
     <Link
-      to={routes.COLLECTION_CREATE}
+      to={id ? `${routes.COLLECTION_CREATE}/${id}` : routes.COLLECTION_CREATE}
       className={styles.link}
     >
       <CardActionArea className={styles.card}>
