@@ -21,10 +21,11 @@ type PayloadDashboard = {
 };
 
 interface CollectionDashboardProps {
-  payload: PayloadDashboard
+  payload: PayloadDashboard;
+  manageId: string | undefined;
 }
 
-const CollectionDashboard = ({ payload }: CollectionDashboardProps) => {
+const CollectionDashboard = ({ payload, manageId }: CollectionDashboardProps) => {
   const {
     isHovering, id, title, deleteCollection,
   } = payload;
@@ -62,7 +63,10 @@ const CollectionDashboard = ({ payload }: CollectionDashboardProps) => {
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-        <Link to={`${routes.COLLECTION}edit/${id}`}>
+        <Link to={manageId
+          ? `${routes.COLLECTION}edit/${id}/${manageId}`
+          : `${routes.COLLECTION}edit/${id}`}
+        >
           <Tooltip title={<FormattedMessage id="app.collection.dashboard2" />}>
             <IconButton color="warning">
               <EditIcon />

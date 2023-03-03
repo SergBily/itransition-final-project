@@ -16,7 +16,7 @@ import passwordValidator from '../../shared/validators/passwordValidaor';
 import Errors from '../../common/errors/Errors';
 import { login, reset } from '../../redux/features/authSlice';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
-import { selectStatus, selectUser } from '../../redux/selectors/authSelectors';
+import { selectErrorMessage, selectStatus, selectUser } from '../../redux/selectors/authSelectors';
 import toastConfig from '../../shared/toast/toastConfig';
 import Spinner from '../../common/spinner/Spinner';
 import setUserData from '../../shared/utils/setUserData';
@@ -28,16 +28,23 @@ const Login: React.FC = (): JSX.Element => {
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useAppDispatch();
   const status = useAppSelector(selectStatus);
+  const errorMessage = useAppSelector(selectErrorMessage);
   const navigate = useNavigate();
-  const { name, token, userId } = useAppSelector(selectUser);
+  const {
+    name, token, userId, role,
+  } = useAppSelector(selectUser);
 
   useEffect(() => {
-    if (status === 'failed') {
+    if (status === 'failed' && errorMessage === 'Wrong password') {
+      console.log(errorMessage);
+
       toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
       dispatch(reset());
     }
     if (status === 'success') {
-      setUserData({ name, token, userId });
+      setUserData({
+        name, token, userId, role,
+      });
       toast.success(<FormattedMessage
         id="app.login.success"
         values={{ name }}
@@ -45,7 +52,13 @@ const Login: React.FC = (): JSX.Element => {
       navigate(routes.HOME);
       dispatch(reset());
     }
-  }, [status]);
+    if (status === 'failed' && errorMessage === 'app.user.access') {
+      toast.warn(<FormattedMessage
+        id={errorMessage}
+      />, toastConfig);
+      dispatch(reset());
+    }
+  }, [status, errorMessage]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 

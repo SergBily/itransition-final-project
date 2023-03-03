@@ -7,6 +7,7 @@ import newItemReducer from './features/itemSlice';
 import itemPageReducer from './features/itemPageSlice';
 import editCollectionReducer from './features/editCollectionSlice';
 import collectionReducer from './features/collectionSlice';
+import adminReducer from './features/adminSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     itemPage: itemPageReducer,
     editCollection: editCollectionReducer,
     collection: collectionReducer,
+    admin: adminReducer,
   },
 });
 

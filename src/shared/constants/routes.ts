@@ -19,6 +19,16 @@ const routes = {
   ADD_LIKE: '/item/like/add',
   REMOVE_LIKE: '/item/like/remove',
   COLLECTION_READ: '/collection/read/:id',
+  ADMIN: '/admin/users',
+  USER_DELETE: 'admin/user/delete',
+  USER_STATUS: 'admin/user/status',
+  USER_ROLE: 'admin/user/role',
+  ADMIN_MANAGE_COLLECTION: '/collection/all/:id',
+  ADMIN_COLLECTION_CREATE: '/collection/create/:id',
+  ADMIN_COLLECTION_EDIT: '/collection/edit/:id/:manageId',
+  ADMIN_COLLECTION_ITEM: '/collection/:id/:manageId',
+  ADMIN_ITEM_EDIT: '/collection/:id/edit/:itemId/:manageId',
+  ADMIN_ITEM_CREATE: 'collection/:id/item/create/:manageId',
 };
 
 export default routes;

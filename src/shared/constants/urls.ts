@@ -23,4 +23,8 @@ export const urls = {
   REMOVE_LIKE: `${BASE_URL}/item/like/remove`,
   COMMENTS_ITEM: `${BASE_URL}/comment/all`,
   LARGEST_COLLECTIONS: `${BASE_URL}/collection/home/largest`,
+  ALL_USERS: `${BASE_URL}/admin/users`,
+  DELETE_USERS: `${BASE_URL}/admin/users/delete`,
+  STATUS_USERS: `${BASE_URL}/admin/users/status`,
+  ROLE_USERS: `${BASE_URL}/admin/users/role`,
 };

@@ -11,8 +11,10 @@ import gsap from 'gsap';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Box } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import classNames from 'classnames';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { FormattedMessage } from 'react-intl';
 import TablePaginationActions from '../pagination/TablePaginationActions';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import convertItemsForTable from '../../../../shared/utils/convertItemsForTable';
@@ -158,6 +160,13 @@ const ReadItemsTable = () => {
           </TableFooter>
         </Table>
       </TableContainer>
+      <Link to="/">
+        <Tooltip title={<FormattedMessage id="app.item.table.btn.back" />}>
+          <IconButton color="info">
+            <ArrowBackIcon fontSize="large" />
+          </IconButton>
+        </Tooltip>
+      </Link>
     </Box>
   );
 };

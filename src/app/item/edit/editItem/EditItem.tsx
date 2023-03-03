@@ -31,6 +31,8 @@ import { editItem, newItemReset } from '../../../../redux/features/itemSlice';
 import { collectionReset, getCollection } from '../../../../redux/features/collectionSlice';
 import Collection from '../../../../shared/models/allCollections/collection.type';
 import convertFieldsForEdit from '../../../../shared/utils/convertFieldsForEdit';
+import getManager from '../../../../shared/utils/getManager';
+import ControlMode from '../../../../common/controlMode/ControlMode';
 
 const createField = (label: string, size: string, children: JSX.Element): JSX.Element => (
   <ItemFormField payload={{ label, size }} key={generateKey()}>
@@ -47,7 +49,7 @@ const EditItem = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { userId } = useAppSelector(selectUser);
-  const { itemId, id } = useParams();
+  const { itemId, id, manageId } = useParams();
   const { getStatus, item, errors: errorsBD } = useAppSelector((state) => state.items);
   const { errorMessage, editStatus } = useAppSelector((state) => state.newItem);
   const { collection } = useAppSelector((state) => state.collection);
@@ -70,7 +72,9 @@ const EditItem = () => {
         id="app.item.response.success"
         values={{ title: item?.title }}
       />, toastConfig);
-      navigate(`${routes.COLLECTION}${id}`);
+      navigate(manageId
+        ? `${routes.COLLECTION}${id}/${manageId}`
+        : `${routes.COLLECTION}${id}`);
     }
     dispatch(newItemReset());
   }, [editStatus]);
@@ -79,7 +83,7 @@ const EditItem = () => {
     const itemData: NewItemRequest = {
       ...data,
       tags,
-      userId,
+      userId: getManager(manageId, userId),
       collectionId: id,
     };
     dispatch(editItem({ itemId: itemId as string, payload: itemData }));
@@ -165,46 +169,49 @@ const EditItem = () => {
   }, [getStatus]);
 
   return (
-    <Paper
-      elevation={5}
-      className={classNames(styles.wrapper, 'edit')}
-    >
-      <Typography
-        variant="h3"
-        className={styles.title}
+    <>
+      <Paper
+        elevation={5}
+        className={classNames(styles.wrapper, 'edit')}
       >
-        <FormattedMessage id="app.item.edit" />
-      </Typography>
-      <Grid container>
-        <form
-          onSubmit={handleSubmit(onFormSubmit)}
-          className={styles.form}
+        <Typography
+          variant="h3"
+          className={styles.title}
         >
-          <ItemFormField payload={{ label: 'title', size: '' }}>
-            <TitleField payload={{
-              value: '', errorsBD, errorMessage, errors, register,
-            }}
-            />
-          </ItemFormField>
-          <ItemFormField payload={{ label: 'tags', size: '' }}>
-            <TagsField setTags={setTags} tags={tags} />
-          </ItemFormField>
-          <Box
-            component="div"
-            className={classNames(styles.boxCustom, 'box__custom')}
+          <FormattedMessage id="app.item.edit" />
+        </Typography>
+        <Grid container>
+          <form
+            onSubmit={handleSubmit(onFormSubmit)}
+            className={styles.form}
           >
-            {fields && fields.map((e) => e)}
-          </Box>
-          <Box
-            component="div"
-            className={styles.buttonsBlock}
-          >
-            <FormButtonGroup type="item2" id={id as string} />
-          </Box>
-        </form>
-        {editStatus === 'loading' && <Spinner />}
-      </Grid>
-    </Paper>
+            <ItemFormField payload={{ label: 'title', size: '' }}>
+              <TitleField payload={{
+                value: '', errorsBD, errorMessage, errors, register,
+              }}
+              />
+            </ItemFormField>
+            <ItemFormField payload={{ label: 'tags', size: '' }}>
+              <TagsField setTags={setTags} tags={tags} />
+            </ItemFormField>
+            <Box
+              component="div"
+              className={classNames(styles.boxCustom, 'box__custom')}
+            >
+              {fields && fields.map((e) => e)}
+            </Box>
+            <Box
+              component="div"
+              className={styles.buttonsBlock}
+            >
+              <FormButtonGroup type="item2" id={id as string} manageId={manageId} />
+            </Box>
+          </form>
+          {editStatus === 'loading' && <Spinner />}
+        </Grid>
+      </Paper>
+      {manageId && (<ControlMode />)}
+    </>
   );
 };
 

@@ -30,6 +30,8 @@ import { getCollection } from '../../../redux/features/collectionSlice';
 import { editCollection, editReset } from '../../../redux/features/editCollectionSlice';
 import toastConfig from '../../../shared/toast/toastConfig';
 import routes from '../../../shared/constants/routes';
+import getManager from '../../../shared/utils/getManager';
+import ControlMode from '../../../common/controlMode/ControlMode';
 
 const fields: CustomFields = {
   number: [],
@@ -49,7 +51,8 @@ const EditCollection = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectUser);
-  const { id } = useParams();
+  const { id, manageId } = useParams();
+
   const {
     errors: errorsBD, errorMessage, editStatus,
   } = useAppSelector((store) => store.editCollection);
@@ -78,7 +81,7 @@ const EditCollection = () => {
         id="app.item.response.success"
         values={{ title: collection?.title }}
       />, toastConfig);
-      navigate(routes.COLLECTIONS);
+      navigate(manageId ? `${routes.COLLECTIONS}/${manageId}` : routes.COLLECTIONS);
     }
     dispatch(editReset());
   }, [editStatus]);
@@ -90,63 +93,66 @@ const EditCollection = () => {
       ...newData as DataForm,
       image: selectedImage ?? collection?.imageUrl as string,
       customFields: customItemFields as CustomFields,
-      userId,
+      userId: getManager(manageId, userId),
     };
     dispatch(editCollection({ payload: collectionData, id: id as string }));
   };
 
   return (
-    <Paper
-      elevation={5}
-      className={styles.wrapper}
-    >
-      <Typography
-        variant="h3"
-        className={styles.title}
+    <>
+      <Paper
+        elevation={5}
+        className={styles.wrapper}
       >
-        <FormattedMessage id="app.collection.edit.title" />
-      </Typography>
-      <Grid container>
-        <form
-          onSubmit={handleSubmit(onFormSubmit)}
-          className={styles.form}
+        <Typography
+          variant="h3"
+          className={styles.title}
         >
-          <CollectionFormField label="topic" Icon={Filter1Icon}>
-            <TopicField register={register} errors={errors} watch={watch} />
-          </CollectionFormField>
-          <CollectionFormField label="title" Icon={Filter2Icon}>
-            <TitleField payload={{
-              value: '', errors, errorsBD, errorMessage, register,
-            }}
-            />
-          </CollectionFormField>
-          <CollectionFormField label="description" Icon={Filter3Icon}>
-            <MarkdownForm
-              payload={{
-                label: 'descriptionCollection', value: '', register, getValues, setValue,
-              }}
-            />
-          </CollectionFormField>
-          <CollectionFormField label="image" Icon={Filter4Icon}>
-            <Dropzone
-              setSelectedImage={setSelectedImage}
-              selectedImage={selectedImage as DropImage}
-            />
-          </CollectionFormField>
-          <CollectionFormField label="itemFields" Icon={Filter5Icon}>
-            {fieldsCollection
-              && <ListCustomFields setCustomItemFields={setCustomItemFields} fields={fieldsCollection} />}
-          </CollectionFormField>
-          <Box
-            component="div"
-            className={styles.buttonsBlock}
+          <FormattedMessage id="app.collection.edit.title" />
+        </Typography>
+        <Grid container>
+          <form
+            onSubmit={handleSubmit(onFormSubmit)}
+            className={styles.form}
           >
-            <FormButtonGroup type="collection2" id="" />
-          </Box>
-        </form>
-      </Grid>
-      {editStatus === 'loading' && <Spinner />}
-    </Paper>
+            <CollectionFormField label="topic" Icon={Filter1Icon}>
+              <TopicField register={register} errors={errors} watch={watch} />
+            </CollectionFormField>
+            <CollectionFormField label="title" Icon={Filter2Icon}>
+              <TitleField payload={{
+                value: '', errors, errorsBD, errorMessage, register,
+              }}
+              />
+            </CollectionFormField>
+            <CollectionFormField label="description" Icon={Filter3Icon}>
+              <MarkdownForm
+                payload={{
+                  label: 'descriptionCollection', value: '', register, getValues, setValue,
+                }}
+              />
+            </CollectionFormField>
+            <CollectionFormField label="image" Icon={Filter4Icon}>
+              <Dropzone
+                setSelectedImage={setSelectedImage}
+                selectedImage={selectedImage as DropImage}
+              />
+            </CollectionFormField>
+            <CollectionFormField label="itemFields" Icon={Filter5Icon}>
+              {fieldsCollection
+              && <ListCustomFields setCustomItemFields={setCustomItemFields} fields={fieldsCollection} />}
+            </CollectionFormField>
+            <Box
+              component="div"
+              className={styles.buttonsBlock}
+            >
+              <FormButtonGroup type="collection2" id="" manageId={manageId} />
+            </Box>
+          </form>
+        </Grid>
+        {editStatus === 'loading' && <Spinner />}
+      </Paper>
+      {manageId && (<ControlMode />)}
+    </>
   );
 };
 

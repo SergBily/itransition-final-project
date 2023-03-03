@@ -10,11 +10,15 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
 import gsap from 'gsap';
+import Tooltip from '@mui/material/Tooltip';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
 import { getItemsCollection, itemsCollectionReset } from '../../../../redux/features/ItemsCollectionSlice';
 import Spinner from '../../../../common/spinner/Spinner';
@@ -26,6 +30,8 @@ import convertItemsForTable from '../../../../shared/utils/convertItemsForTable'
 import Order from '../../../../shared/models/items/order.type';
 import { getComparator, stableSort } from '../../../../shared/sort/sortTable';
 import Collection from '../../../../shared/models/allCollections/collection.type';
+import ControlMode from '../../../../common/controlMode/ControlMode';
+import routes from '../../../../shared/constants/routes';
 
 const ItemsTable = () => {
   const [order, setOrder] = useState<Order>('asc');
@@ -35,7 +41,7 @@ const ItemsTable = () => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [customFields, setcustomFields] = useState<Record<string, string>[] | null>(null);
-  const { id } = useParams();
+  const { id, manageId } = useParams();
   const dispatch = useAppDispatch();
   const {
     status, items, delStatus, collection,
@@ -115,10 +121,16 @@ const ItemsTable = () => {
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - items.length) : 0;
 
   return (
-    <Box component="div" className={classNames(styles.root, 'animationTable')}>
-      {items && (
+    <>
+      <Box component="div" className={classNames(styles.root, 'animationTable')}>
+        {items && (
         <Paper className={styles.wrapper}>
-          <ItemsTableToolbar selected={selected} id={id as string} setSelected={setSelected} />
+          <ItemsTableToolbar
+            selected={selected}
+            id={id as string}
+            setSelected={setSelected}
+            manageId={manageId}
+          />
           <TableContainer>
             <Table
               className={styles.table}
@@ -213,13 +225,22 @@ const ItemsTable = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Paper>
-      )}
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-      {(status === 'loading' || delStatus === 'loading') && <Spinner />}
-    </Box>
+        )}
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Dense padding"
+        />
+        {(status === 'loading' || delStatus === 'loading') && <Spinner />}
+      </Box>
+      <Link to={manageId ? `${routes.COLLECTIONS}/${manageId}` : routes.COLLECTIONS}>
+        <Tooltip title={<FormattedMessage id="app.item.table.btn.back" />}>
+          <IconButton color="info">
+            <ArrowBackIcon fontSize="large" />
+          </IconButton>
+        </Tooltip>
+      </Link>
+      { manageId && (<ControlMode />) }
+    </>
   );
 };
 
