@@ -1,6 +1,6 @@
 interface CommentResponse {
   text: string;
-  sender: string
+  sender: string;
 }
 
 export default CommentResponse;

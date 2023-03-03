@@ -12,7 +12,6 @@ const getHeadCell = (p: CustomFields): HeadCell[] => {
   }];
   Object.entries(p).forEach((v) => {
     v[1].forEach((title: string) => {
-      // if (v[1].length !== 0) {
       b.push({
         id: generateKey(),
         type: v[0],
@@ -20,7 +19,6 @@ const getHeadCell = (p: CustomFields): HeadCell[] => {
         label: title,
         align: true,
       });
-      // }
     });
   });
 

@@ -77,10 +77,7 @@ function insertMarkup(element: string, action: string): string {
       break;
   }
   textArea.focus();
-  // textArea.setSelectionRange(start, end);
-  // textArea.value = finText;
   return finText;
-  // txtarea.selectionEnd = ( start == end )? (end + text.length) : end ;
 }
 
 export default insertMarkup;

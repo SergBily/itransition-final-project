@@ -63,7 +63,6 @@ const ReadItemsTable = () => {
     setOrderBy(property);
   };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0
     ? Math.max(0, (1 + page) * rowsPerPage - (customFields ? customFields.length : 5)) : 0;
 

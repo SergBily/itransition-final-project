@@ -1,5 +1,5 @@
 interface DropImage extends File {
-  preview: string
+  preview: string;
 }
 
 export default DropImage;

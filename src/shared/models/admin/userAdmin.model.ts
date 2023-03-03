@@ -5,7 +5,7 @@ interface User {
   role: string;
   status: string;
   createdAt: string;
-  [index: string]: string
+  [index: string]: string;
 }
 
 export default User;

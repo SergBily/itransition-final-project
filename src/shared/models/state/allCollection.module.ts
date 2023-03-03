@@ -3,8 +3,8 @@ import AllCollectionsResponse from '../allCollections/allCollectionsResponse.mod
 
 interface AllCollection extends InitialState {
   allCollections?: AllCollectionsResponse[];
-  mainPageCollection: AllCollectionsResponse[] | null
-  errors: string[]
+  mainPageCollection: AllCollectionsResponse[] | null;
+  errors: string[];
 }
 
 export default AllCollection;

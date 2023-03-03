@@ -3,7 +3,7 @@ interface HeadCell {
   id: string;
   label: string;
   type: string;
-  align: boolean
+  align: boolean;
 }
 
 export default HeadCell;

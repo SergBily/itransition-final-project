@@ -4,7 +4,7 @@ import InitialState from './initialState.model';
 interface AdminState extends InitialState {
   errors: string[];
   users: User[];
-  actionStatus: 'idle' | 'loading' | 'failed' | 'success',
+  actionStatus: 'idle' | 'loading' | 'failed' | 'success';
   action: 'idle' | 'deleted' | 'changed';
 }
 

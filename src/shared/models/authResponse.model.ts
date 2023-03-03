@@ -1,7 +1,7 @@
 export interface AuthResponse {
-  accessToken: string,
-  refreshToken: string,
-  user: UserResponse
+  accessToken: string;
+  refreshToken: string;
+  user: UserResponse;
 }
 
 export interface UserResponse {

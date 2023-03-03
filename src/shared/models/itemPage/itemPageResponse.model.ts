@@ -5,7 +5,7 @@ import CollectionResponse from '../newCollection/collectionResponse.model';
 interface ItemPageResponse {
   collection: CollectionResponse;
   item: ItemStructure;
-  comments: CommentResponse[]
+  comments: CommentResponse[];
 }
 
 export default ItemPageResponse;
