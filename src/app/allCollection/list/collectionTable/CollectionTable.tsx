@@ -21,7 +21,6 @@ const CollectionTable = () => {
 
   useEffect(() => {
     dispatch(getAllCollection(getManager(id, userId)));
-
     gsap.to(
       '.animationCollections',
       {
@@ -47,7 +46,6 @@ const CollectionTable = () => {
             <Collection payload={collection} manageId={id} />
           </Grid>
         ))}
-
       </Grid>
       {id && (<ControlMode />)}
       {status === 'loading' && <Spinner />}

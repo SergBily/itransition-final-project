@@ -146,7 +146,6 @@ const Signup: React.FC = (): JSX.Element => {
             </Button>
           </Grid>
         </form>
-
         <Grid item xs={12}>
           <Typography variant="body1">
             <FormattedMessage id="app.signup.text1" />

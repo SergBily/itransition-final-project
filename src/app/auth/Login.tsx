@@ -36,8 +36,6 @@ const Login: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (status === 'failed' && errorMessage === 'Wrong password') {
-      console.log(errorMessage);
-
       toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
       dispatch(reset());
     }
