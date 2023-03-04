@@ -6,12 +6,14 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
+import { FormattedMessage } from 'react-intl';
 import Order from '../../../shared/models/items/order.type';
+import styles from './styles.module.scss';
 
 interface HeadCell {
   disablePadding: boolean;
   id: string;
-  label: string;
+  label: React.ReactNode;
   numeric: boolean;
 }
 
@@ -20,37 +22,37 @@ const headCells: readonly HeadCell[] = [
     id: 'id',
     numeric: false,
     disablePadding: true,
-    label: 'ID',
+    label: <FormattedMessage id="app.admin.id" />,
   },
   {
     id: 'name',
     numeric: true,
     disablePadding: false,
-    label: 'NAME',
+    label: <FormattedMessage id="app.admin.name" />,
   },
   {
     id: 'email',
     numeric: true,
     disablePadding: false,
-    label: 'EMAIL',
+    label: <FormattedMessage id="app.admin.email" />,
   },
   {
     id: 'registrationDate',
     numeric: true,
     disablePadding: false,
-    label: 'REGISTRATION DATE',
+    label: <FormattedMessage id="app.admin.regist" />,
   },
   {
     id: 'role',
     numeric: true,
     disablePadding: false,
-    label: 'ROLE',
+    label: <FormattedMessage id="app.admin.role" />,
   },
   {
     id: 'status',
     numeric: true,
     disablePadding: false,
-    label: 'STATUS',
+    label: <FormattedMessage id="app.admin.status" />,
   },
 ];
 
@@ -87,6 +89,7 @@ const AdminTableHead = (props: AdminTableHeadProps) => {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
+            className={styles.title}
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}

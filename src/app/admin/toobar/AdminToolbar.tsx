@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { alpha } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -21,15 +21,18 @@ import {
 import Spinner from '../../../common/spinner/Spinner';
 import toastConfig from '../../../shared/toast/toastConfig';
 import routes from '../../../shared/constants/routes';
+import checkActionAdmin from '../../../shared/utils/checkActionAdmin';
+import getStringOfArray from '../../../shared/utils/getStringOfArray';
 
 interface AdminToolbarProps {
   selectedUser: string[];
 }
 
 const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
+  const [currentUserId, setCurrentUserId] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const {
-    actionStatus, action,
+    actionStatus, action, users,
   } = useAppSelector((state) => state.admin);
 
   useEffect(() => {
@@ -37,7 +40,7 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
       toast.success(
         <FormattedMessage
           id="app.admin.action"
-          values={{ user: selectedUser, action }}
+          values={{ id: getStringOfArray(currentUserId), action }}
         />,
         toastConfig,
       );
@@ -46,7 +49,7 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
       toast.success(
         <FormattedMessage
           id="app.admin.action2"
-          values={{ user: selectedUser, action }}
+          values={{ id: getStringOfArray(currentUserId), action }}
         />,
         toastConfig,
       );
@@ -59,20 +62,22 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
     dispatch(deleteUsers(selectedUser));
   };
 
-  const onHandleBlock = () => {
-    dispatch(changeStatusUsers({ usersId: selectedUser, action: 'block' }));
+  const onHandleStatus = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const act = e.currentTarget.id;
+    const usersId = checkActionAdmin(selectedUser, users, 'status', act);
+    setCurrentUserId(usersId);
+    if (usersId.length) {
+      dispatch(changeStatusUsers({ usersId, action: act }));
+    }
   };
 
-  const onHandleUnblock = () => {
-    dispatch(changeStatusUsers({ usersId: selectedUser, action: 'unblock' }));
-  };
-
-  const onHandleRoleAdmin = () => {
-    dispatch(changeRoleUsers({ usersId: selectedUser, action: 'admin' }));
-  };
-
-  const onHandleRoleUser = () => {
-    dispatch(changeRoleUsers({ usersId: selectedUser, action: 'user' }));
+  const onHandleRole = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const act = e.currentTarget.id;
+    const usersId = checkActionAdmin(selectedUser, users, 'role', act);
+    setCurrentUserId(usersId);
+    if (usersId.length) {
+      dispatch(changeRoleUsers({ usersId, action: act }));
+    }
   };
 
   return (
@@ -99,7 +104,7 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
           >
             {selectedUser.length === 1 ? selectedUser : selectedUser.length}
             {' '}
-            selected
+            <FormattedMessage id="app.admin.selected" />
           </Typography>
         ) : (
           <Typography
@@ -108,7 +113,7 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
             id="tableTitle"
             component="div"
           >
-            USERS
+            <FormattedMessage id="app.admin.users" />
           </Typography>
         )}
         {selectedUser.length > 0 && (
@@ -118,7 +123,7 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
                 to={`${routes.COLLECTIONS}/${selectedUser[0]}`}
                 className={styles.link}
               >
-                <Tooltip title={<FormattedMessage id="app.item.tooltip.open" />}>
+                <Tooltip title={<FormattedMessage id="app.admin.toolbar.manage" />}>
                   <IconButton>
                     <Typography
                       variant="body2"
@@ -132,34 +137,34 @@ const AdminToolbar = ({ selectedUser }: AdminToolbarProps) => {
                 </Tooltip>
               </Link>
             )}
-            <Tooltip title="add admin role">
-              <IconButton onClick={onHandleRoleAdmin} id="admin">
+            <Tooltip title={<FormattedMessage id="app.admin.toolbar.add" />}>
+              <IconButton onClick={onHandleRole} id="admin">
                 <AdminPanelSettingsIcon fontSize="large" />
               </IconButton>
             </Tooltip>
-            <Tooltip title="add user role">
-              <IconButton onClick={onHandleRoleUser} id="user">
+            <Tooltip title={<FormattedMessage id="app.admin.toolbar.add.user" />}>
+              <IconButton onClick={onHandleRole} id="user">
                 <SupervisorAccountIcon fontSize="large" />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Delete">
+            <Tooltip title={<FormattedMessage id="app.admin.toolbar.delete" />}>
               <IconButton onClick={onHandleDelete} id="delete">
                 <DeleteIcon fontSize="large" />
               </IconButton>
             </Tooltip>
-            <Tooltip title="block">
-              <IconButton onClick={onHandleBlock} id="block">
+            <Tooltip title={<FormattedMessage id="app.admin.toolbar.block" />}>
+              <IconButton onClick={onHandleStatus} id="block">
                 <BlockIcon fontSize="large" />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Unblock">
-              <IconButton id="unblock" onClick={onHandleUnblock}>
+            <Tooltip title={<FormattedMessage id="app.admin.toolbar.unblock" />}>
+              <IconButton id="unblock" onClick={onHandleStatus}>
                 <Box
                   component="p"
                   id="unblock"
                   className={styles.btnUnblock}
                 >
-                  Unblock
+                  <FormattedMessage id="app.admin.unblock" />
                 </Box>
               </IconButton>
             </Tooltip>
