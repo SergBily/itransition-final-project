@@ -140,7 +140,7 @@ const EditItem = () => {
                 v[0],
                 '',
                 <Checkbox
-                  checked={v[1] as boolean}
+                  defaultChecked={v[1] as boolean}
                   {...register(`customFields.checkbox.${v[0]}`)}
                 />,
               )

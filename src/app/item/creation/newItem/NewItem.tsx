@@ -72,8 +72,6 @@ const NewItem = () => {
   }, []);
 
   useEffect(() => {
-    console.log(newItemStatus);
-
     if (newItemStatus === 'success') {
       toast.success(<FormattedMessage
         id="app.item.response.success"

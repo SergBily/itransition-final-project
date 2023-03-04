@@ -43,10 +43,10 @@ const TitleField = ({ payload }: TitleFieldProps) => {
       && (
         <FormattedMessage id={errors.title?.message} />
       )}
-        {errorsBD && errorsBD[0] === 'title'
-      && (
-      <FormattedMessage id={errorMessage} />
-      )}
+        {(errorsBD && errorsBD[0] === 'title')
+          && (
+          <FormattedMessage id={errorMessage} />
+          )}
       </Box>
     </>
   );

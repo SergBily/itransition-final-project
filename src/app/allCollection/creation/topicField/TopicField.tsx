@@ -17,7 +17,7 @@ const topics = ['books', 'cars', 'wine', 'stamps', 'paintings'];
 interface TopicFieldProps {
   register: UseFormRegister<Record<string, string>>;
   errors: FieldErrors<CollectionStructure>;
-  watch: UseFormWatch<Record<string, string>>
+  watch: UseFormWatch<Record<string, string>>;
 }
 
 const TopicField = (payload: TopicFieldProps) => {
