@@ -72,6 +72,8 @@ const NewItem = () => {
   }, []);
 
   useEffect(() => {
+    console.log(newItemStatus);
+
     if (newItemStatus === 'success') {
       toast.success(<FormattedMessage
         id="app.item.response.success"
@@ -80,8 +82,8 @@ const NewItem = () => {
       navigate(manageId
         ? `${routes.COLLECTION}${id}/${manageId}`
         : `${routes.COLLECTION}${id}`);
+      dispatch(itemReset());
     }
-    dispatch(itemReset());
   }, [newItemStatus]);
 
   const onFormSubmit = (data: Record<string, string>): void => {
@@ -201,7 +203,7 @@ const NewItem = () => {
               <FormButtonGroup type="item1" id={id as string} manageId={manageId} />
             </Box>
           </form>
-          {status === 'loading' && <Spinner />}
+          {(newItemStatus === 'loading' || status === 'loading') && <Spinner />}
         </Grid>
       </Paper>
       { manageId && (<ControlMode />) }

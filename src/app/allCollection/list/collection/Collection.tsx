@@ -88,7 +88,7 @@ const Collection = ({ payload, manageId }: CollectionProps) => {
               component="p"
               className={styles.topic}
             >
-              {topic.toUpperCase()}
+              <FormattedMessage id={`app.collection.topic.${topic}`} />
             </Typography>
             <Typography
               gutterBottom
