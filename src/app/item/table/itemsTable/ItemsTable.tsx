@@ -88,7 +88,6 @@ const ItemsTable = () => {
   const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected: string[] = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
@@ -151,7 +150,6 @@ const ItemsTable = () => {
                   .map((row, index) => {
                     const isItemSelected = isSelected(row.id);
                     const labelId = `enhanced-table-checkbox-${index}`;
-
                     return (
                       <TableRow
                         hover
@@ -232,7 +230,9 @@ const ItemsTable = () => {
         />
         {(status === 'loading' || delStatus === 'loading') && <Spinner />}
       </Box>
-      <Link to={manageId ? `${routes.COLLECTIONS}/${manageId}` : routes.COLLECTIONS}>
+      <Link
+        to={manageId ? `${routes.COLLECTIONS}/${manageId}` : routes.COLLECTIONS}
+      >
         <Tooltip title={<FormattedMessage id="app.item.table.btn.back" />}>
           <IconButton color="info">
             <ArrowBackIcon fontSize="large" />

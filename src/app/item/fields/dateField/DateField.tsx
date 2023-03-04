@@ -10,6 +10,7 @@ interface DateFieldProps {
 
 const DateField = ({ payload }: DateFieldProps) => {
   const { key, value = '', register } = payload;
+
   return (
     <TextField
       className={styles.textField}

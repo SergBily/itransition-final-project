@@ -4,7 +4,7 @@ import loadable from '@loadable/component';
 import routes from '../../shared/constants/routes';
 import Home from '../../app/home/table/HomeTable';
 
-const Login = loadable(() => import('../../app/auth/Login'), {
+const Login = loadable(() => import('../../app/auth/login/Login'), {
   resolveComponent: (components) => components.default,
 });
 const CollectionTable = loadable(
@@ -18,7 +18,7 @@ const EditCollection = loadable(() => import('../../app/allCollection/edit/EditC
   resolveComponent: (components) => components.default,
 });
 
-const Signup = loadable(() => import('../../app/auth/Signup'), {
+const Signup = loadable(() => import('../../app/auth/signup/Signup'), {
   resolveComponent: (components) => components.default,
 });
 
@@ -45,7 +45,9 @@ const ItemPage = loadable(() => import('../../app/item/itemPage/ItemPage'), {
   resolveComponent: (components) => components.default,
 });
 
-const ReadItemsTable = loadable(() => import('../../app/home/readItemsTable/table/ReadItemsTable'), {
+const ReadItemsTable = loadable(() => import(
+  '../../app/home/readItemsTable/table/readItemsTable/ReadItemsTable'
+), {
   resolveComponent: (components) => components.default,
 });
 

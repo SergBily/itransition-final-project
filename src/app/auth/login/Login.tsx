@@ -8,18 +8,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import routes from '../../shared/constants/routes';
-import backgroundImage from '../../assets/images/background.png';
-import { LoginForm } from '../../shared/models/authForm.model';
-import authValidator from '../../shared/validators/authValidator';
-import passwordValidator from '../../shared/validators/passwordValidaor';
-import Errors from '../../common/errors/Errors';
-import { login, reset } from '../../redux/features/authSlice';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
-import { selectErrorMessage, selectStatus, selectUser } from '../../redux/selectors/authSelectors';
-import toastConfig from '../../shared/toast/toastConfig';
-import Spinner from '../../common/spinner/Spinner';
-import setUserData from '../../shared/utils/setUserData';
+import routes from '../../../shared/constants/routes';
+import { LoginForm } from '../../../shared/models/authForm.model';
+import authValidator from '../../../shared/validators/authValidator';
+import passwordValidator from '../../../shared/validators/passwordValidaor';
+import Errors from '../../../common/errors/Errors';
+import { login, reset } from '../../../redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
+import { selectErrorMessage, selectStatus, selectUser } from '../../../redux/selectors/authSelectors';
+import toastConfig from '../../../shared/toast/toastConfig';
+import Spinner from '../../../common/spinner/Spinner';
+import setUserData from '../../../shared/utils/setUserData';
+import styles from './styles.module.scss';
 
 const Login: React.FC = (): JSX.Element => {
   const {
@@ -69,25 +69,30 @@ const Login: React.FC = (): JSX.Element => {
   };
 
   return (
-    <Container maxWidth="xs" sx={{ transform: 'translate(0, 50%)' }}>
+    <Container maxWidth="xs" className={styles.container}>
       <Grid
         container
-        sx={{
-          background: `no-repeat center url(${backgroundImage})`,
-          p: '10px',
-          boxShadow: `0px 2px 4px -1px rgb(0 0 0 / 20%),
-                      0px 4px 5px 0px rgb(0 0 0 / 14%),
-                      0px 1px 10px 0px rgb(0 0 0 / 12%)`,
-          borderRadius: '10px',
-        }}
+        className={styles.root}
       >
         <Grid item xs={12}>
-          <Typography mb={2} variant="h4">CollectMan</Typography>
+          <Typography
+            className={styles.title}
+            variant="h4"
+          >
+            CollectMan
+          </Typography>
         </Grid>
-        <form onSubmit={handleSubmit(onFormSubmit)} style={{ width: '100%' }}>
-          <Grid item xs={12} sx={{ position: 'relative' }}>
+        <form
+          onSubmit={handleSubmit(onFormSubmit)}
+          className={styles.form}
+        >
+          <Grid
+            item
+            xs={12}
+            className={styles.gridItem}
+          >
             <TextField
-              sx={{ width: '100%', mb: 3, mt: 3 }}
+              className={styles.emailInput}
               type="email"
               id="outlined-basic"
               label={<FormattedMessage id="app.login.email" />}
@@ -96,13 +101,21 @@ const Login: React.FC = (): JSX.Element => {
             />
             <Errors message={errors.email?.message} position="-25px" />
           </Grid>
-          <Grid item xs={12} sx={{ position: 'relative' }}>
-            <FormControl sx={{ mt: 1, mb: 5, width: '100%' }} variant="outlined">
+          <Grid
+            item
+            xs={12}
+            className={styles.gridItem}
+          >
+            <FormControl
+              variant="outlined"
+              className={styles.passwordInput}
+            >
               <InputLabel htmlFor="outlined-adornment-password">
                 <FormattedMessage id="app.login.password" />
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
+                label="Password"
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
                   ...authValidator('Password'),
@@ -120,14 +133,13 @@ const Login: React.FC = (): JSX.Element => {
                     </IconButton>
                   </InputAdornment>
             )}
-                label="Password"
               />
               <Errors message={errors.password?.message} position="-45px" />
             </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Button
-              sx={{ mb: 2 }}
+              className={styles.btn}
               color="info"
               type="submit"
               variant="contained"
@@ -143,10 +155,7 @@ const Login: React.FC = (): JSX.Element => {
           </Typography>
           <Link
             to={routes.SIGNUP}
-            style={{
-              textDecoration: 'none',
-              color: 'red',
-            }}
+            className={styles.link}
           >
             <Typography variant="body1">
               <FormattedMessage id="app.login.text2" />

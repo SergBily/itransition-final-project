@@ -15,17 +15,17 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 import classNames from 'classnames';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormattedMessage } from 'react-intl';
-import TablePaginationActions from '../pagination/TablePaginationActions';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
-import convertItemsForTable from '../../../../shared/utils/convertItemsForTable';
-import Collection from '../../../../shared/models/allCollections/collection.type';
-import { getItemsCollection, itemsCollectionReset } from '../../../../redux/features/ItemsCollectionSlice';
-import generateKey from '../../../../shared/utils/UniqueKey';
+import TablePaginationActions from '../../pagination/TablePaginationActions';
+import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/hooks';
+import convertItemsForTable from '../../../../../shared/utils/convertItemsForTable';
+import Collection from '../../../../../shared/models/allCollections/collection.type';
+import { getItemsCollection, itemsCollectionReset } from '../../../../../redux/features/ItemsCollectionSlice';
+import generateKey from '../../../../../shared/utils/UniqueKey';
 import styles from './styles.module.scss';
-import EnhancedTableHead from './tableHead/TableHead';
-import Order from '../../../../shared/models/items/order.type';
-import { getComparator, stableSort } from '../../../../shared/sort/sortTable';
-import routes from '../../../../shared/constants/routes';
+import EnhancedTableHead from '../tableHead/TableHead';
+import Order from '../../../../../shared/models/items/order.type';
+import { getComparator, stableSort } from '../../../../../shared/sort/sortTable';
+import routes from '../../../../../shared/constants/routes';
 
 const ReadItemsTable = () => {
   const [page, setPage] = useState(0);

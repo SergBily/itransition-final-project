@@ -96,8 +96,17 @@ const Comments = ({ saveComment, comments }: CommentsProps) => {
             aria-label="tabs"
             orientation={widthSize < screenSize[600] ? 'vertical' : 'horizontal'}
           >
-            <Tab label={<FormattedMessage id="app.item.comments.view" />} {...a11yProps(0)} />
-            {userId && <Tab label={<FormattedMessage id="app.item.comments.write" />} {...a11yProps(1)} />}
+            <Tab
+              label={<FormattedMessage id="app.item.comments.view" />}
+              {...a11yProps(0)}
+            />
+            {userId
+              && (
+              <Tab
+                label={<FormattedMessage id="app.item.comments.write" />}
+                {...a11yProps(1)}
+              />
+              )}
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -129,7 +138,6 @@ const Comments = ({ saveComment, comments }: CommentsProps) => {
                     className={styles.sender}
                   >
                     {c.sender}
-
                   </Box>
                   <Box component="span">
                     {c.text}

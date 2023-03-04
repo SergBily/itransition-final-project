@@ -6,6 +6,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import styles from './styles.module.scss';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -42,7 +43,7 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
   };
 
   return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+    <Box component="div" className={styles.root}>
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}

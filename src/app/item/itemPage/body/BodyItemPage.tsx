@@ -80,6 +80,7 @@ const BodyItemPage = ({ item }: BodyItemPagePrors) => {
       y: '-250px', opacity: 1, duration: 0.9, ease: 'circ',
     });
   });
+
   return (
     <Box className={styles.root}>
       {customFieldslayout(item).map((e) => e)}

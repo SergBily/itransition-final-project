@@ -1,0 +1,51 @@
+.container {
+  transform: translate(0, 50%);
+  -webkit-transform: translate(0, 50%);
+  -moz-transform: translate(0, 50%);
+  -ms-transform: translate(0, 50%);
+  -o-transform: translate(0, 50%);
+}
+
+.root {
+  background: no-repeat center url('../../../assets/images/background.png');
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+              0px 4px 5px 0px rgb(0 0 0 / 14%),
+              0px 1px 10px 0px rgb(0 0 0 / 12%);
+  border-radius: 10px;
+  padding: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.form {
+  width: 100%;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.gridItem {
+  position: relative;
+}
+
+.emailInput {
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+.passwordInput {
+  width: 100%;
+  margin: 0.5rem 0 2.5rem 0;
+}
+
+.btn {
+  margin-bottom: 1rem;
+}
+
+.link {
+  text-decoration: none;
+  color: #ff0000;
+}

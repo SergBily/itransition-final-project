@@ -10,6 +10,7 @@ interface StringFieldProps {
 
 const StringField = ({ payload }: StringFieldProps) => {
   const { key, value = '', register } = payload;
+
   return (
     <TextField
       className={styles.textField}
