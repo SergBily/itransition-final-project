@@ -20,8 +20,8 @@ Promise<AxiosResponse<CollectionResponse>> => {
 export const editCollectionApi = async ({ payload, id }: EditCollectionRequest):
 Promise<AxiosResponse<CollectionResponse>> => {
   const imageUrl: string = typeof payload.image === 'object'
-    ? await uploadImage(payload.image as DropImage, payload.userId)
-    : payload.image;
+    ? await uploadImage(payload.image as unknown as DropImage, payload.userId)
+    : payload.image as string;
   return $api.put(`${urls.EDIT_COLLECTION}/${id}`, { ...payload, image: imageUrl });
 };
 
