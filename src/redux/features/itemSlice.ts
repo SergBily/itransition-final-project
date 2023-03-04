@@ -1,20 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import createNewItem, { editItemApi, getLastItemsApi } from '../../shared/apis/itemApi';
+import createNewItem, { editItemApi, getLastItemsApi, getTagsApi } from '../../shared/apis/itemApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import ItemEditRequest from '../../shared/models/items/itemEditRequest.model';
 import ItemStructure from '../../shared/models/items/itemStructure.model';
 import NewItemRequest from '../../shared/models/items/newItemRequest.model';
+import Tags from '../../shared/models/items/tags.module';
 import ItemState from '../../shared/models/state/itemState.model';
 
 const initialState: ItemState = {
   status: 'idle',
   editStatus: 'idle',
+  tagsStatus: 'idle',
   errorMessage: '',
   errors: [],
   item: null,
   lastItems: [],
+  tags: [],
 };
 
 export const createItem = createAsyncThunk<ItemStructure, NewItemRequest>(
@@ -65,6 +68,22 @@ export const getLastItems = createAsyncThunk<ItemStructure[], void>(
   },
 );
 
+export const getTags = createAsyncThunk<Tags[], void>(
+  routes.TAGS_ITEMS,
+  async (_, thunkAPI) => {
+    try {
+      const response = await getTagsApi();
+      const { data } = response;
+      return data;
+    } catch (e) {
+      const error = e as AxiosError;
+      const message = (error.response && error.response.data) as ErrorResponse
+        || error.message || error.toString();
+      return thunkAPI.rejectWithValue((message as ErrorResponse));
+    }
+  },
+);
+
 export const itemSlice = createSlice({
   name: 'item',
   initialState,
@@ -103,6 +122,10 @@ export const itemSlice = createSlice({
       })
       .addCase(getLastItems.fulfilled, (state, { payload }) => {
         state.lastItems = payload;
+      })
+      .addCase(getTags.fulfilled, (state, { payload }) => {
+        state.tagsStatus = 'success';
+        state.tags = payload;
       });
   },
 });

@@ -6,10 +6,6 @@
   flex-direction: column;
 }
 
-.boxInput {
-  width: 100%;
-}
-
 .textField {
   background-color: $fieldColor;
 }
@@ -18,6 +14,12 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
+}
+
+.fieldBlock {
+  @include flex();
+  width: 100%;
+  gap: 10px;
 }
 
 .stack {

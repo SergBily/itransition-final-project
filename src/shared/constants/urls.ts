@@ -19,6 +19,7 @@ export const urls = {
   LAST_ITEMS: `${BASE_URL}/item/home/last`,
   DELETE_ITEM: `${BASE_URL}/item/delete`,
   EDIT_ITEM: `${BASE_URL}/item/edit`,
+  TAGS_ITEM: `${BASE_URL}/item/cloud/tags`,
   ITEM: `${BASE_URL}/item`,
   ADD_LIKE: `${BASE_URL}/item/like/add`,
   REMOVE_LIKE: `${BASE_URL}/item/like/remove`,

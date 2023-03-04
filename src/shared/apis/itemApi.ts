@@ -8,6 +8,7 @@ import ItemEditRequest from '../models/items/itemEditRequest.model';
 import ItemsCollectionResponse from '../models/items/itemssCollectionResponse.model';
 import ItemStructure from '../models/items/itemStructure.model';
 import NewItemRequest from '../models/items/newItemRequest.model';
+import Tags from '../models/items/tags.module';
 import CollectionResponse from '../models/newCollection/collectionResponse.model';
 import { getCollectionApi } from './collectionApi';
 import getAllComents from './commentApi';
@@ -73,5 +74,8 @@ Promise<ItemPageResponse> => {
     comments: comments as CommentResponse[],
   };
 };
+
+export const getTagsApi = ():
+Promise<AxiosResponse<Tags[]>> => $api.get(urls.TAGS_ITEM);
 
 export default createNewItem;
