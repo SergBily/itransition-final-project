@@ -78,11 +78,12 @@ const EditCollection = () => {
   useEffect(() => {
     if (editStatus === 'success') {
       toast.success(<FormattedMessage
-        id="app.item.response.success"
+        id="app.item.edit.success"
         values={{ title: collection?.title }}
       />, toastConfig);
       navigate(manageId ? `${routes.COLLECTIONS}/${manageId}` : routes.COLLECTIONS);
     }
+    setfieldsCollection(null);
     dispatch(editReset());
   }, [editStatus]);
 

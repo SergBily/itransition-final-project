@@ -36,7 +36,7 @@ const ListCustomFields = (payload: ListCustomFieldsProps) => {
   const [isTitleField, setisTitleField] = useState<boolean>(false);
   const [selectedField, setselectedField] = useState<Fields>('number');
   const [addedField, setaddedField] = useState<string[]>([]);
-  const [errorField, setErrorField] = useState<boolean>(false);
+  const [errorField, setErrorField] = useState<string | null>(null);
   const [widthSize, setWidthSize] = useState<number>(screenSize.INITIAL);
   const reportWindowSize = () => {
     setWidthSize(window.innerWidth);
@@ -58,8 +58,13 @@ const ListCustomFields = (payload: ListCustomFieldsProps) => {
 
   const handleSaveTitleField = (): void => {
     if (titleField === 'title') {
-      setErrorField(true);
-      setTimeout(() => setErrorField(false), 4000);
+      setErrorField('title');
+      setTimeout(() => setErrorField(null), 4000);
+      return;
+    }
+    if (titleField === '') {
+      setErrorField('empty');
+      setTimeout(() => setErrorField(null), 4000);
       return;
     }
     setaddedField((p) => [...p, titleField]);
@@ -165,7 +170,7 @@ const ListCustomFields = (payload: ListCustomFieldsProps) => {
           )}
         {errorField && (
         <Typography variant="body2" color="error">
-          <FormattedMessage id="app.collection.new.custom.fielsd.error" />
+          <FormattedMessage id={`app.collection.new.custom.fielsd.${errorField}`} />
         </Typography>
         )}
       </Box>
