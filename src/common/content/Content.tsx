@@ -5,6 +5,6 @@ interface ContentProps {
   children: ReactNode
 }
 
-const Content = ({ children }: ContentProps): JSX.Element => <Box m={1}>{children}</Box>;
+const Content = ({ children }: ContentProps): JSX.Element => <Box m={1} mt={7}>{children}</Box>;
 
 export default Content;

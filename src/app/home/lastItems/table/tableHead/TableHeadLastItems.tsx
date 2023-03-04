@@ -4,6 +4,7 @@ import {
   TableCell, TableRow,
 } from '@mui/material';
 
+import { FormattedMessage } from 'react-intl';
 import styles from './styles.module.scss';
 
 const TableHeadLastItems = () => (
@@ -14,7 +15,7 @@ const TableHeadLastItems = () => (
         align="left"
         padding="normal"
       >
-        Title
+        <FormattedMessage id="app.collection.new.field.title" />
       </TableCell>
     </TableRow>
   </TableHead>

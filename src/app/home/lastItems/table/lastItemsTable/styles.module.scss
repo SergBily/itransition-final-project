@@ -18,6 +18,7 @@
 
 .tableBody {
   background-color: $backgroundTable;
+  padding-left: 20px ;
 }
 
 .blockLink {
@@ -26,10 +27,13 @@
 
 .tableCell  {
   min-width: 150px;
-  max-width: 150px;
+  max-width: 150px !important;
+  min-height: 100px !important;
   max-height: 100px;
   overflow-y: auto;
   overflow-wrap: break-word;
+  font-size: 1rem !important;
+  font-weight: 500;
 }
 
 .link {

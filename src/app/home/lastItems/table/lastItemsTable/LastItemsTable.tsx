@@ -73,7 +73,7 @@ const LastItemsTable = () => {
                   scope="row"
                   padding="none"
                 >
-                  {row.title.slice(0, 1).toUpperCase() + row.title.slice(1)}
+                  {`${row.title.slice(0, 1).toUpperCase()}${row.title.slice(1)}`}
                 </TableCell>
                 <Box component="td" className={styles.link}>
                   <Link

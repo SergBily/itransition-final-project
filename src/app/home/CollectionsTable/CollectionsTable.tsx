@@ -11,6 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import gsap from 'gsap';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import {
   allCollectionReset,
   getLargestCollections,
@@ -86,7 +88,9 @@ const CollectionsTable = () => {
                 {row.title}
               </TableCell>
               <TableCell align="right">
-                {row.description}
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {row.description}
+                </ReactMarkdown>
               </TableCell>
               <Box component="td" className={styles.link}>
                 <Link

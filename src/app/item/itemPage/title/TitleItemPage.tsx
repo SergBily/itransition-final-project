@@ -25,6 +25,7 @@ interface TitleItemPageProps {
 const TitleItemPage = ({ item, collection }: TitleItemPageProps) => {
   const [value, setValue] = React.useState<number | null>(0);
   const { userId } = useAppSelector(selectUser);
+
   useEffect(() => {
     setValue(item.visits);
     gsap.to('.title', {
@@ -75,7 +76,7 @@ const TitleItemPage = ({ item, collection }: TitleItemPageProps) => {
         >
           {item.title}
         </Typography>
-        {userId && (item.likes && item.likes.includes(userId))
+        {userId && ((item.likes && item.likes.includes(userId))
           ? (
             <Tooltip title="Like">
               <Box
@@ -97,7 +98,7 @@ const TitleItemPage = ({ item, collection }: TitleItemPageProps) => {
                 <FavoriteBorderIcon fontSize="large" color="error" />
               </Box>
             </Tooltip>
-          )}
+          ))}
       </Box>
       <Box
         component="div"
