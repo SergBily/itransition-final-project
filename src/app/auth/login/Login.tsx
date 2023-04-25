@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import {
   Container, Typography, Grid, FormControl, InputLabel,
   OutlinedInput, InputAdornment, IconButton, TextField, Button,
@@ -9,54 +9,53 @@ import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import routes from '../../../shared/constants/routes';
-import { LoginForm } from '../../../shared/models/authForm.model';
 import authValidator from '../../../shared/validators/authValidator';
 import passwordValidator from '../../../shared/validators/passwordValidaor';
 import Errors from '../../../common/errors/Errors';
-import { login, reset } from '../../../redux/features/authSlice';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
-import { selectErrorMessage, selectStatus, selectUser } from '../../../redux/selectors/authSelectors';
 import toastConfig from '../../../shared/toast/toastConfig';
 import Spinner from '../../../common/spinner/Spinner';
 import setUserData from '../../../shared/utils/setUserData';
 import styles from './styles.module.scss';
+import { ErrorData, LoginForm } from '../../../shared/models';
+import { authApi } from '../../../shared/apis';
 
-const Login: React.FC = (): JSX.Element => {
+type Error = Pick<ErrorData, 'message'>;
+
+const Login: FunctionComponent = (): JSX.Element => {
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm <LoginForm>();
+  } = useForm<LoginForm>();
+  const [setLogin, {
+    data, isSuccess, error, isError, isLoading,
+  }] = authApi.useLoginMutation(
+    { fixedCacheKey: 'Auth' },
+  );
   const [showPassword, setShowPassword] = React.useState(false);
-  const dispatch = useAppDispatch();
-  const status = useAppSelector(selectStatus);
-  const errorMessage = useAppSelector(selectErrorMessage);
   const navigate = useNavigate();
-  const {
-    name, token, userId, role,
-  } = useAppSelector(selectUser);
 
   useEffect(() => {
-    if (status === 'failed' && errorMessage === 'Wrong password') {
+    if (isError && (error as Error).message === 'Wrong password') {
       toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
-      dispatch(reset());
     }
-    if (status === 'success') {
+    if (isSuccess && data) {
       setUserData({
-        name, token, userId, role,
+        name: data.name,
+        token: data.token,
+        userId: data.userId,
+        role: data.role,
       });
       toast.success(<FormattedMessage
         id="app.login.success"
-        values={{ name }}
+        values={{ name: data.name }}
       />, toastConfig);
       navigate(routes.HOME);
-      dispatch(reset());
     }
-    if (status === 'failed' && errorMessage === 'app.user.access') {
+    if (isError && (error as Error).message === 'app.user.access') {
       toast.warn(<FormattedMessage
-        id={errorMessage}
+        id={`${(error as Error).message}`}
       />, toastConfig);
-      dispatch(reset());
     }
-  }, [status, errorMessage]);
+  }, [isSuccess, isError]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -64,8 +63,8 @@ const Login: React.FC = (): JSX.Element => {
     event.preventDefault();
   };
 
-  const onFormSubmit = (data: LoginForm): void => {
-    dispatch(login(data));
+  const onFormSubmit = (dataForm: LoginForm): void => {
+    setLogin(dataForm);
   };
 
   return (
@@ -163,7 +162,7 @@ const Login: React.FC = (): JSX.Element => {
           </Link>
         </Grid>
       </Grid>
-      {status === 'loading' && <Spinner />}
+      {isLoading && <Spinner />}
     </Container>
   );
 };

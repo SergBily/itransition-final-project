@@ -15,13 +15,13 @@ import generateKey from '../../shared/utils/UniqueKey';
 import routes from '../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
 import { logout, resetStateUser } from '../../redux/features/authSlice';
-import { selectUser } from '../../redux/selectors/authSelectors';
 import removeUserData from '../../shared/utils/removeUserData';
+import { selectAuth } from '../../redux/selectors';
 
 const Header: React.FC = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-  const { token, name, role } = useAppSelector(selectUser);
+  const { data } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
@@ -78,13 +78,13 @@ const Header: React.FC = (): JSX.Element => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {token ? (
+      {data && data.token ? (
         [
           <MenuItem onClick={handleCollection} key={generateKey()}>
             <FormattedMessage id="app.header.collect" />
           </MenuItem>,
           <Box component="div" key={generateKey()}>
-            { role === 'admin' && (
+            { data.role === 'admin' && (
             <Link
               to={routes.ADMIN}
               style={{ textDecoration: 'none', color: '#000' }}
@@ -158,9 +158,9 @@ const Header: React.FC = (): JSX.Element => {
         >
           <AccountCircle />
         </IconButton>
-        {!!token && (
+        {data && !!data.token && (
         <Typography variant="body1">
-          {name}
+          {data.name}
         </Typography>
         )}
       </MenuItem>
@@ -203,9 +203,9 @@ const Header: React.FC = (): JSX.Element => {
               sx={{ gap: '10px' }}
             >
               <AccountCircle />
-              {!!token && (
+              {data && !!data.token && (
               <Typography variant="body1">
-                {name}
+                {data.name}
               </Typography>
               )}
             </IconButton>
