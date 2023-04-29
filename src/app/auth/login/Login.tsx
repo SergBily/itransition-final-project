@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import {
   Container, Typography, Grid, FormControl, InputLabel,
   OutlinedInput, InputAdornment, IconButton, TextField, Button,
@@ -14,36 +14,38 @@ import passwordValidator from '../../../shared/validators/passwordValidaor';
 import Errors from '../../../common/errors/Errors';
 import toastConfig from '../../../shared/toast/toastConfig';
 import Spinner from '../../../common/spinner/Spinner';
-import setUserData from '../../../shared/utils/setUserData';
 import styles from './styles.module.scss';
-import { ErrorData, LoginForm } from '../../../shared/models';
+import { AuthData, ErrorData, LoginForm } from '../../../shared/models';
 import { authApi } from '../../../shared/apis';
+import { useAppDispatch } from '../../../shared/hooks/hooks';
+import { initUserState } from '../../../redux/features';
+import { cacheKeys } from '../../../shared/constants';
 
 type Error = Pick<ErrorData, 'message'>;
 
 const Login: FunctionComponent = (): JSX.Element => {
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     register, handleSubmit, formState: { errors },
   } = useForm<LoginForm>();
   const [setLogin, {
     data, isSuccess, error, isError, isLoading,
-  }] = authApi.useLoginMutation(
-    { fixedCacheKey: 'Auth' },
-  );
-  const [showPassword, setShowPassword] = React.useState(false);
-  const navigate = useNavigate();
+  }] = authApi.useLoginMutation({ fixedCacheKey: cacheKeys.AUTH.LOGIN });
 
   useEffect(() => {
     if (isError && (error as Error).message === 'Wrong password') {
       toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
     }
     if (isSuccess && data) {
-      setUserData({
-        name: data.name,
-        token: data.token,
-        userId: data.userId,
-        role: data.role,
-      });
+      const {
+        name, token, userId, role,
+      } = data;
+      const userDate: AuthData = {
+        name, token, userId, role,
+      };
+      dispatch(initUserState(userDate));
       toast.success(<FormattedMessage
         id="app.login.success"
         values={{ name: data.name }}

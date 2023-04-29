@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
+import { BASE_URL, urls } from '../constants';
 import localStorageKeys from '../constants/localStorageKeys';
-import { BASE_URL, urls } from '../constants/urls';
 import { AuthResponse } from '../models/authResponse.model';
 import toastConfig from '../toast/toastConfig';
 

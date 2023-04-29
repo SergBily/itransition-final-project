@@ -1,36 +1,38 @@
-import { AxiosResponse } from 'axios';
 import { AppApi } from '../../redux';
 import { urls } from '../constants';
-import $api from '../http/http';
+import { transformAuthData } from '../utils';
 import {
   AuthData, AuthForm, AuthResponse, ErrorResponse, LoginForm,
 } from '../models';
 
-export const registrationApi = ((payload: AuthForm): Promise<AxiosResponse<AuthResponse>> => $api.post(
-  urls.REGISTRATION,
-  payload,
-));
-
-// export const loginApi = ((payload: LoginForm): Promise<AxiosResponse<AuthResponse>> => $api.post(
-//   urls.LOGIN,
-//   payload,
-// ));
-
-export const logoutApi = (): Promise<AxiosResponse> => $api.post(urls.LOGOUT);
-
 export const authEndpointsApi = AppApi.injectEndpoints({
   endpoints: (build) => ({
+    registration: build.mutation<AuthData, AuthForm>({
+      query: (data) => ({
+        url: urls.REGISTRATION,
+        method: 'post',
+        data,
+      }),
+      transformResponse: (r: AuthResponse) => (transformAuthData(r)),
+      transformErrorResponse: (e: ErrorResponse) => ({
+        message: e.data.message,
+      }),
+    }),
     login: build.mutation<AuthData, LoginForm>({
       query: (data) => ({
         url: urls.LOGIN,
         method: 'post',
         data,
       }),
-      transformResponse: (r: AuthResponse) => ({
-        token: r.accessToken,
-        name: r.user.name,
-        userId: r.user.id,
-        role: r.user.role,
+      transformResponse: (r: AuthResponse) => (transformAuthData(r)),
+      transformErrorResponse: (e: ErrorResponse) => ({
+        message: e.data.message,
+      }),
+    }),
+    logout: build.mutation<void, void>({
+      query: () => ({
+        url: urls.LOGOUT,
+        method: 'post',
       }),
       transformErrorResponse: (e: ErrorResponse) => ({
         message: e.data.message,
@@ -39,5 +41,5 @@ export const authEndpointsApi = AppApi.injectEndpoints({
   }),
 });
 
-const { useLoginMutation } = authEndpointsApi;
-export default { useLoginMutation };
+const { useLoginMutation, useLogoutMutation, useRegistrationMutation } = authEndpointsApi;
+export default { useLoginMutation, useLogoutMutation, useRegistrationMutation };

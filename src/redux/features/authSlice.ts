@@ -1,117 +1,34 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
-import routes from '../../shared/constants/routes';
-import AuthState from '../../shared/models/authState.model';
-import { registrationApi, logoutApi, loginApi } from '../../shared/apis/authApi';
-import { AuthForm, LoginForm } from '../../shared/models/authForm.model';
-import { AuthResponse } from '../../shared/models/authResponse.model';
-import ErrorResponse from '../../shared/models/ErrorResponse.model';
-import LocalStorageData from '../../shared/models/localStorageData.model';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AuthData } from '../../shared/models';
+import setUserData from '../../shared/utils/setUserData';
+import { sliceNames } from '../../shared/constants';
 
-const initialState: AuthState = {
-  status: 'idle',
-  errorMessage: '',
+const initialState: AuthData = {
   userId: '',
   token: '',
   name: '',
   role: '',
 };
 
-export const registration = createAsyncThunk<AuthResponse, AuthForm>(
-  routes.SIGNUP,
-  async (userData, thunkAPI) => {
-    try {
-      const response = await registrationApi(userData);
-      const { data } = response;
-      return data;
-    } catch (e) {
-      const error = e as AxiosError;
-      const message = (error.response && error.response.data) as ErrorResponse
-        || error.message || error.toString();
-      return thunkAPI.rejectWithValue((message.message));
-    }
-  },
-);
-
-export const login = createAsyncThunk<AuthResponse, LoginForm>(
-  routes.LOGIN,
-  async (userData, thunkAPI) => {
-    try {
-      const response = await loginApi(userData);
-      const { data } = response;
-      return data;
-    } catch (e) {
-      const error = e as AxiosError;
-      const message = (error.response && error.response.data) as ErrorResponse
-        || error.message || error.toString();
-      return thunkAPI.rejectWithValue((message.message));
-    }
-  },
-);
-
-export const logout = createAsyncThunk<void, void>(
-  routes.LOGOUT,
-  async () => {
-    const response = await logoutApi();
-    const { data } = response;
-    return data;
-  },
-);
-
 export const authSlice = createSlice({
-  name: 'auth',
+  name: sliceNames.AUTH,
   initialState,
   reducers: {
-    reset: (state) => {
-      state.status = 'idle';
-      state.errorMessage = '';
-    },
     resetStateUser: (state) => {
-      state.status = 'idle';
-      state.errorMessage = '';
       state.userId = '';
       state.name = '';
       state.token = '';
+      state.role = '';
     },
-    initUserState: (state, { payload }: PayloadAction<LocalStorageData>) => {
+    initStateUser: (state, { payload }: PayloadAction<AuthData>) => {
       state.userId = payload.userId;
       state.name = payload.name;
       state.token = payload.token;
       state.role = payload.role;
+      setUserData(payload);
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(registration.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(registration.fulfilled, (state, { payload }) => {
-        state.status = 'success';
-        state.userId = payload.user.id;
-        state.name = payload.user.name;
-        state.token = payload.accessToken;
-        state.role = payload.user.role;
-      })
-      .addCase(registration.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.errorMessage = payload as string;
-      })
-      .addCase(login.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(login.fulfilled, (state, { payload }) => {
-        state.status = 'success';
-        state.userId = payload.user.id;
-        state.name = payload.user.name;
-        state.token = payload.accessToken;
-        state.role = payload.user.role;
-      })
-      .addCase(login.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.errorMessage = payload as string;
-      });
   },
 });
 
-export const { reset, resetStateUser, initUserState } = authSlice.actions;
+export const { resetStateUser, initStateUser } = authSlice.actions;
 export default authSlice.reducer;

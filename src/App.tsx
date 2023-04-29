@@ -10,7 +10,7 @@ import Header from './common/header/Header';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './App.module.scss';
 import { useAppDispatch } from './shared/hooks/hooks';
-import { initUserState } from './redux/features/authSlice';
+import { initStateUser } from './redux/features/authSlice';
 
 const App: React.FC = (): JSX.Element => {
   const [currentLocale, setCurrentLocale] = useState<string>(
@@ -23,7 +23,7 @@ const App: React.FC = (): JSX.Element => {
     role: localStorage.getItem(localStorageKeys.ROLE) ?? '',
   };
   const dispatch = useAppDispatch();
-  dispatch(initUserState(initUser));
+  dispatch(initStateUser(initUser));
 
   const setLocale = (value: string): void => {
     setCurrentLocale(value);

@@ -12,14 +12,15 @@ import routes from '../../../shared/constants/routes';
 import authValidator from '../../../shared/validators/authValidator';
 import Errors from '../../../common/errors/Errors';
 import passwordValidator from '../../../shared/validators/passwordValidaor';
-import { AuthForm } from '../../../shared/models/authForm.model';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
-import { registration, reset } from '../../../redux/features/authSlice';
-import { selectErrorMessage, selectStatus, selectUser } from '../../../redux/selectors/authSelectors';
+import { useAppDispatch } from '../../../shared/hooks/hooks';
 import toastConfig from '../../../shared/toast/toastConfig';
 import Spinner from '../../../common/spinner/Spinner';
-import setUserData from '../../../shared/utils/setUserData';
 import styles from './styles.module.scss';
+import { AuthData, AuthForm } from '../../../shared/models';
+import { authApi } from '../../../shared/apis';
+import { cacheKeys } from '../../../shared/constants';
+import { initUserState } from '../../../redux/features';
+import { handleMouseDownPassword } from '../../../shared/utils';
 
 const Signup: React.FC = (): JSX.Element => {
   const {
@@ -27,39 +28,35 @@ const Signup: React.FC = (): JSX.Element => {
   } = useForm<AuthForm>();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
-  const errorMessage = useAppSelector(selectErrorMessage);
-  const status = useAppSelector(selectStatus);
   const navigate = useNavigate();
-  const {
-    name, token, userId, role,
-  } = useAppSelector(selectUser);
+  const [setRegistration, {
+    data: dataRegistration, isSuccess, isError, isLoading,
+  }] = authApi.useRegistrationMutation({ fixedCacheKey: cacheKeys.AUTH.REGISTRATION });
 
   useEffect(() => {
-    if (status === 'failed') {
+    if (isError) {
       toast.warn(<FormattedMessage id="app.signup.errors5" />, toastConfig);
-      dispatch(reset());
     }
-    if (status === 'success') {
-      setUserData({
+    if (isSuccess && dataRegistration) {
+      const {
         name, token, userId, role,
-      });
+      } = dataRegistration;
+      const userDate: AuthData = {
+        name, token, userId, role,
+      };
+      dispatch(initUserState(userDate));
       toast.success(<FormattedMessage
         id="app.signup.success"
         values={{ name }}
       />, toastConfig);
       navigate(routes.HOME);
-      dispatch(reset());
     }
-  }, [errorMessage, status]);
+  }, [isSuccess, isError]);
 
   const handleClickShowPassword = (): void => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-  };
-
   const onFormSubmit = (data: AuthForm): void => {
-    dispatch(registration(data));
+    setRegistration((data));
   };
 
   return (
@@ -164,7 +161,7 @@ const Signup: React.FC = (): JSX.Element => {
           </Link>
         </Grid>
       </Grid>
-      {status === 'loading' && <Spinner />}
+      {isLoading && <Spinner />}
     </Container>
   );
 };

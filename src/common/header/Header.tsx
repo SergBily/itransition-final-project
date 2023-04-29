@@ -14,16 +14,19 @@ import ThemeSwitch from './ThemeSwitch';
 import generateKey from '../../shared/utils/UniqueKey';
 import routes from '../../shared/constants/routes';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
-import { logout, resetStateUser } from '../../redux/features/authSlice';
 import removeUserData from '../../shared/utils/removeUserData';
-import { selectAuth } from '../../redux/selectors';
+import { selectUser } from '../../redux/selectors';
+import { authApi } from '../../shared/apis';
+import { cacheKeys } from '../../shared/constants';
+import { resetStateUser } from '../../redux/features';
 
 const Header: React.FC = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-  const { data } = useAppSelector(selectAuth);
+  const { token, role, name } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [setLogout] = authApi.useLogoutMutation({ fixedCacheKey: cacheKeys.AUTH.LOGOUT });
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -51,9 +54,9 @@ const Header: React.FC = (): JSX.Element => {
 
   const handleLogout = () => {
     handleMenuClose();
-    dispatch(logout());
-    removeUserData();
+    setLogout();
     dispatch(resetStateUser());
+    removeUserData();
     navigate(routes.HOME);
   };
 
@@ -78,13 +81,13 @@ const Header: React.FC = (): JSX.Element => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {data && data.token ? (
+      {token ? (
         [
           <MenuItem onClick={handleCollection} key={generateKey()}>
             <FormattedMessage id="app.header.collect" />
           </MenuItem>,
           <Box component="div" key={generateKey()}>
-            { data.role === 'admin' && (
+            { role === 'admin' && (
             <Link
               to={routes.ADMIN}
               style={{ textDecoration: 'none', color: '#000' }}
@@ -158,9 +161,9 @@ const Header: React.FC = (): JSX.Element => {
         >
           <AccountCircle />
         </IconButton>
-        {data && !!data.token && (
+        {token && (
         <Typography variant="body1">
-          {data.name}
+          {name}
         </Typography>
         )}
       </MenuItem>
@@ -203,9 +206,9 @@ const Header: React.FC = (): JSX.Element => {
               sx={{ gap: '10px' }}
             >
               <AccountCircle />
-              {data && !!data.token && (
+              {token && (
               <Typography variant="body1">
-                {data.name}
+                {name}
               </Typography>
               )}
             </IconButton>

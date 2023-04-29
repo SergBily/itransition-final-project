@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import AuthReducer from './features/authSlice';
+import { AppApi } from './services/appApi';
 import collectionsReducer from './features/allCollectionSlice';
 import newCollectionReducer from './features/newCollectionSlice';
 import itemsReducer from './features/ItemsCollectionSlice';
@@ -8,10 +8,12 @@ import itemPageReducer from './features/itemPageSlice';
 import editCollectionReducer from './features/editCollectionSlice';
 import collectionReducer from './features/collectionSlice';
 import adminReducer from './features/adminSlice';
+import authReducer from './features/authSlice';
 
 export const store = configureStore({
   reducer: {
-    auth: AuthReducer,
+    auth: authReducer,
+    [AppApi.reducerPath]: AppApi.reducer,
     collections: collectionsReducer,
     newCollection: newCollectionReducer,
     items: itemsReducer,
@@ -21,6 +23,7 @@ export const store = configureStore({
     collection: collectionReducer,
     admin: adminReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(AppApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
