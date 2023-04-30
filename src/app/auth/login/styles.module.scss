@@ -7,7 +7,7 @@
 }
 
 .root {
-  background: no-repeat center url('../../../assets/images/background.png');
+  background: no-repeat center / cover url('../../../assets/images/background.png');
   box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
               0px 4px 5px 0px rgb(0 0 0 / 14%),
               0px 1px 10px 0px rgb(0 0 0 / 12%);
@@ -23,29 +23,6 @@
   width: 100%;
 }
 
-.title {
-  margin-bottom: 1rem;
-}
-
 .gridItem {
   position: relative;
-}
-
-.emailInput {
-  width: 100%;
-  margin: 1.5rem 0;
-}
-
-.passwordInput {
-  width: 100%;
-  margin: 0.5rem 0 2.5rem 0;
-}
-
-.btn {
-  margin-bottom: 1rem;
-}
-
-.link {
-  text-decoration: none;
-  color: #ff0000;
 }
