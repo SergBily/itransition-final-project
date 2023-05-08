@@ -9,7 +9,7 @@ import Content from './common/content/Content';
 import Header from './common/header/Header';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './App.module.scss';
-import { useAppDispatch } from './shared/hooks/hooks';
+import { useAppDispatch } from './shared/hooks/stateHooks';
 import { initStateUser } from './redux/features/authSlice';
 
 const App: React.FC = (): JSX.Element => {
