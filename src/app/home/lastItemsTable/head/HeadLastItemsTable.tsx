@@ -3,11 +3,10 @@ import TableHead from '@mui/material/TableHead';
 import {
   TableCell, TableRow,
 } from '@mui/material';
-
 import { FormattedMessage } from 'react-intl';
 import styles from './styles.module.scss';
 
-const TableHeadLastItems = () => (
+const HeadLastItemsTable = () => (
   <TableHead className={styles.root}>
     <TableRow>
       <TableCell
@@ -21,4 +20,4 @@ const TableHeadLastItems = () => (
   </TableHead>
 );
 
-export default TableHeadLastItems;
+export default HeadLastItemsTable;

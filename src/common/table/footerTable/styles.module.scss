@@ -1,0 +1,7 @@
+@import '../../../shared/styles//globalVariables.scss';
+
+.pagination {
+  width: 100% !important;
+  color: $colorPaginationItems;
+  background-color: $bgColorPaginationItems;
+}

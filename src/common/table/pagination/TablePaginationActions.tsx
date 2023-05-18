@@ -18,7 +18,7 @@ interface TablePaginationActionsProps {
   ) => void;
 }
 
-const TablePaginationActions = (props: TablePaginationActionsProps) => {
+const TablePaginationActions = (props: TablePaginationActionsProps): JSX.Element => {
   const theme = useTheme();
   const {
     count, page, rowsPerPage, onPageChange,

@@ -1,0 +1,9 @@
+@import '../../../shared/styles/globalVariables.scss';
+
+.title {
+  background-color: $backgroundTableHead !important;
+}
+
+.row {
+  background-color: $backgroundTable !important;
+}
