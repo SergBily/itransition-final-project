@@ -1,42 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-  Table, TableContainer, Paper, Skeleton,
+  Table, TableContainer, Paper, Box,
 } from '@mui/material';
-import { collectionApi } from '../../../../shared';
+import classNames from 'classnames';
+import gsap from 'gsap';
+import {
+  animationConfig, homeApi, refetchOptionsApi, skeletonHeightRows,
+} from '../../../../shared';
 import HeadCollectionsTable from '../head/HeadCollectionsTable';
 import BodyCollectionsTable from '../body/BodyCollectionsTable';
+import { SkeletonTable } from '../../../../common';
 import styles from './styles.module.scss';
 
-const countRowsSkeleton: number[] = [1, 2, 3, 4, 5];
-
 const CollectionsTable = () => {
-  const { data: mainPageCollection } = collectionApi.useLargestCollectionQuery(
+  const { data: mainPageCollection } = homeApi.useLargestCollectionQuery(
     undefined,
-    {
-      refetchOnMountOrArgChange: true,
-      refetchOnFocus: true,
-    },
+    refetchOptionsApi,
   );
 
+  useEffect(() => {
+    gsap.to(
+      '.animationTable',
+      animationConfig.ANIMATION_HOME_TABLE,
+    );
+  }, []);
+
   return (
-    <TableContainer component={Paper} className={styles.root}>
-      {mainPageCollection ? (
-        <Table className={styles.table} aria-label="caption table">
-          <HeadCollectionsTable />
-          <BodyCollectionsTable
-            mainPageCollection={mainPageCollection}
-          />
-        </Table>
-      )
-        : (
-          <>
-            <Skeleton animation="wave" height={50} />
-            {countRowsSkeleton.map((n) => (
-              <Skeleton key={n} animation="wave" height={128} />
-            ))}
-          </>
-        )}
-    </TableContainer>
+    <Box component="div" className={classNames(styles.root, 'animationTable')}>
+      <TableContainer component={Paper}>
+        {mainPageCollection ? (
+          <Table className={styles.table} aria-label="caption table">
+            <HeadCollectionsTable />
+            <BodyCollectionsTable
+              mainPageCollection={mainPageCollection}
+            />
+          </Table>
+        )
+          : (
+            <SkeletonTable heightRows={skeletonHeightRows.LARGEST_COLLECTION} />
+          )}
+      </TableContainer>
+    </Box>
   );
 };
 
