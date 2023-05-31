@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { getItemDataApi } from '../../shared/apis/itemApi';
-import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import ItemPageRequest from '../../shared/models/itemPage/ItemPageRequest.model';
 import ItemPageResponse from '../../shared/models/itemPage/itemPageResponse.model';
 import ItemPageState from '../../shared/models/itemPage/ItemPageState.model';
+import { appRoutes } from '../../shared';
 
 const initialState: ItemPageState = {
   status: 'idle',
@@ -17,7 +17,7 @@ const initialState: ItemPageState = {
 };
 
 export const getItemData = createAsyncThunk<ItemPageResponse, ItemPageRequest>(
-  routes.ITEM_PAGE,
+  appRoutes.ITEM_READ,
   async (payload, thunkAPI) => {
     try {
       return await getItemDataApi(payload);

@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { BASE_URL } from '../../shared/constants/urls';
+import { BASE_URL } from '../../shared';
 import { ClientToServerEvents, ServerToClientEvents } from '../../shared/models/socket/socket.model';
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(

@@ -1,7 +1,7 @@
 enum FieldName {
-  name = 'Name',
-  email = 'Email',
-  password = 'Password',
+  name = 'name',
+  email = 'email',
+  password = 'password',
 }
 
 const authValidator = (n: string) => {

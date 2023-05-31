@@ -15,8 +15,7 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 import classNames from 'classnames';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormattedMessage } from 'react-intl';
-import TablePaginationActions from '../../pagination/TablePaginationActions';
-import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/stateHooks';
 import convertItemsForTable from '../../../../../shared/utils/convertItemsForTable';
 import Collection from '../../../../../shared/models/allCollections/collection.type';
 import { getItemsCollection, itemsCollectionReset } from '../../../../../redux/features/ItemsCollectionSlice';
@@ -26,6 +25,7 @@ import EnhancedTableHead from '../tableHead/TableHead';
 import Order from '../../../../../shared/models/items/order.type';
 import { getComparator, stableSort } from '../../../../../shared/sort/sortTable';
 import routes from '../../../../../shared/constants/routes';
+import { TablePaginationActions } from '../../../../../common';
 
 const ReadItemsTable = () => {
   const [page, setPage] = useState(0);

@@ -13,11 +13,10 @@ import LanguageSwitch from './LangugeSwitch';
 import ThemeSwitch from './ThemeSwitch';
 import generateKey from '../../shared/utils/UniqueKey';
 import routes from '../../shared/constants/routes';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/stateHooks';
 import removeUserData from '../../shared/utils/removeUserData';
 import { selectUser } from '../../redux/selectors';
-import { authApi } from '../../shared/apis';
-import { cacheKeys } from '../../shared/constants';
+import { authApi, cacheKeys } from '../../shared';
 import { resetStateUser } from '../../redux/features';
 
 const Header: React.FC = (): JSX.Element => {

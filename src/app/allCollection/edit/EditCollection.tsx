@@ -22,7 +22,7 @@ import FormButtonGroup from '../../../common/formButtonGroup/FormButtonGroup';
 import Spinner from '../../../common/spinner/Spinner';
 import DropImage from '../../../shared/models/newCollection/imageFile.model';
 import CustomFields from '../../../shared/models/newCollection/customFields.model';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/stateHooks';
 import { selectUser } from '../../../redux/selectors/authSelectors';
 import CollectionRequest from '../../../shared/models/newCollection/collectionRequest.model';
 import DataForm from '../../../shared/models/allCollections/dataForm.type';

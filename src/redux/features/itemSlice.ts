@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import createNewItem, { editItemApi, getLastItemsApi, getTagsApi } from '../../shared/apis/itemApi';
+import createNewItem, { editItemApi, getTagsApi } from '../../shared/apis/itemApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import ItemEditRequest from '../../shared/models/items/itemEditRequest.model';
@@ -52,21 +52,21 @@ export const editItem = createAsyncThunk<string, ItemEditRequest>(
   },
 );
 
-export const getLastItems = createAsyncThunk<ItemStructure[], void>(
-  routes.LAST_ITEMS,
-  async (_, thunkAPI) => {
-    try {
-      const response = await getLastItemsApi();
-      const { data } = response;
-      return data;
-    } catch (e) {
-      const error = e as AxiosError;
-      const message = (error.response && error.response.data) as ErrorResponse
-        || error.message || error.toString();
-      return thunkAPI.rejectWithValue((message as ErrorResponse));
-    }
-  },
-);
+// export const getLastItems = createAsyncThunk<ItemStructure[], void>(
+//   routes.LAST_ITEMS,
+//   async (_, thunkAPI) => {
+//     try {
+//       const response = await getLastItemsApi();
+//       const { data } = response;
+//       return data;
+//     } catch (e) {
+//       const error = e as AxiosError;
+//       const message = (error.response && error.response.data) as ErrorResponse
+//         || error.message || error.toString();
+//       return thunkAPI.rejectWithValue((message as ErrorResponse));
+//     }
+//   },
+// );
 
 export const getTags = createAsyncThunk<Tags[], void>(
   routes.TAGS_ITEMS,
@@ -120,9 +120,9 @@ export const itemSlice = createSlice({
         state.errorMessage = (payload as ErrorResponse).message;
         state.errors = (payload as ErrorResponse).errors;
       })
-      .addCase(getLastItems.fulfilled, (state, { payload }) => {
-        state.lastItems = payload;
-      })
+      // .addCase(getLastItems.fulfilled, (state, { payload }) => {
+      //   state.lastItems = payload;
+      // })
       .addCase(getTags.fulfilled, (state, { payload }) => {
         state.tagsStatus = 'success';
         state.tags = payload;

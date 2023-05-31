@@ -4,9 +4,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
-import CollectionsTable from '../CollectionsTable/CollectionsTable';
 import styles from './styles.module.scss';
-import LastItemsTable from '../lastItems/table/lastItemsTable/LastItemsTable';
+import CollectionsTable from '../largestCollectionsTable/table/CollectionsTable';
+import LastItemsTable from '../lastItemsTable/table/LastItemsTable';
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -56,8 +56,14 @@ const HomeTable: React.FC = (): JSX.Element => {
       <Box className={styles.root}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label={<FormattedMessage id="app.home.tab2" />} {...a11yProps(0)} />
-            <Tab label={<FormattedMessage id="app.home.tab1" />} {...a11yProps(1)} />
+            <Tab
+              label={<FormattedMessage id="app.home.tab2" />}
+              {...a11yProps(0)}
+            />
+            <Tab
+              label={<FormattedMessage id="app.home.tab1" />}
+              {...a11yProps(1)}
+            />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>

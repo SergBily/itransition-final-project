@@ -20,7 +20,7 @@ import CustomFields from '../../../../shared/models/newCollection/customFields.m
 import TopicField from '../topicField/TopicField';
 import styles from './styles.module.scss';
 import routes from '../../../../shared/constants/routes';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import CollectionRequest from '../../../../shared/models/newCollection/collectionRequest.model';
 import { createCollection, newCollectionReset } from '../../../../redux/features/newCollectionSlice';
 import Spinner from '../../../../common/spinner/Spinner';

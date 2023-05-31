@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { editCollectionApi } from '../../shared/apis/collectionApi';
+import { editCollectionApi } from '../../shared/apis/homeApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import CollectionResponse from '../../shared/models/newCollection/collectionResponse.model';

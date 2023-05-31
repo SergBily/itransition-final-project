@@ -19,7 +19,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import { getItemsCollection, itemsCollectionReset } from '../../../../redux/features/ItemsCollectionSlice';
 import Spinner from '../../../../common/spinner/Spinner';
 import ItemsTableToolbar from '../ItemsTableToolbar/ItemsTableToolbar';

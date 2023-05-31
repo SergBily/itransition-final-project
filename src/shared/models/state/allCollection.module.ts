@@ -1,9 +1,9 @@
+import CollectionResponse from '../newCollection/collectionResponse.model';
 import InitialState from './initialState.model';
-import AllCollectionsResponse from '../allCollections/allCollectionsResponse.model';
 
 interface AllCollection extends InitialState {
-  allCollections?: AllCollectionsResponse[];
-  mainPageCollection: AllCollectionsResponse[] | null;
+  allCollections?: CollectionResponse[];
+  mainPageCollection: CollectionResponse[] | null;
   errors: string[];
 }
 

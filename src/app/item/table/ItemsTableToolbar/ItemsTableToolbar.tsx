@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import EditIcon from '@mui/icons-material/Edit';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import routes from '../../../../shared/constants/routes';
 import styles from './styles.module.scss';
 import getSelectedTitles from '../../../../shared/utils/getSelectedTitles';

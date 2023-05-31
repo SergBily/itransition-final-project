@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import styles from './styles.module.scss';
 import screenSize from '../../../../shared/constants/screenSize';
-import { useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppSelector } from '../../../../shared/hooks/stateHooks';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import CommentResponse from '../../../../shared/models/comment/commentResponse';
 import generateKey from '../../../../shared/utils/UniqueKey';

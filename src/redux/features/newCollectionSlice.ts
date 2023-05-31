@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { createNewCollection } from '../../shared/apis/collectionApi';
+// eslint-disable-next-line import/no-cycle
+import { createNewCollection } from '../../shared/apis/homeApi';
 import routes from '../../shared/constants/routes';
 import ErrorResponse from '../../shared/models/ErrorResponse.model';
 import CollectionRequest from '../../shared/models/newCollection/collectionRequest.model';

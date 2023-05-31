@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthData } from '../../shared/models';
 import setUserData from '../../shared/utils/setUserData';
-import { sliceNames } from '../../shared/constants';
+import { sliceNames } from '../../shared';
 
 const initialState: AuthData = {
   userId: '',

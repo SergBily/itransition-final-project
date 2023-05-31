@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import Collection from '../collection/Collection';
 import CollectionCreator from '../collectionCreator/CollectionCreator';
 import styles from './styles.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import { allCollectionReset, getAllCollection } from '../../../../redux/features/allCollectionSlice';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import Spinner from '../../../../common/spinner/Spinner';

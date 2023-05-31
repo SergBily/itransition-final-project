@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { disconnect, openSocket } from '../../../common/socket/socket';
 import { getItemData } from '../../../redux/features/itemPageSlice';
 import { selectUser } from '../../../redux/selectors/authSelectors';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/stateHooks';
 import sendComment from '../../../common/socket/handlers/commentHandler';
 import BodyItemPage from './body/BodyItemPage';
 import Comments from './comments/Comments';

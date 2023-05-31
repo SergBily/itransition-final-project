@@ -11,7 +11,7 @@ import ItemStructure from '../../../../shared/models/items/itemStructure.model';
 import CollectionResponse from '../../../../shared/models/newCollection/collectionResponse.model';
 import styles from './styles.module.scss';
 import generateKey from '../../../../shared/utils/UniqueKey';
-import { useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppSelector } from '../../../../shared/hooks/stateHooks';
 import { selectUser } from '../../../../redux/selectors/authSelectors';
 import { like } from '../../../../redux/features/itemPageSlice';
 import { addLikeItem, removeLikeItem } from '../../../../shared/apis/itemApi';

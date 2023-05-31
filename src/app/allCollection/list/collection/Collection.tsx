@@ -9,10 +9,9 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import CollectionDashboard from '../collectionDashboard/CollectionDashboard';
 import styles from './styles.module.scss';
-import AllCollectionsResponse from '../../../../shared/models/allCollections/allCollectionsResponse.model';
-import { deleteCollectionApi } from '../../../../shared/apis/collectionApi';
+import { deleteCollectionApi } from '../../../../shared/apis/homeApi';
 import getNameImage from '../../../../shared/utils/getNameImage';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import { getAllCollection, allCollectionReset } from '../../../../redux/features/allCollectionSlice';
 import { deleteImage } from '../../../../shared/apis/firebaseApi';
 import toastConfig from '../../../../shared/toast/toastConfig';
@@ -20,9 +19,10 @@ import { selectUser } from '../../../../redux/selectors/authSelectors';
 import routes from '../../../../shared/constants/routes';
 import { defaultImagesName } from '../../../../shared/constants/collectionDefaultImage';
 import getManager from '../../../../shared/utils/getManager';
+import { CollectionResponse } from '../../../../shared/models';
 
 interface CollectionProps {
-  payload: AllCollectionsResponse;
+  payload: CollectionResponse;
   manageId: string | undefined;
 }
 

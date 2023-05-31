@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { urls } from '../constants/urls';
 import $api from '../http/http';
 import CommentResponse from '../models/comment/commentResponse';
 import ItemPageRequest from '../models/itemPage/ItemPageRequest.model';
@@ -10,8 +9,9 @@ import ItemStructure from '../models/items/itemStructure.model';
 import NewItemRequest from '../models/items/newItemRequest.model';
 import Tags from '../models/items/tags.module';
 import CollectionResponse from '../models/newCollection/collectionResponse.model';
-import { getCollectionApi } from './collectionApi';
+import { getCollectionApi } from './homeApi';
 import getAllComents from './commentApi';
+import urls from '../constants/urls';
 
 export const createNewItem = async (payload: NewItemRequest):
 Promise<AxiosResponse<ItemStructure>> => $api.post(
@@ -52,7 +52,7 @@ Promise<AxiosResponse<ItemStructure>> => {
   return $api.patch(`${urls.REMOVE_LIKE}/${id}`, { userId });
 };
 
-export const getLastItemsApi = (): Promise<AxiosResponse<ItemStructure[]>> => $api.get(urls.LAST_ITEMS);
+// export const getLastItemsApi = (): Promise<AxiosResponse<ItemStructure[]>> => $api.get(urls.LAST_ITEMS);
 
 export const getAllItemsCollectionApi = async (id: string):
 Promise<ItemsCollectionResponse> => {

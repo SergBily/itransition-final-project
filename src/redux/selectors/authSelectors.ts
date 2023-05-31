@@ -1,4 +1,4 @@
-import { authEndpointsApi } from '../../shared/apis';
+import { authEndpointsApi } from '../../shared';
 import { RootState } from '../store';
 
 export const selectUser = (state: RootState) => state.auth;

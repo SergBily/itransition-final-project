@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import getHeadCell from '../../../../shared/utils/getHeadCell';
 import HeadCell from '../../../../shared/models/itemsTable/headCell.model';
-import { useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppSelector } from '../../../../shared/hooks/stateHooks';
 import styles from './styles.module.scss';
 import Order from '../../../../shared/models/items/order.type';
 import Collection from '../../../../shared/models/allCollections/collection.type';

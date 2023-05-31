@@ -7,7 +7,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { FormattedMessage } from 'react-intl';
 import generateKey from '../../../../shared/utils/UniqueKey';
 import styles from './styles.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import { getTags } from '../../../../redux/features/itemSlice';
 import Tags from '../../../../shared/models/items/tags.module';
 

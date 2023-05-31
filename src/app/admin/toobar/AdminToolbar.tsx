@@ -14,7 +14,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/stateHooks';
 import {
   changeStatusUsers, changeRoleUsers, deleteUsers, getAllUsers, adminReset,
 } from '../../../redux/features/adminSlice';

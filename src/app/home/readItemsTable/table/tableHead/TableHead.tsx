@@ -6,7 +6,7 @@ import {
   Box, TableCell, TableRow,
 } from '@mui/material';
 import HeadCell from '../../../../../shared/models/itemsTable/headCell.model';
-import { useAppSelector } from '../../../../../shared/hooks/hooks';
+import { useAppSelector } from '../../../../../shared/hooks/stateHooks';
 import getHeadCell from '../../../../../shared/utils/getHeadCell';
 import Collection from '../../../../../shared/models/allCollections/collection.type';
 import styles from './styles.module.scss';

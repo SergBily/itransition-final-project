@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import loadable from '@loadable/component';
 import routes from '../../shared/constants/routes';
 import Home from '../../app/home/table/HomeTable';
+import { appRoutes } from '../../shared';
 
 const Login = loadable(() => import('../../app/auth/login/Login'), {
   resolveComponent: (components) => components.default,
@@ -73,8 +74,8 @@ const AppRoutes = () => (
     <Route path={routes.COLLECTION_EDIT} element={<EditCollection />} />
     <Route path={routes.ITEM_CREATE} element={<ItemCreate />} />
     <Route path={routes.ITEM_EDIT} element={<ItemEdit />} />
-    <Route path={routes.ITEM_PAGE} element={<ItemPage />} />
-    <Route path={routes.COLLECTION_READ} element={<ReadItemsTable />} />
+    <Route path={appRoutes.ITEM_READ} element={<ItemPage />} />
+    <Route path={appRoutes.COLLECTION_READ} element={<ReadItemsTable />} />
     <Route path={routes.ADMIN} element={<Admin />} />
     <Route path={routes.ADMIN_MANAGE_COLLECTION} element={<AdminManageCollection />} />
     <Route path={routes.ADMIN_COLLECTION_CREATE} element={<AdminManageCreateCollection />} />

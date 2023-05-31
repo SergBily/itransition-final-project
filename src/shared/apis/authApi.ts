@@ -1,9 +1,9 @@
 import { AppApi } from '../../redux';
-import { urls } from '../constants';
-import { transformAuthData } from '../utils';
+import urls from '../constants/urls';
 import {
   AuthData, AuthForm, AuthResponse, ErrorResponse, LoginForm,
 } from '../models';
+import transformAuthData from '../utils/transformAuthData';
 
 export const authEndpointsApi = AppApi.injectEndpoints({
   endpoints: (build) => ({

@@ -1,9 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
-import { BASE_URL, urls } from '../constants';
 import localStorageKeys from '../constants/localStorageKeys';
 import { AuthResponse } from '../models/authResponse.model';
 import toastConfig from '../toast/toastConfig';
+import BASE_URL from '../constants/baseUrls';
+import urls from '../constants/urls';
 
 const $api: AxiosInstance = axios.create({
   withCredentials: true,

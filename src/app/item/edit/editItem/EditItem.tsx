@@ -11,7 +11,7 @@ import gsap from 'gsap';
 import classNames from 'classnames';
 import MarkdownForm from '../../../../common/markdown/markdownForm/MarkdownForm';
 import styles from './styles.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/stateHooks';
 import ItemFormField from '../../form/itemFormField/ItemFormField';
 import StringField from '../../fields/stringField/StringField';
 import NumberField from '../../fields/numberField/NumberField';

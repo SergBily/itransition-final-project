@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/stateHooks';
 import AdminTableHead from '../headTable/HeadTable';
 import { getComparator, stableSort } from '../../../shared/sort/sortTable';
 import AdminToolbar from '../toobar/AdminToolbar';

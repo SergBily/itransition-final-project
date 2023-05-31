@@ -8,19 +8,23 @@ const routes = {
   COLLECTION_DELETE: '/collection/delete',
   COLLECTION_EDIT: '/collection/edit/:id',
   COLLECTION_LARGEST: '/collection/largest',
+  COLLECTION_READ(id: string) {
+    return `${this.COLLECTION}read/${id}`;
+  },
   COLLECTION: '/collection/',
-  ITEM: '/item',
+  ITEM: '/item/',
   COLLECTION_ID: '/collection/:id',
   COLLECTION_ITEMS: '/collection/:id/items',
   ITEM_CREATE: 'collection/:id/item/create',
   ITEM_DELETE: 'collection/:id/item/delete',
   ITEM_EDIT: '/collection/:id/edit/:itemId',
-  ITEM_PAGE: '/collection/:id/item/:itemId',
+  ITEM_READ(collectionId: string, itemId: string) {
+    return `${this.COLLECTION}${collectionId}${this.ITEM}${itemId}`;
+  },
   LAST_ITEMS: '/item/home/last',
   TAGS_ITEMS: '/item/cloud/tags',
   ADD_LIKE: '/item/like/add',
   REMOVE_LIKE: '/item/like/remove',
-  COLLECTION_READ: '/collection/read/:id',
   ADMIN: '/admin/users',
   USER_DELETE: 'admin/user/delete',
   USER_STATUS: 'admin/user/status',
